@@ -1,5 +1,7 @@
 <?php
 
+use Phalcon\Mvc\View;
+
 class DashboardController extends AbstractController
 {
     public function initialize()
@@ -12,5 +14,6 @@ class DashboardController extends AbstractController
     public function indexAction()
     {
 
+        $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 }

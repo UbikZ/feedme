@@ -6,7 +6,7 @@ class AbstractController extends Phalcon\Mvc\Controller
     protected function initialize()
     {
         Phalcon\Tag::prependTitle('Feedme | ');
-        $this->view->auth = $this->session->get('auth');
+        $this->view->setVar('auth', $this->session->get('auth'));
     }
 
     protected function forward($uri)

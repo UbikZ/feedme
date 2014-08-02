@@ -34,12 +34,11 @@ class SessionController extends AbstractController
             $user = Service::getService('User')->findFirst($email, $password);
             if (false !== $user) {
                 $this->_registerSession($user);
-                $this->flashSession->success('Welcome ' . $user->getFirstname() . ' ' . $user->getLastname());
 
                 return $this->response->redirect('dashboard/index');
             }
 
-            $this->flashSession->error('Authentication failed.');
+            $this->flash->error('Authentication failed.');
         }
 
         return $this->forward('/');
@@ -51,7 +50,7 @@ class SessionController extends AbstractController
     public function logoutAction()
     {
         $this->session->remove('auth');
-        $this->flash->success('Goodbye!');
+        $this->flash->success('Goodbye and have an nice day!');
 
         return $this->forward('/');
     }

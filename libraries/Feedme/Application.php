@@ -177,6 +177,15 @@ class Application
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
+            // Local css (dashboard)
+            $assetManager
+                ->collection('dash-css')
+                ->setTargetPath('cache/dash.min.css')
+                ->setTargetUri('cache/dash.min.css')
+                ->addCss('assets/dashboard/css/style.css')
+                ->join($bMinify)
+                ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
+
             return $assetManager;
         });
     }
