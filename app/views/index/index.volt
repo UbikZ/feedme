@@ -1,11 +1,11 @@
 <div>
     <h1 class="logo">FeedMe</h1>
 
-    <h3>Welcome to FeedMe</h3>
+    <h3>Welcome <strong>Guest</strong></h3>
 
-    <p>Login in. To see it in action.</p>
+    <p>Just log-in to manage your feeds.</p>
 
-    {{ form("/sign-in", "method":"post", "class":"m-t") }}
+    {{ form("/sign-in", "method":"post") }}
     <div class="form-group">
         {{ text_field("username", "class":"form-control", "placeholder":"Username", "required":"") }}
     </div>

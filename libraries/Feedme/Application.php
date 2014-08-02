@@ -127,6 +127,7 @@ class Application
     }
 
     /**
+     * todo : externalize this in `Feedme\Manager\Assets` namespace
      * Register several custom components
      * @param DI $di
      */
@@ -140,7 +141,7 @@ class Application
             $prefixPath = 'libraries';
             $assetManager = new Manager();
 
-            // Javascript (with minify)
+            // Global javascript (with minify)
             $assetManager
                 ->collection('global-js')
                 ->setTargetPath('cache/min.js')
@@ -151,8 +152,7 @@ class Application
                 ->join(true)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
-
-            // Css (with minify)
+            // Global css (with minify)
             $assetManager
                 ->collection('global-css')
                 ->setTargetPath('cache/min.css')
@@ -161,6 +161,18 @@ class Application
                 ->addCss($prefixPath . '/animate.css/animate.css', true)
                 ->addCss($prefixPath . '/font-awesome/css/font-awesome.css', true)
                 ->addCss($prefixPath . '/jquery.gritter/css/jquery.gritter.css', true)
+                ->addCss('assets/common/css/kill-bootstrap.css', true)
+                ->addCss('assets/common/css/theme.css', true)
+                ->addCss('assets/common/css/style.css', true)
+                ->join(true)
+                ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
+
+            // Local css (authentication)
+            $assetManager
+                ->collection('auth-css')
+                ->setTargetPath('cache/auth.min.css')
+                ->setTargetUri('cache/auth.min.css')
+                ->addCss('assets/authentication/css/style.css', true)
                 ->join(true)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 

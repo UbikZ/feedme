@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+.gray-bg {
+    background-color: #f3f3f4;
+}
+
+.white-bg {
+    background-color: #ffffff;
+}
+
+.navy-bg {
+    background-color: #1AB394;
+    color: #ffffff;
+}
+
+.blue-bg {
+    background-color: #1c84c6;
+    color: #ffffff;
+}
+
+.lazur-bg {
+    background-color: #23c6c8;
+    color: #ffffff;
+}
+
+.yellow-bg {
+    background-color: #f7c029;
+    color: #ffffff;
+}
+
+.red-bg {
+    background-color: #ED5565;
+    color: #ffffff;
+}
+
+.black-bg {
+    background-color: #262626;
+}
+
+.text-navy {
+    color: #1AB394;
+}
+
+.text-primary {
+    color: inherit;
+}
+
+.text-success {
+    color: #1c84c6;
+}
+
+.text-info {
+    color: #23c6c8;
+}
+
+.text-warning {
+    color: #f7c029;
+}
+
+.text-danger {
+    color: #ED5565;
+}
+
+.text-muted {
+    color: #888888;
+}
