@@ -6,7 +6,7 @@ use Feedme\Models\Entities\User as EntityUser;
 
 class User
 {
-    public function findFirst($username, $password)
+    public function findFirst($email, $password)
     {
         $password = sha1($password);
 

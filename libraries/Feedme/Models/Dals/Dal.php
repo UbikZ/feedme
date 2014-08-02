@@ -16,6 +16,6 @@ class Dal
             self::$_instances[$name] = (new \ReflectionClass($className))->newInstance();
         }
 
-        return self::$_instance[$name];
+        return self::$_instances[$name];
     }
 }

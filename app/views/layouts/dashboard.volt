@@ -9,7 +9,6 @@
     <div>
         {{ content() }}
     </div>
-    {{ partial('partials/footer') }}
 </div>
 </body>
 </html>

@@ -31,15 +31,12 @@ class SessionController extends AbstractController
             $password = $request->getPost('password');
 
             /** @var User|bool $user */
-            $user = new User();//Service::getService('User')->findFirst($username, $password);
-            $user->setFirstname("Gabriel");
-            $user->setLastname("Malet");
-            $user->setId(123456);
+            $user = Service::getService('User')->findFirst($email, $password);
             if (false !== $user) {
                 $this->_registerSession($user);
                 $this->flashSession->success('Welcome ' . $user->getFirstname() . ' ' . $user->getLastname());
 
-                return $this->response->redirect('dashboard/index');
+                return $this->forward('dashboard/index');
             }
 
             $this->flashSession->error('Wrong email/password');
