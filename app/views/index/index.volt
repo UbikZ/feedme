@@ -5,9 +5,9 @@
 
     <p>Just log-in to manage your feeds.</p>
 
-    {{ form("/sign-in", "method":"post") }}
+    {{ form("session/login", "method":"post") }}
     <div class="form-group">
-        {{ text_field("username", "class":"form-control", "placeholder":"Username", "required":"") }}
+        {{ text_field("email", "class":"form-control", "placeholder":"E-mail", "required":"") }}
     </div>
     <div class="form-group">
         {{ text_field("password", "class":"form-control", "placeholder":"Password", "required":"") }}
