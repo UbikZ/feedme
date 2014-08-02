@@ -7,7 +7,6 @@
 </head>
 <body class="gray-bg">
 <div>
-    {{ partial('partials/header') }}
     <div>
         {{ content() }}
     </div>

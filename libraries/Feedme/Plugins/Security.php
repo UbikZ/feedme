@@ -7,13 +7,12 @@ use \Phalcon\Events\Event,
     \Phalcon\Mvc\Dispatcher,
     \Phalcon\Acl;
 
-/**
- * Security
- *
- * This is the security plugin which controls that users only have access to the modules they're assigned to
- */
 class Security extends Plugin
 {
+
+    const GUESTS = 'guests';
+    const USERS = 'users';
+    const ADMINS = 'admins';
 
     public function __construct($dependencyInjector)
     {
@@ -28,52 +27,46 @@ class Security extends Plugin
 
             $acl->setDefaultAction(\Phalcon\Acl::DENY);
 
-            //Register roles
-            $roles = array(
-                'users' => new \Phalcon\Acl\Role('Users'),
-                'guests' => new \Phalcon\Acl\Role('Guests')
+            // Ressources
+            $configurations = array(
+                self::GUESTS => array(
+                    'role' => new \Phalcon\Acl\Role(self::GUESTS),
+                    'ressources' => array(
+                        'index' => array('index'),
+                        'session' => array('index', 'register', 'login')
+                    )
+                ),
+                self::USERS => array(
+                    'role' => new \Phalcon\Acl\Role(self::USERS),
+                    'ressources' => array(
+                        'index' => array('index'),
+                        'dashboard' => array('index'),
+                        'session' => array('logout')
+                    )
+                ),
+                self::ADMINS => array(
+                    'role' => new \Phalcon\Acl\Role(self::ADMINS),
+                    'ressources' => array(
+                        'index' => array('index'),
+                        'admin' => array('index'),
+                        'dashboard' => array('index'),
+                        'session' => array('logout')
+                    )
+                )
             );
-            foreach ($roles as $role) {
-                $acl->addRole($role);
-            }
 
-            //Private area resources
-            $privateResources = array(
-                'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-                'products' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-                'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-                'invoices' => array('index', 'profile')
-            );
-            foreach ($privateResources as $resource => $actions) {
-                $acl->addResource(new \Phalcon\Acl\Resource($resource), $actions);
-            }
-
-            //Public area resources
-            $publicResources = array(
-                'index' => array('index'),
-                'about' => array('index'),
-                'session' => array('index', 'register', 'start', 'end'),
-                'contact' => array('index', 'send')
-            );
-            foreach ($publicResources as $resource => $actions) {
-                $acl->addResource(new \Phalcon\Acl\Resource($resource), $actions);
-            }
-
-            //Grant access to public areas to both users and guests
-            foreach ($roles as $role) {
-                foreach ($publicResources as $resource => $actions) {
-                    $acl->allow($role->getName(), $resource, '*');
+            // Register roles, ressources and grant/deny some rigths
+            foreach ($configurations as $configuration) {
+                $acl->addRole($role = $configuration["role"]);
+                foreach ($configuration["ressources"] as $resource => $actions) {
+                    $acl->addResource(new \Phalcon\Acl\Resource($resource), $actions);
+                    foreach ($actions as $action) {
+                        $acl->allow($role->getName(), $resource, $action);
+                    }
                 }
             }
 
-            //Grant acess to private area to role Users
-            foreach ($privateResources as $resource => $actions) {
-                foreach ($actions as $action) {
-                    $acl->allow('Users', $resource, $action);
-                }
-            }
-
-            //The acl is stored in session, APC would be useful here too
+            // The acl is stored in session
             $this->persistent->acl = $acl;
         }
 
@@ -85,12 +78,15 @@ class Security extends Plugin
      */
     public function beforeDispatch(Event $event, Dispatcher $dispatcher)
     {
-
-        $auth = $this->session->get('auth');
-        if (!$auth) {
-            $role = 'Guests';
-        } else {
-            $role = 'Users';
+        /** @var \Feedme\Models\Entities\User $user */
+        $user = $this->session->get('user');
+        if (!$user) {
+            $role = self::GUESTS;
+        }
+       /* elseif ($user->getIsAdmin()) {
+            $role = self::ADMINS;
+        }*/ else {
+            $role = self::USERS;
         }
 
         $controller = $dispatcher->getControllerName();
@@ -99,6 +95,7 @@ class Security extends Plugin
         $acl = $this->getAcl();
 
         $allowed = $acl->isAllowed($role, $controller, $action);
+
         if ($allowed != Acl::ALLOW) {
             $this->flash->error("You don't have access to this module");
             $dispatcher->forward(

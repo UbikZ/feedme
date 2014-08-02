@@ -158,13 +158,13 @@ class Application
                 ->collection('global-css')
                 ->setTargetPath('cache/min.css')
                 ->setTargetUri('cache/min.css')
-                ->addCss($prefixPath . '/bootstrap/dist/css/bootstrap.css', true)
-                ->addCss($prefixPath . '/animate.css/animate.css', true)
-                ->addCss($prefixPath . '/font-awesome/css/font-awesome.css', true)
-                ->addCss($prefixPath . '/jquery.gritter/css/jquery.gritter.css', true)
-                ->addCss('assets/common/css/kill-bootstrap.css', true)
-                ->addCss('assets/common/css/theme.css', true)
-                ->addCss('assets/common/css/style.css', true)
+                ->addCss($prefixPath . '/bootstrap/dist/css/bootstrap.css')
+                ->addCss($prefixPath . '/animate.css/animate.css')
+                ->addCss($prefixPath . '/font-awesome/css/font-awesome.css')
+                ->addCss($prefixPath . '/jquery.gritter/css/jquery.gritter.css')
+                ->addCss('assets/common/css/kill-bootstrap.css')
+                ->addCss('assets/common/css/theme.css')
+                ->addCss('assets/common/css/style.css')
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
@@ -173,7 +173,7 @@ class Application
                 ->collection('auth-css')
                 ->setTargetPath('cache/auth.min.css')
                 ->setTargetUri('cache/auth.min.css')
-                ->addCss('assets/authentication/css/style.css', true)
+                ->addCss('assets/authentication/css/style.css')
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
@@ -261,8 +261,9 @@ class Application
     {
         $di->set('flash', function () {
             return new Session(array(
-                'error' => 'alert alert-error',
+                'error' => 'alert alert-danger',
                 'success' => 'alert alert-success',
+                'warning' => 'alert alert-warning',
                 'notice' => 'alert alert-info',
             ));
         });

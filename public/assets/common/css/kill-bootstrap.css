@@ -38,3 +38,11 @@
 a {
     cursor: pointer;
 }
+
+/* Alerts */
+
+.alert {
+    padding: 6px;
+    marging: 15px 0;
+    border-radius: 1px;
+}

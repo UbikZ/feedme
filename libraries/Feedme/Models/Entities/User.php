@@ -27,6 +27,25 @@ class User extends \Phalcon\Mvc\Model
     /** @var  \DateTime */
     protected $_datetime;
 
+    /** @var  bool */
+    protected $_isAdmin = false;
+
+    /**
+     * @param boolean $isAdmin
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->_isAdmin = $isAdmin;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsAdmin()
+    {
+        return $this->_isAdmin;
+    }
+
     /**
      * @param \DateTime $datetime
      */
