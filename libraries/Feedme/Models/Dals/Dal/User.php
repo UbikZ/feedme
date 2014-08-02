@@ -9,6 +9,7 @@ class User
     public function findFirst($username, $password)
     {
         $password = sha1($password);
+
         return EntityUser::findFirst("email='$email' AND password='$password' AND active='1'");
     }
 

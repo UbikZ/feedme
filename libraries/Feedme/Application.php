@@ -12,7 +12,7 @@ use Phalcon\Config,
     Phalcon\Mvc\View\Engine\Volt,
     Phalcon\Mvc\Model\Metadata\Memory,
     Phalcon\Session\Adapter\Files,
-    Phalcon\Flash\Direct,
+    Phalcon\Flash\Session,
     Phalcon\DI\FactoryDefault,
     Phalcon\Assets\Manager;
 
@@ -140,6 +140,7 @@ class Application
         $di->set('assets', function () {
             $prefixPath = 'libraries';
             $assetManager = new Manager();
+            $bMinify = $this->getConf()->application->minify;
 
             // Global javascript (with minify)
             $assetManager
@@ -149,7 +150,7 @@ class Application
                 ->addJs($prefixPath . '/jquery/dist/jquery.js')
                 ->addJs($prefixPath . '/bootstrap/dist/js/bootstrap.js')
                 ->addJs($prefixPath . '/jquery.gritter/js/jquery.gritter.js')
-                ->join(true)
+                ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
             // Global css (with minify)
@@ -164,7 +165,7 @@ class Application
                 ->addCss('assets/common/css/kill-bootstrap.css', true)
                 ->addCss('assets/common/css/theme.css', true)
                 ->addCss('assets/common/css/style.css', true)
-                ->join(true)
+                ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
             // Local css (authentication)
@@ -173,7 +174,7 @@ class Application
                 ->setTargetPath('cache/auth.min.css')
                 ->setTargetUri('cache/auth.min.css')
                 ->addCss('assets/authentication/css/style.css', true)
-                ->join(true)
+                ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
             return $assetManager;
@@ -259,12 +260,13 @@ class Application
     private function _registerFlash(DI &$di)
     {
         $di->set('flash', function () {
-            return new Direct(array(
+            return new Session(array(
                 'error' => 'alert alert-error',
                 'success' => 'alert alert-success',
                 'notice' => 'alert alert-info',
             ));
         });
+
     }
 
     // Getters & Setters

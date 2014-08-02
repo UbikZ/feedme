@@ -5,6 +5,7 @@
 
     <p>Just log-in to manage your feeds.</p>
 
+    {{ flash.output() }}
     {{ form("session/login", "method":"post") }}
     <div class="form-group">
         {{ text_field("email", "class":"form-control", "placeholder":"E-mail", "required":"") }}

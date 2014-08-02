@@ -14,7 +14,8 @@ return array(
     "application" => array(
         "controllersDir" => "/app/controllers/",
         "viewsDir" => "/app/views/",
-        "baseUri" => "/"
+        "baseUri" => "/",
+        "minify" => true
     ),
     "metadata" => array(
         "adapter" => "Apc",

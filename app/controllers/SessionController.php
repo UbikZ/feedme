@@ -2,7 +2,6 @@
 
 use Feedme\Models\Entities\User;
 use Feedme\Models\Services\Service;
-use Phalcon\Tag as Tag;
 
 class SessionController extends AbstractController
 {
@@ -34,12 +33,12 @@ class SessionController extends AbstractController
             $user = false;//Service::getService('User')->findFirst($username, $password);
             if (false !== $user) {
                 $this->_registerSession($user);
-                $this->flash->success('Welcome ' . $user->getFirstname() . ' ' . $user->getLastname());
+                $this->flashSession->success('Welcome ' . $user->getFirstname() . ' ' . $user->getLastname());
 
                 return $this->forward('invoices/index');
             }
 
-            $this->flash->error('Wrong email/password');
+            $this->flashSession->error('Wrong email/password');
         }
 
         return $this->forward('/');
