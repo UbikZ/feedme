@@ -1,3 +1,3 @@
 <div>
-    <h3>Welcome {{firstname}}<strong>{{lastname}}</strong></h3>
+    <h3>Welcome {{ auth['firstname'] }}<strong>{{ auth['lastname'] }}</strong></h3>
 </div>

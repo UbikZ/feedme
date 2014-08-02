@@ -12,7 +12,12 @@ class SessionController extends AbstractController
      */
     private function _registerSession(User $user)
     {
-        $this->session->set('user', $user);
+        $this->session->set('auth', array(
+            "id" => $user->getId(),
+            "firstname" => $user->getFirstname(),
+            "lastname" => $user->getLastname(),
+            "bAdmin" => $user->getIsAdmin()
+        ));
     }
 
     /**

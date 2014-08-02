@@ -79,13 +79,12 @@ class Security extends Plugin
     public function beforeDispatch(Event $event, Dispatcher $dispatcher)
     {
         /** @var \Feedme\Models\Entities\User $user */
-        $user = $this->session->get('user');
+        $user = $this->session->get('auth');
         if (!$user) {
             $role = self::GUESTS;
-        }
-       /* elseif ($user->getIsAdmin()) {
+        } elseif ($user["bAdmin"]) {
             $role = self::ADMINS;
-        }*/ else {
+        } else {
             $role = self::USERS;
         }
 
