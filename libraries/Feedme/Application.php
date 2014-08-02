@@ -40,7 +40,7 @@ class Application
             $this->_registerUrl($di);
             $this->_registerView($di);
             $this->_registerDatabase($di);
-            $this->_registerMetadata($di);
+            //$this->_registerMetadata($di);
             $this->_registerSession($di);
             $this->_registerFlash($di);
             $this->_registerComponents($di);
