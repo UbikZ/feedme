@@ -1,19 +1,16 @@
 <?php
 
-class IndexController extends AbstractBase
+class IndexController extends AbstractController
 {
     public function initialize()
     {
-        $this->view->setTemplateAfter('main');
-        Phalcon\Tag::setTitle('Welcome');
+        $this->view->setTemplateAfter('authentication');
+        Phalcon\Tag::setTitle('Authentication');
         parent::initialize();
     }
 
     public function indexAction()
     {
-        if (!$this->request->isPost()) {
-            $this->flash->notice('This is a sample application of the Phalcon PHP Framework.
-                Please don\'t provide us any personal information. Thanks');
-        }
+
     }
 }

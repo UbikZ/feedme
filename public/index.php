@@ -14,7 +14,6 @@ if (file_exists($path = VENDOR_PATH . '/autoload.php')) {
 }
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 $application = new \Feedme\Application();
 $application->run();

@@ -1,6 +1,6 @@
 <?php
 
-class AbstractBase extends Phalcon\Mvc\Controller
+class AbstractController extends Phalcon\Mvc\Controller
 {
 
     protected function initialize()

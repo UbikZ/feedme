@@ -32,6 +32,7 @@ class SessionController extends ControllerBase
 
             if ($password != $repeatPassword) {
                 $this->flash->error('Passwords are diferent');
+
                 return false;
             }
 
@@ -50,6 +51,7 @@ class SessionController extends ControllerBase
                 Tag::setDefault('email', '');
                 Tag::setDefault('password', '');
                 $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
+
                 return $this->forward('session/index');
             }
         }
@@ -84,6 +86,7 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
+
                 return $this->forward('invoices/index');
             }
 
@@ -92,6 +95,7 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
+
                 return $this->forward('invoices/index');
             }
 
@@ -110,6 +114,7 @@ class SessionController extends ControllerBase
     {
         $this->session->remove('auth');
         $this->flash->success('Goodbye!');
+
         return $this->forward('index/index');
     }
 }

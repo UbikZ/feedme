@@ -1,7 +1,11 @@
 {
     "name":"Feedme",
     "version":"0.0.1",
-    "dependencies":{
-
+    "dependencies": {
+        "font-awesome": "4.1.0",
+        "bootstrap": "3.2.0",
+        "morris.js": "0.5.1",
+        "jquery.gritter": "master",
+        "animate.css": "3.2.0"
     }
 }

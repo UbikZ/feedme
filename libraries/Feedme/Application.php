@@ -13,7 +13,8 @@ use Phalcon\Config,
     Phalcon\Mvc\Model\Metadata\Memory,
     Phalcon\Session\Adapter\Files,
     Phalcon\Flash\Direct,
-    Phalcon\DI\FactoryDefault;
+    Phalcon\DI\FactoryDefault,
+    Phalcon\Assets\Manager;
 
 // Feedme
 use Feedme\Plugins\Security,
@@ -133,6 +134,37 @@ class Application
     {
         $di->set('dashboard', function () {
             return new Dashboard();
+        });
+
+        $di->set('assets', function () {
+            $prefixPath = 'libraries';
+            $assetManager = new Manager();
+
+            // Javascript (with minify)
+            $assetManager
+                ->collection('global-js')
+                ->setTargetPath('cache/min.js')
+                ->setTargetUri('cache/min.js')
+                ->addJs($prefixPath . '/jquery/dist/jquery.js')
+                ->addJs($prefixPath . '/bootstrap/dist/js/bootstrap.js')
+                ->addJs($prefixPath . '/jquery.gritter/js/jquery.gritter.js')
+                ->join(true)
+                ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+
+
+            // Css (with minify)
+            $assetManager
+                ->collection('global-css')
+                ->setTargetPath('cache/min.css')
+                ->setTargetUri('cache/min.css')
+                ->addCss($prefixPath . '/bootstrap/dist/css/bootstrap.css', true)
+                ->addCss($prefixPath . '/animate.css/animate.css', true)
+                ->addCss($prefixPath . '/font-awesome/css/font-awesome.css', true)
+                ->addCss($prefixPath . '/jquery.gritter/css/jquery.gritter.css', true)
+                ->join(true)
+                ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
+
+            return $assetManager;
         });
     }
 
