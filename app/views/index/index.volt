@@ -14,7 +14,7 @@
             {{ text_field("email", "class":"form-control", "placeholder":"E-mail", "required":"") }}
         </div>
         <div class="form-group">
-            {{ text_field("password", "class":"form-control", "placeholder":"Password", "required":"") }}
+            {{ password_field("password", "class":"form-control", "placeholder":"Password", "required":"") }}
         </div>
         {{ submit_button("Login", "class":"btn btn-primary block btn-block") }}
         {{ endform() }}

@@ -36,10 +36,10 @@ class SessionController extends AbstractController
                 $this->_registerSession($user);
                 $this->flashSession->success('Welcome ' . $user->getFirstname() . ' ' . $user->getLastname());
 
-                return $this->forward('dashboard/index');
+                return $this->response->redirect('dashboard/index');
             }
 
-            $this->flashSession->error('Wrong email/password');
+            $this->flashSession->error('Authentication failed.');
         }
 
         return $this->forward('/');

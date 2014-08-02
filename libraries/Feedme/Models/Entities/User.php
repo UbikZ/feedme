@@ -7,35 +7,35 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
 class User extends \Phalcon\Mvc\Model
 {
     /** @var  int */
-    protected $_id;
+    protected $id;
 
     /** @var  string */
-    protected $_firstname;
+    protected $firstname;
 
     /** @var  string */
-    protected $_lastname;
+    protected $lastname;
 
     /** @var  string */
-    protected $_username;
+    protected $username;
 
     /** @var  string */
-    protected $_email;
+    protected $email;
 
     /** @var  string */
-    protected $_password;
+    protected $password;
 
     /** @var  \DateTime */
-    protected $_datetime;
+    protected $datetime;
 
     /** @var  bool */
-    protected $_isAdmin = false;
+    protected $isAdmin = false;
 
     /**
      * @param boolean $isAdmin
      */
     public function setIsAdmin($isAdmin)
     {
-        $this->_isAdmin = $isAdmin;
+        $this->isAdmin = $isAdmin;
     }
 
     /**
@@ -43,7 +43,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getIsAdmin()
     {
-        return $this->_isAdmin;
+        return $this->isAdmin;
     }
 
     /**
@@ -51,7 +51,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function setDatetime($datetime)
     {
-        $this->_datetime = $datetime;
+        $this->datetime = $datetime;
     }
 
     /**
@@ -59,7 +59,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getDatetime()
     {
-        return $this->_datetime;
+        return $this->datetime;
     }
 
     /**
@@ -67,7 +67,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function setEmail($email)
     {
-        $this->_email = $email;
+        $this->email = $email;
     }
 
     /**
@@ -75,7 +75,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getEmail()
     {
-        return $this->_email;
+        return $this->email;
     }
 
     /**
@@ -83,7 +83,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function setFirstname($firstname)
     {
-        $this->_firstname = $firstname;
+        $this->firstname = $firstname;
     }
 
     /**
@@ -91,7 +91,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getFirstname()
     {
-        return $this->_firstname;
+        return $this->firstname;
     }
 
     /**
@@ -99,7 +99,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function setId($id)
     {
-        $this->_id = $id;
+        $this->id = $id;
     }
 
     /**
@@ -107,7 +107,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getId()
     {
-        return $this->_id;
+        return $this->id;
     }
 
     /**
@@ -115,7 +115,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function setLastname($lastname)
     {
-        $this->_lastname = $lastname;
+        $this->lastname = $lastname;
     }
 
     /**
@@ -123,7 +123,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getLastname()
     {
-        return $this->_lastname;
+        return $this->lastname;
     }
 
     /**
@@ -131,7 +131,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function setPassword($password)
     {
-        $this->_password = $password;
+        $this->password = $password;
     }
 
     /**
@@ -139,7 +139,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getPassword()
     {
-        return $this->_password;
+        return $this->password;
     }
 
     /**
@@ -147,7 +147,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function setUsername($username)
     {
-        $this->_username = $username;
+        $this->username = $username;
     }
 
     /**
@@ -155,7 +155,7 @@ class User extends \Phalcon\Mvc\Model
      */
     public function getUsername()
     {
-        return $this->_username;
+        return $this->username;
     }
 
     /**
