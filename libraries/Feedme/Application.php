@@ -19,7 +19,8 @@ use Phalcon\Config,
 // Feedme
 use Feedme\Plugins\Security,
     Feedme\Db\Factory as DbFactory,
-    Feedme\Components\Dashboard;
+    Feedme\Components\Dashboard,
+    Feedme\Assets\Builder;
 
 class Application
 {
@@ -89,7 +90,6 @@ class Application
         $loader->registerDirs(
             array(
                 ROOT_PATH . $this->getConf()->application->controllersDir,
-                ROOT_PATH . '/app/models'
             )
         )->register();
     }
@@ -128,6 +128,7 @@ class Application
 
     /**
      * todo : externalize this in `Feedme\Manager\Assets` namespace
+     * -> almost done, but still an issues
      * Register several custom components
      * @param DI $di
      */
@@ -141,6 +142,14 @@ class Application
             $prefixPath = 'libraries';
             $assetManager = new Manager();
             $bMinify = $this->getConf()->application->minify;
+
+            /*$builder = new Builder(
+                require_once(APP_PATH . '/config/assets.php'),
+                $this->getConf()->application->minify
+            );
+            $builder->load();
+
+            return $builder->getAssetManager();*/
 
             // Global javascript (with minify)
             $assetManager
