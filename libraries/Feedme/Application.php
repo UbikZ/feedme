@@ -105,6 +105,24 @@ class Application
             $eventsManager = $di->getShared('eventsManager');
             $security = new Security($di);
             $eventsManager->attach('dispatch', $security);
+            $eventsManager->attach("dispatch:beforeException", function ($event, $dispatcher, $exception) {
+
+                if ($exception instanceof \Phalcon\Mvc\Dispatcher\Exception) {
+                    $dispatcher->forward(array(
+                        'controller' => 'index',
+                        'action' => 'notFound'
+                    ));
+
+                    return false;
+                }
+
+                $dispatcher->forward(array(
+                    'controller' => 'index',
+                    'action' => 'internalError'
+                ));
+
+                return false;
+            });
             $dispatcher = new Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
 
@@ -206,7 +224,6 @@ class Application
                 ->addJs($prefixPath . '/pace/pace.js')
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
-
 
             return $assetManager;
         });

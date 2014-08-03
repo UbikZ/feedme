@@ -19,6 +19,7 @@ class Security extends Plugin
         $this->_dependencyInjector = $dependencyInjector;
     }
 
+    // todo : merge some resourcs
     public function getAcl()
     {
         if (!isset($this->persistent->acl)) {
@@ -33,15 +34,16 @@ class Security extends Plugin
                     'role' => new \Phalcon\Acl\Role(self::GUESTS),
                     'ressources' => array(
                         'index' => array('index'),
-                        'session' => array('index', 'register', 'login')
+                        'session' => array('index', 'register', 'login', 'logout')
                     )
                 ),
                 self::USERS => array(
                     'role' => new \Phalcon\Acl\Role(self::USERS),
                     'ressources' => array(
                         'index' => array('index'),
-                        'dashboard' => array('index'),
-                        'session' => array('logout')
+                        'dashboard' => array('index', 'profile'),
+                        'session' => array('logout'),
+                        'account' => array('edit')
                     )
                 ),
                 self::ADMINS => array(
@@ -49,8 +51,9 @@ class Security extends Plugin
                     'ressources' => array(
                         'index' => array('index'),
                         'admin' => array('index'),
-                        'dashboard' => array('index'),
-                        'session' => array('logout')
+                        'dashboard' => array('index', 'profile'),
+                        'session' => array('logout'),
+                        'account' => array('edit')
                     )
                 )
             );

@@ -16,7 +16,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="#">Profile</a></li>
+                        <li><a href="{{ url('account/edit') }}">Profile</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ url('session/logout') }}">Logout</a></li>
                     </ul>
@@ -29,7 +29,7 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="{{ url('account/edit') }}">Profile</a></li>
                     <li><a href="#">Settings</a></li>
                 </ul>
             </li>

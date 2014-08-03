@@ -6,7 +6,7 @@ class AbstractController extends Phalcon\Mvc\Controller
     protected function initialize()
     {
         Phalcon\Tag::prependTitle('Feedme | ');
-        $this->view->setVar('auth', $this->session->get('auth'));
+        $this->view->setVar('auth', $this->_getIdentity());
     }
 
     protected function forward($uri)
@@ -21,13 +21,35 @@ class AbstractController extends Phalcon\Mvc\Controller
         );
     }
 
+    public function notFoundAction()
+    {
+        $this->view->setTemplateAfter('authentication');
+        Phalcon\Tag::setTitle('404 Error');
+        $this->response->setStatusCode(404, 'Not Found');
+        $this->view->pick('error/not-found');
+    }
+
+    public function internalErrorAction()
+    {
+        $this->view->setTemplateAfter('authentication');
+        Phalcon\Tag::setTitle('500 Error');
+        $this->response->setStatusCode(500, 'Internal Error');
+        $this->view->pick('error/internal-error');
+    }
+
+    protected function _isAdmin()
+    {
+        return (bool) $this->_getIdentity()['bAdmin'];
+    }
+
     protected function _hasIdentity()
     {
-        return !is_null($this->session->get('auth'));
+        return !is_null($this->_getIdentity());
     }
 
     protected function _getIdentity()
     {
         return $this->session->get('auth');
     }
+
 }
