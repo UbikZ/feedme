@@ -1,7 +1,6 @@
-// Custom scripts
-$(document).ready(function () {
-    // metsiMenu
-    $('#side-menu').metisMenu();
+$(document).ready(function() {
+
+    $('#side-menu').menu();
 
     // collapse ibox function
     $('.collapse-link').click( function() {
@@ -31,11 +30,6 @@ $(document).ready(function () {
         label.toggleClass('todo-completed');
         return false;
     });
-
-    // minimalize menu
-    $('.navbar-minimalize').click( function() {
-        $( "body" ).toggleClass("mini-navbar" );
-    })
 
     // tooltips
     $('.tooltip-demo').tooltip({
@@ -72,6 +66,7 @@ $(function() {
         }
     })
 })
+
 
 // Dragable panels
 function WinMove() {

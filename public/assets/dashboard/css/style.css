@@ -1,10 +1,10 @@
 .img-profile {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
 }
 
 .nav-header {
-    adding: 33px 25px 0 25px;
+    padding: 33px 25px 0 25px;
     background: url("../img/header-profile.png") no-repeat;
 }
 
@@ -1177,7 +1177,7 @@ a.compose-mail {
 }
 
 .nav > li.active {
-    border-left: 4px solid #18A78A;
+    border-left: 4px solid #428bca;
     background: #233646;
 }
 
@@ -1258,35 +1258,6 @@ a.compose-mail {
     padding-left: 62px;
 }
 
-.mini-navbar .nav li:hover > .nav-second-level, .mini-navbar .nav li:focus > .nav-second-level {
-    display: block;
-    border-radius: 0 2px 2px 0;
-    min-width: 140px;
-    height: auto;
-}
-
-body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
-    font-size: 12px;
-    border-radius: 3px;
-}
-
-.mini-navbar .nav-second-level li a {
-    padding: 10px 10px 10px 15px;
-}
-
-.mini-navbar .nav-second-level {
-    position: absolute;
-    left: 70px;
-    top: 0px;
-    background-color: #2F4050;
-    padding: 10px 10px 10px 10px;
-    font-size: 12px;
-}
-
-.mini-navbar li.active .nav-second-level {
-    left: 65px
-}
-
 .logo-element {
     text-align: center;
     font-size: 18px;
@@ -1301,31 +1272,6 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
     -moz-transition-duration: 0.5s;
     -o-transition-duration: 0.5s;
     transition-duration: 0.5s;
-}
-
-body.mini-navbar .navbar-static-side {
-    width: 70px;
-}
-
-body.mini-navbar .profile-element, body.mini-navbar .nav-label, body.mini-navbar .nav-second-level, body.mini-navbar .navbar-default .nav li a span {
-    display: none;
-}
-
-body.mini-navbar .navbar-default .nav > li > a {
-    font-size: 16px;
-}
-
-body.mini-navbar .logo-element {
-    display: block;
-}
-
-body.mini-navbar .nav-header {
-    padding: 0;
-    background-color: #1AB394;
-}
-
-body.mini-navbar #page-wrapper {
-    margin: 0 0 0 70px;
 }
 
 /* BUTTONS */
@@ -1978,10 +1924,6 @@ button.dim:active:before {
 
 }
 
-body.mini-navbar .branding {
-    display: none;
-}
-
 img.circle-border {
     border: 6px solid #FFFFFF;
     border-radius: 50%;
@@ -2611,7 +2553,7 @@ table.table-mail tr td {
 
 /* PLUGINS */
 .pace .pace-progress {
-    background: #1AB394;
+    background: #428bca;
     position: fixed;
     z-index: 2000;
     top: 0px;

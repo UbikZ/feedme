@@ -192,8 +192,21 @@ class Application
                 ->setTargetPath('cache/dash.min.css')
                 ->setTargetUri('cache/dash.min.css')
                 ->addCss('assets/dashboard/css/style.css')
+                ->addCss($prefixPath . '/pace/pace-theme-minimal.css')
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
+
+            // Local js (dashboard)
+            $assetManager
+                ->collection('dash-js')
+                ->setTargetPath('cache/dash.min.js')
+                ->setTargetUri('cache/dash.min.js')
+                ->addJs('assets/dashboard/js/jquery.menu.js')
+                ->addJs('assets/dashboard/js/theme.js')
+                ->addJs($prefixPath . '/pace/pace.js')
+                ->join($bMinify)
+                ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+
 
             return $assetManager;
         });

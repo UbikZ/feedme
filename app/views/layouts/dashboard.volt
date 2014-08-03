@@ -6,6 +6,7 @@
     {{ assets.outputJs('global-js') }}
     {{ assets.outputCss('global-css') }}
     {{ assets.outputCss('dash-css') }}
+    {{ assets.outputJs('dash-js') }}
 </head>
 <body>
     {{ content() }}
