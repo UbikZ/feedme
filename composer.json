@@ -1,7 +1,6 @@
 {
     "require":{
-        "php":">=5.3.3",
-        "phalcon/incubator": "v1.2.5"
+        "php":">=5.3.3"
     },
     "autoload":{
         "psr-0":{
