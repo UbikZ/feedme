@@ -16,7 +16,7 @@ class SessionController extends AbstractController
             "id" => $user->getId(),
             "firstname" => $user->getFirstname(),
             "lastname" => $user->getLastname(),
-            "bAdmin" => $user->getIsAdmin()
+            "bAdmin" => $user->getAdmin()
         ));
     }
 
