@@ -11,3 +11,15 @@
 h2 small {
     margin-left: 7px;
 }
+
+.logo-header {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-left: 20px;
+    line-height: 57px;
+}
+
+.logo-header span {
+    color: #999c9e;
+}

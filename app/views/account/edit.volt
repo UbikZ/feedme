@@ -22,7 +22,7 @@
                             <div class="form-group"><label class="col-sm-2 control-label">Username</label>
 
                                 <div class="col-sm-10">
-                                    <div class="input-group m-b">
+                                    <div class="input-group">
                                         <span class="input-group-addon">@</span>
                                         {{ text_field("username", "class":"form-control", "value":user.getUsername()) }}
                                     </div>
@@ -49,7 +49,7 @@
                                     {{ password_field("password", "class":"form-control") }}
                                 </div>
                             </div>
-
+                            <div class="hr-line-dashed"></div>
                             {{ submit_button("Save", "class":"btn btn-primary block btn-block") }}
 
                             {{ endform() }}
