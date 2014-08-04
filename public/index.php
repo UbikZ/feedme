@@ -6,6 +6,7 @@ define('ROOT_PATH', __DIR__ . '/..');
 define('APP_PATH', ROOT_PATH . '/app');
 define('LIBRARY_PATH', ROOT_PATH . '/libraries');
 define('CACHE_PATH', ROOT_PATH . '/data/cache');
+define('LOGS_PATH', ROOT_PATH . '/data/logs');
 define('PUBLIC_PATH', ROOT_PATH . '/public');
 define('VENDOR_PATH', ROOT_PATH . '/vendor');
 

@@ -2,6 +2,8 @@
 
 namespace Feedme\Plugins;
 
+use Feedme\Logger\Factory;
+
 use \Phalcon\Events\Event,
     \Phalcon\Mvc\User\Plugin,
     \Phalcon\Mvc\Dispatcher,
@@ -93,6 +95,13 @@ class Security extends Plugin
 
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
+
+        Factory::getLogger('security')->info(
+            'Id: ' . (isset($auth['id']) ? $auth['id'] : 'null') . ' / ' .
+            'Role: ' . $role . ' / ' .
+            'Controller: ' . $controller . ' / ' .
+            'Action: ' . $action . ' / '
+        );
 
         $acl = $this->getAcl();
 

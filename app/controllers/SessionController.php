@@ -1,5 +1,6 @@
 <?php
 
+use Feedme\Logger\Factory;
 use Feedme\Models\Entities\User;
 use Feedme\Models\Services\Service;
 
@@ -27,18 +28,25 @@ class SessionController extends AbstractController
     {
         $request = $this->request;
         if ($request->isPost()) {
+            $logger = Factory::getLogger('login');
+
             $email = $request->getPost('email', 'email');
             $password = $request->getPost('password');
+
+            $logger->info("$email / $password");
 
             /** @var User|bool $user */
             $user = Service::getService('User')->findFirst($email, $password);
             if (false !== $user) {
                 $this->_registerSession($user);
+                $logger->notice($user->getId() . " / " . $user->getUsername());
 
                 return $this->response->redirect('dashboard/index');
             }
 
-            $this->flash->error('Authentication failed.');
+            $msg = 'Authentication failed.';
+            $logger->error($msg);
+            $this->flash->error($msg);
         }
 
         return $this->forward('/');

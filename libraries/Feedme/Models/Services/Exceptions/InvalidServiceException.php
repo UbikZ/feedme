@@ -1,6 +1,6 @@
 <?php
 
-namespace Feedme\Models\Sercices\Exceptions;
+namespace Feedme\Models\Services\Exceptions;
 
 class InvalidServiceException extends \Exception
 {
