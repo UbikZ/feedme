@@ -1,6 +1,3 @@
 vendor/
-cache/
 public/libraries
-public/cache
-app/config/configs/dev.php
 .idea/
