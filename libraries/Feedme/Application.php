@@ -210,7 +210,7 @@ class Application
                 ->setTargetPath('cache/dash.min.css')
                 ->setTargetUri('cache/dash.min.css')
                 ->addCss('assets/dashboard/css/style.css')
-                ->addCss($prefixPath . '/pace/pace-theme-minimal.css')
+                ->addCss($prefixPath . '/pace/themes/pace-theme-minimal.css')
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
