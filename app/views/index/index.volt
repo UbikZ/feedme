@@ -1,5 +1,5 @@
 <div>
-    <h1 class="logo">FeedMe</h1>
+    <h1 class="logo">Feed<small>me</small></h1>
 
     {% if auth %}
         <h3>{{ dump(auth) }}</h3>
