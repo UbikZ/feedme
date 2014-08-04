@@ -1,0 +1,13 @@
+.img-profile {
+    width: 48px;
+    height: 48px;
+}
+
+.nav-header {
+    padding: 33px 25px 0 25px;
+    background: url("../img/header-profile.png") no-repeat;
+}
+
+h2 small {
+    margin-left: 7px;
+}
