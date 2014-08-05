@@ -7,6 +7,9 @@ class IndexController extends AbstractController
         $this->view->setTemplateAfter('authentication');
         Phalcon\Tag::setTitle('Authentication');
         parent::initialize();
+        if ($this->_hasIdentity()) {
+            $this->response->redirect('dashboard/index');
+        }
     }
 
     public function indexAction()
