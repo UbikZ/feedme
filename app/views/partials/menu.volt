@@ -46,6 +46,7 @@
                     <li><a href="#">Statistics</a></li>
                 </ul>
             </li>
+            {% if auth['bAdmin']%}
             <li>
                 <a href="#">
                     <i class="fa fa-gear"></i>
@@ -58,6 +59,7 @@
                     <li><a href="#">Statistics</a></li>
                 </ul>
             </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
