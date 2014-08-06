@@ -1,0 +1,12 @@
+return array(
+    "database" => array(
+        "host" => "localhost",
+        "adapter" => "Mysql",
+        "username" => "root",
+        "password" => "toor",
+        "dbname" => "feedme"
+    ),
+    "application" => array(
+        "baseUri" => "/feedme/",
+    ),
+);
