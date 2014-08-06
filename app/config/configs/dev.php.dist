@@ -1,0 +1,15 @@
+return array(
+    "phpSettings" => array(
+        "display_errors" => true
+    ),
+    "database" => array(
+        "host" => "localhost",
+        "adapter" => "Mysql",
+        "username" => "root",
+        "password" => "toor",
+        "dbname" => "feedme"
+    ),
+    "application" => array(
+        "minify" => false
+    ),
+);
