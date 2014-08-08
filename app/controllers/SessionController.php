@@ -1,8 +1,10 @@
 <?php
 
+use Feedme\Com\Notification\Alert;
 use Feedme\Logger\Factory;
 use Feedme\Models\Entities\User;
 use Feedme\Models\Services\Service;
+use Feedme\Session\Handler as HandlerSession;
 
 class SessionController extends AbstractController
 {
@@ -40,6 +42,11 @@ class SessionController extends AbstractController
             if (false !== $user) {
                 $this->_registerSession($user);
                 $logger->notice($user->getId() . " / " . $user->getUsername());
+                $this->session->remove('alerts');
+                HandlerSession::push($this->session, 'alerts', new Alert(
+                    "Connection granted!",
+                    Alert::LV_INFO
+                ));
 
                 return $this->response->redirect('dashboard/index');
             }

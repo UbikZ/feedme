@@ -23,3 +23,8 @@ h2 small {
 .logo-header span {
     color: #999c9e;
 }
+
+.dropdown-messages-box .media-body strong {
+    margin-left: 25px;
+    padding: 10px 0;
+}

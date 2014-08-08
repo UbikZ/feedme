@@ -1,6 +1,8 @@
 <?php
 
+use Feedme\Com\Notification\Alert;
 use Feedme\Models\Services\Service;
+use Feedme\Session\Handler as HandlerSession;
 use Phalcon\Mvc\View;
 
 class AccountController extends AbstractController
@@ -20,28 +22,32 @@ class AccountController extends AbstractController
 
     public function editAction($id = null)
     {
-        $identity = ($id ? $id : $this->_getIdentity()['id']);
-        if (!$identity) {
+        if (!$id && ($id != $this->_getIdentity()['id']) && !$this->_isAdmin()) {
             $this->notFoundAction();
         }
+        //var_dump("int");die;
         /** @var User|bool $user */
-        $user = Service::getService('User')->findFirstById($identity);
+        $user = Service::getService('User')->findFirstById($id);
+
         if (!$user) {
             $this->notFoundAction();
         }
-
         if ($this->request->isPost()) {
             $postId = $this->request->getPost('id', 'int');
             // Secure update (exept for admin)
-            if ($id != $identity || !$this->_isAdmin()) {
-                $this->notFoundAction();
-            }
 
             if (!Service::getService('User')->update($id, $this->request)) {
-                $this->flash->error("Fail during update");
+                HandlerSession::push($this->session, 'alerts', new Alert(
+                    "An error occured while updating your account",
+                    Alert::LV_ERROR
+                ));
             } else {
-                $this->flash->success("User was updated successfully");
+                HandlerSession::push($this->session, 'alerts', new Alert(
+                    "Your account've been updated successfully",
+                    Alert::LV_INFO
+                ));
             }
+            $this->forward('/');
         }
 
         $this->view->setVar("name", array("main" => "Account", "sub" => "Profile"));

@@ -7,10 +7,9 @@
                 </div>
             </div>
             <ul class="nav navbar-top-links navbar-right">
+                {{dashboard.getAlerts()}}
                 <li>
-                    <a href="{{ url('session/logout') }}">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
+                    {{dashboard.getHeaderMenu()}}
                 </li>
             </ul>
         </nav>

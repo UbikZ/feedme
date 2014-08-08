@@ -2,7 +2,8 @@
 
 namespace Feedme\Plugins;
 
-use Feedme\Logger\Factory;
+use Feedme\Com\Notification\Alert,
+    Feedme\Session\Handler as HandlerSession;
 
 use \Phalcon\Events\Event,
     \Phalcon\Mvc\User\Plugin,
@@ -96,19 +97,16 @@ class Security extends Plugin
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
 
-        Factory::getLogger('security')->info(
-            'Id: ' . (isset($auth['id']) ? $auth['id'] : 'null') . ' / ' .
-            'Role: ' . $role . ' / ' .
-            'Controller: ' . $controller . ' / ' .
-            'Action: ' . $action . ' / '
-        );
-
         $acl = $this->getAcl();
 
         $allowed = $acl->isAllowed($role, $controller, $action);
 
         if ($allowed != Acl::ALLOW) {
-            $this->flash->error("You don't have access to this module");
+            HandlerSession::push($this->session, 'alerts', new Alert(
+                "You don't have access to this module",
+                Alert::LV_ERROR
+            ));
+
             $dispatcher->forward(
                 array(
                     'controller' => 'index',

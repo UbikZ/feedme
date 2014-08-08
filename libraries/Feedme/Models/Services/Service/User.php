@@ -9,7 +9,7 @@ class User
     public function update($id, \Phalcon\Http\Request $request)
     {
         return Dal::getRepository('User')->update(
-            $request->getPost('id', 'int'),
+            $id,
             $request->getPost('firstname', 'scriptags'),
             $request->getPost('lastname', 'scriptags'),
             $request->getPost('username', 'scriptags'),

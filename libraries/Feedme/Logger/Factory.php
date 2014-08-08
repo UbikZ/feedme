@@ -15,7 +15,7 @@ class Factory
         }
 
         $filename = LOGS_PATH . "/$path-" . (new \DateTime())->format('Y-m-d') . ".log";
-        
+
         return (new \ReflectionClass($className))->newInstance($filename);
     }
 }

@@ -13,7 +13,7 @@
                             </h5>
                         </div>
                         <div class="ibox-content">
-                            {{ form("account/edit", "method":"post", "class":"form-horizontal") }}
+                            <form method="post" class="form-horizontal" action="{{ url('account/edit')}}/{{user.getId()}}">
                             <div class="form-group"><label class="col-lg-2 control-label">E-mail</label>
 
                                 <div class="col-lg-10"><p class="form-control-static">{{ user.getEmail() }}</p></div>
@@ -52,7 +52,7 @@
                             <div class="hr-line-dashed"></div>
                             {{ submit_button("Save", "class":"btn btn-primary block btn-block") }}
 
-                            {{ endform() }}
+                            </form>
                         </div>
                     </div>
                 </div>

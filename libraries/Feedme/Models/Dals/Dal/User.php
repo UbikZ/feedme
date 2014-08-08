@@ -2,6 +2,7 @@
 
 namespace Feedme\Models\Dals\Dal;
 
+use Feedme\Logger\Factory;
 use Feedme\Models\Entities\User as EntityUser;
 
 class User
@@ -13,7 +14,21 @@ class User
         $user->setFirstname($firstname);
         $user->setLastname($lastname);
         $user->setUsername($username);
-        $user->setPassword(sha1($password));
+        if ($password) {
+            $user->setPassword(sha1($password));
+        }
+
+        $logger = Factory::getLogger('user');
+        $logger->info(
+            'UPDATE : ' . PHP_EOL .
+            'id => ' . $id . PHP_EOL .
+            'firstname => ' . $firstname . PHP_EOL .
+            'lastname => ' . $lastname . PHP_EOL .
+            'username => ' . $username . PHP_EOL .
+            'password => ' . $password . PHP_EOL
+        );
+        $return = $user->save();
+        $logger->info(print_r($return, true));
 
         return $user->save();
     }
