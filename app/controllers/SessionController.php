@@ -1,8 +1,9 @@
 <?php
 
 use Feedme\Com\Notification\Alert;
-use Feedme\Logger\Factory;
 use Feedme\Models\Entities\User;
+use Feedme\Models\Messages\Filters\User\Select;
+use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Feedme\Session\Handler as HandlerSession;
 
@@ -30,18 +31,19 @@ class SessionController extends AbstractController
     {
         $request = $this->request;
         if ($request->isPost()) {
-            $logger = Factory::getLogger('login');
+            // Instanciate filtering user parameters
+            $query = new Select();
+            $query->email = $request->getPost('email', 'email');
+            $query->password = $request->getPost('password');
 
-            $email = $request->getPost('email', 'email');
-            $password = $request->getPost('password');
-
-            $logger->info("$email / $password");
-
-            /** @var User|bool $user */
-            $user = Service::getService('User')->findFirst($email, $password);
-            if (false !== $user) {
+            /** @var ServiceMessage $message */
+            $message = Service::getService('User')->findFirst($query);
+            if ($message->getSuccess()) {
+                /** @var User $user */
+                $user = $message->getMessage();
                 $this->_registerSession($user);
-                $logger->notice($user->getId() . " / " . $user->getUsername());
+
+                // Clean alerts session and add new ones
                 $this->session->remove('alerts');
                 HandlerSession::push($this->session, 'alerts', new Alert(
                     "Connection granted!",
@@ -49,11 +51,10 @@ class SessionController extends AbstractController
                 ));
 
                 return $this->response->redirect('dashboard/index');
-            }
 
-            $msg = 'Authentication failed.';
-            $logger->error($msg);
-            $this->flash->error($msg);
+            } else {
+                $this->flash->error($message->getErrors());
+            }
         }
 
         return $this->forward('/');

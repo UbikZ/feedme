@@ -2,51 +2,69 @@
 
 namespace Feedme\Models\Dals\Dal;
 
-use Feedme\Logger\Factory;
 use Feedme\Models\Entities\User as EntityUser;
+use Feedme\Models\Messages\Filters\User\Select;
+use Feedme\Models\Messages\Requests\User\Update;
 
 class User
 {
-    public function update($id, $firstname, $lastname, $username, $password)
+    /**
+     * @param  Update $request
+     * @return mixed
+     */
+    public function update(Update $request)
     {
         $user = new EntityUser();
-        $user->setId($id);
-        $user->setFirstname($firstname);
-        $user->setLastname($lastname);
-        $user->setUsername($username);
-        if ($password) {
-            $user->setPassword(sha1($password));
-        }
+        $user->setId($request->id);
+        $user->setFirstname($request->fistname);
+        $user->setLastname($request->lastname);
+        $user->setUsername($request->username);
 
-        $logger = Factory::getLogger('user');
-        $logger->info(
-            'UPDATE : ' . PHP_EOL .
-            'id => ' . $id . PHP_EOL .
-            'firstname => ' . $firstname . PHP_EOL .
-            'lastname => ' . $lastname . PHP_EOL .
-            'username => ' . $username . PHP_EOL .
-            'password => ' . $password . PHP_EOL
-        );
-        $return = $user->save();
-        $logger->info(print_r($return, true));
+        if (!is_null($request->password)) {
+            $user->setPassword(sha1($request->password));
+        }
+        if (!is_null($request->admin)) {
+            $user->setAdmin($request->admin);
+        }
+        if (!is_null($request->active)) {
+            $user->setActive($request->active);
+        }
 
         return $user->save();
     }
 
-    public function findFirst($email, $password)
+    /**
+     * @param  Select $query
+     * @return string
+     */
+    private function _parseQuery(Select $query)
     {
-        $password = sha1($password);
+        $whereClause = array();
+        if (!is_null($id = $query->id)) {
+            $whereClause[] = 'id=\'' . intval($id) . '\'';
+        }
+        if (!is_null($email = $query->email)) {
+            $whereClause[] = 'email=\'' . $email . '\'';
+        }
+        if (!is_null($password = $query->password)) {
+            $whereClause[] = 'password=\'' . sha1($password) . '\'';
+        }
+        if (!is_null($active = $query->active)) {
+            $whereClause[] = 'active=\'' . intval($active) . '\'';
+        }
+        if (!is_null($admin = $query->admin)) {
+            $whereClause[] = 'admin=\'' . intval($admin) . '\'';
+        }
 
-        return EntityUser::findFirst("email='$email' AND password='$password' AND active='1'");
+        return implode(' AND ', $whereClause);
     }
 
-    public function findFirstById($id)
+    /**
+     * @param  Select $query
+     * @return mixed
+     */
+    public function findFirst(Select $query)
     {
-        return EntityUser::findFirstById($id);
-    }
-
-    public function getLast()
-    {
-        return EntityUser::query()->order('datetime DESC')->execute();
+        return EntityUser::findFirst($this->_parseQuery($query));
     }
 }

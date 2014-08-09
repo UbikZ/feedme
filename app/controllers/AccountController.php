@@ -1,6 +1,8 @@
 <?php
 
 use Feedme\Com\Notification\Alert;
+use Feedme\Models\Messages\Filters\User\Select;
+use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Feedme\Session\Handler as HandlerSession;
 use Phalcon\Mvc\View;
@@ -25,18 +27,29 @@ class AccountController extends AbstractController
         if (!$id && ($id != $this->_getIdentity()['id']) && !$this->_isAdmin()) {
             $this->notFoundAction();
         }
-        //var_dump("int");die;
+
+        $query = new Select();
+        $query->id = $id;
         /** @var User|bool $user */
-        $user = Service::getService('User')->findFirstById($id);
+        /** @var ServiceMessage $message */
+        $message = Service::getService('User')->findFirstById($id);
+
+        // todo ===>
+        if ($message->getSuccess()) {
+
+        } else {
+
+        }
 
         if (!$user) {
             $this->notFoundAction();
         }
         if ($this->request->isPost()) {
-            $postId = $this->request->getPost('id', 'int');
             // Secure update (exept for admin)
 
-            if (!Service::getService('User')->update($id, $this->request)) {
+            $return = Service::getService('User')->update($id, $this->request);
+
+            if (!$return) {
                 HandlerSession::push($this->session, 'alerts', new Alert(
                     "An error occured while updating your account",
                     Alert::LV_ERROR
@@ -47,6 +60,7 @@ class AccountController extends AbstractController
                     Alert::LV_INFO
                 ));
             }
+            die;
             $this->forward('/');
         }
 

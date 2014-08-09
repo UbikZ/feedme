@@ -30,6 +30,25 @@ class User extends \Phalcon\Mvc\Model
     /** @var  boolean */
     protected $admin;
 
+    /** @var  boolean */
+    protected $active;
+
+    /**
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
     /**
      * @param boolean $isAdmin
      */
