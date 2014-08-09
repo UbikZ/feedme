@@ -16,6 +16,6 @@ class Handler
         }
         $currentEls[] = $element;
 
-        $session->set($name, array_slice(array_reverse($currentEls), 0, 5));
+        $session->set($name, $currentEls);
     }
 }

@@ -129,7 +129,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
         $render .= '</a>';
         if (is_array($alerts) && $count > 0) {
             $render .= '<ul class="dropdown-menu dropdown-messages">';
-            foreach ($alerts as $key => $alert) {
+            foreach (array_slice(array_reverse($alerts), 0, 5) as $key => $alert) {
                 $fa = '';
                 switch ($alert->getLevel()) {
                     case Alert::LV_INFO:
