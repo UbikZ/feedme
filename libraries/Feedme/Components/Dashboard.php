@@ -70,7 +70,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
         $render = '';
         if (is_array($cats)) {
             foreach ($cats as $cat) {
-                $render .= '<li>';
+                $render .= '<li class="' . ($this->_isActive($cat) ? 'active' : '') . '">';
                 $render .= '<a href="#">';
                 if (isset($cat['img']))
                     $render .= '<i class="' . $cat['img'] . '"></i>';
@@ -85,6 +85,20 @@ class Dashboard extends \Phalcon\Mvc\User\Component
         }
 
         echo $render;
+    }
+
+    /**
+     * @param array $category
+     * @return bool
+     */
+    private function _isActive(array $category)
+    {
+        $controllers = array();
+        foreach ($category['items'] as $item) {
+            $controllers[] = $item['controller'];
+        }
+
+        return in_array($this->router->getControllerName(), $controllers);
     }
 
     /**
