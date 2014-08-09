@@ -14,7 +14,12 @@ class Handler
                 $currentEls = array($session->get($name));
             }
         }
-        $currentEls[] = $element;
+
+        if (is_array($element)) {
+            $currentEls = array_merge($currentEls, $element);
+        } else {
+            $currentEls[] = $element;
+        }
 
         $session->set($name, $currentEls);
     }

@@ -7,7 +7,7 @@ class Update
     /** @var  int */
     public $id;
     /** @var  string */
-    public $fistname;
+    public $firstname;
     /** @var  string */
     public $lastname;
     /** @var  string */

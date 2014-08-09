@@ -12,15 +12,34 @@ class User
      * @param  Update $request
      * @return mixed
      */
-    public function update(Update $request)
+    public function update(EntityUser $user, Update $request)
     {
-        $user = new EntityUser();
+        $this->_parseRequest($user, $request);
+
+        return $user->update();
+    }
+
+    /**
+     * @param  Select $query
+     * @return mixed
+     */
+    public function findFirst(Select $query)
+    {
+        return EntityUser::findFirst($this->_parseQuery($query));
+    }
+
+    /**
+     * @param EntityUser $user
+     * @param Update     $request
+     */
+    private function _parseRequest(EntityUser &$user, Update $request)
+    {
         $user->setId($request->id);
-        $user->setFirstname($request->fistname);
+        $user->setFirstname($request->firstname);
         $user->setLastname($request->lastname);
         $user->setUsername($request->username);
 
-        if (!is_null($request->password)) {
+        if (!empty($request->password)) {
             $user->setPassword(sha1($request->password));
         }
         if (!is_null($request->admin)) {
@@ -29,8 +48,6 @@ class User
         if (!is_null($request->active)) {
             $user->setActive($request->active);
         }
-
-        return $user->save();
     }
 
     /**
@@ -57,14 +74,5 @@ class User
         }
 
         return implode(' AND ', $whereClause);
-    }
-
-    /**
-     * @param  Select $query
-     * @return mixed
-     */
-    public function findFirst(Select $query)
-    {
-        return EntityUser::findFirst($this->_parseQuery($query));
     }
 }

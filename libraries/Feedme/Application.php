@@ -19,6 +19,7 @@ use Phalcon\Config,
 // Feedme
 use Feedme\Plugins\Security,
     Feedme\Db\Factory as DbFactory,
+    Feedme\Logger\Factory as LoggerFactory,
     Feedme\Components\Dashboard,
     Feedme\Assets\Builder;
 
@@ -51,9 +52,9 @@ class Application
             echo $application->handle()->getContent();
 
         } catch (Phalcon\Exception $e) {
-            echo $e->getMessage();
+            LoggerFactory::getLogger('phalcon')->error($e->getMessage());
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            LoggerFactory::getLogger('database')->error($e->getMessage());
         }
     }
 

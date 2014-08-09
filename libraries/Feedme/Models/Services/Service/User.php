@@ -23,7 +23,12 @@ class User
             if (is_null($request->id)) {
                 throw new \Exception('Invalid parameter given.');
             }
-            if ($result = Dal::getRepository('User')->update($request)) {
+            $query = new Select();
+            $query->id = $request->id;
+            if (false === ($user = Dal::getRepository('User')->findFirst($query))) {
+                throw new \Exception('Can\'t load user `' . $query->id . '`.');
+            }
+            if (false === ($result = Dal::getRepository('User')->update($user, $request))) {
                 throw new ServiceException('You can\'t update the account for now.');
             }
 

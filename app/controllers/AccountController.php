@@ -1,7 +1,9 @@
 <?php
 
 use Feedme\Com\Notification\Alert;
+use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\User\Select;
+use Feedme\Models\Messages\Requests\User\Update;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Feedme\Session\Handler as HandlerSession;
@@ -30,43 +32,57 @@ class AccountController extends AbstractController
 
         $query = new Select();
         $query->id = $id;
-        /** @var User|bool $user */
-        /** @var ServiceMessage $message */
-        $message = Service::getService('User')->findFirstById($id);
 
-        // todo ===>
-        if ($message->getSuccess()) {
+        /** @var ServiceMessage $findUserMsg */
+        $findUserMsg = Service::getService('User')->findFirst($query);
 
+        if ($findUserMsg->getSuccess()) {
+            /** @var User $user */
+            $user = $findUserMsg->getMessage();
+            if ($this->request->isPost()) {
+
+                // Build update request object
+                $request = new Update();
+                $request->id = $id;
+                $request->firstname = $this->request->getPost('firstname');
+                $request->lastname = $this->request->getPost('lastname');
+                $request->username = $this->request->getPost('username');
+                $request->password = $this->request->getPost('password');
+
+                /** @var ServiceMessage $updateUserMsg */
+                $updateUserMsg = Service::getService('User')->update($request);
+
+                if ($updateUserMsg->getSuccess()) {
+                    // Account changed == Connected user
+                    if ($id == $this->_getIdentity()['id']) {
+                        HandlerSession::push($this->session, 'auth', array(
+                            "id" => $user->getId(),
+                            "firstname" => $user->getFirstname(),
+                            "lastname" => $user->getLastname(),
+                            "bAdmin" => $user->getAdmin()
+                        ));
+                    }
+                    HandlerSession::push($this->session, 'alerts', new Alert(
+                        "Your account've been updated successfully",
+                        Alert::LV_INFO
+                    ));
+                    $this->forward('/');
+
+                } else {
+                    HandlerSession::push(
+                        $this->session,
+                        'alerts',
+                        new Alert($updateUserMsg->getErrors(), Alert::LV_ERROR)
+                    );
+                }
+            }
+
+            $this->view->setVar("name", array("main" => "Account", "sub" => "Profile"));
+            $this->view->setVar("user", $user);
+
+            $this->view->disableLevel(View::LEVEL_LAYOUT);
         } else {
-
-        }
-
-        if (!$user) {
             $this->notFoundAction();
         }
-        if ($this->request->isPost()) {
-            // Secure update (exept for admin)
-
-            $return = Service::getService('User')->update($id, $this->request);
-
-            if (!$return) {
-                HandlerSession::push($this->session, 'alerts', new Alert(
-                    "An error occured while updating your account",
-                    Alert::LV_ERROR
-                ));
-            } else {
-                HandlerSession::push($this->session, 'alerts', new Alert(
-                    "Your account've been updated successfully",
-                    Alert::LV_INFO
-                ));
-            }
-            die;
-            $this->forward('/');
-        }
-
-        $this->view->setVar("name", array("main" => "Account", "sub" => "Profile"));
-        $this->view->setVar("user", $user);
-
-        $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 }
