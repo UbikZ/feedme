@@ -2,11 +2,13 @@
 
 use Feedme\Com\Notification\Alert;
 use Feedme\Models\Entities\User;
-use Feedme\Models\Messages\Filters\User\Select;
+use Feedme\Models\Messages\Filters\User\Select as SelectUser;
+use Feedme\Models\Messages\Filters\UserPicture\Select as SelectUserPicture;
 use Feedme\Models\Messages\Requests\User\Update;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Feedme\Session\Handler as HandlerSession;
+use Feedme\Utils\Extract;
 use Phalcon\Mvc\View;
 
 class AccountController extends AbstractController
@@ -30,7 +32,7 @@ class AccountController extends AbstractController
             $this->notFoundAction();
         }
 
-        $query = new Select();
+        $query = new SelectUser();
         $query->id = $id;
 
         /** @var ServiceMessage $findUserMsg */
@@ -48,6 +50,7 @@ class AccountController extends AbstractController
                 $request->lastname = $this->request->getPost('lastname');
                 $request->username = $this->request->getPost('username');
                 $request->password = $this->request->getPost('password');
+                $request->picture = $this->request->getPost('picture');
 
                 /** @var ServiceMessage $updateUserMsg */
                 $updateUserMsg = Service::getService('User')->update($request);
@@ -77,7 +80,13 @@ class AccountController extends AbstractController
                 }
             }
 
+            /** @var ServiceMessage $selectPictureMsg */
+            $selectPictureMsg = Service::getService('UserPicture')->find(new SelectUserPicture());
+            $images = $selectPictureMsg->getSuccess() ? $selectPictureMsg->getMessage() : array();
+
             $this->view->setVar("name", array("main" => "Account", "sub" => "Profile"));
+            $queryPictures = new SelectUserPicture();
+            $this->view->setVar("images", $images);
             $this->view->setVar("user", $user);
 
             $this->view->disableLevel(View::LEVEL_LAYOUT);

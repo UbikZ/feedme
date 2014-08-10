@@ -55,6 +55,8 @@ class Application
             LoggerFactory::getLogger('phalcon')->error($e->getMessage());
         } catch (PDOException $e) {
             LoggerFactory::getLogger('database')->error($e->getMessage());
+        } catch (\Exception $e) {
+            LoggerFactory::getLogger('error')->error($e->getMessage());
         }
     }
 

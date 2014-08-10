@@ -42,6 +42,9 @@ class User
         if (!empty($request->password)) {
             $user->setPassword(sha1($request->password));
         }
+        if (!empty($request->picture)) {
+            $user->setPicture($request->picture);
+        }
         if (!is_null($request->admin)) {
             $user->setAdmin($request->admin);
         }

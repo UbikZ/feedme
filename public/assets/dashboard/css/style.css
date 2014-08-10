@@ -28,3 +28,21 @@ h2 small {
     margin-left: 25px;
     padding: 10px 0;
 }
+
+.fancybox img {
+    width: 9%;
+}
+
+.picturebox {
+    padding: 20px;
+}
+
+.picturebox .thumbnail {
+    opacity: 0.3;
+}
+
+.picturebox .thumbnail.active {
+    opacity: 1;
+    border: 1px solid #e5e6e7;
+}
+

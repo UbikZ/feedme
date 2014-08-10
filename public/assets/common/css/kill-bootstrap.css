@@ -27,6 +27,10 @@
     border-color: #ED5565;
 }
 
+.thumbnail {
+    border-radius: 1px;
+}
+
 /* Buttons */
 
 .btn,

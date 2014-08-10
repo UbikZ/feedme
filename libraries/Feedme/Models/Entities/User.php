@@ -6,6 +6,9 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
 
 class User extends \Phalcon\Mvc\Model
 {
+    // Foreign key
+    private $_userPictureFK = 'Feedme\\Models\\Entities\\UserPicture';
+
     /** @var  int */
     protected $id;
 
@@ -32,6 +35,43 @@ class User extends \Phalcon\Mvc\Model
 
     /** @var  boolean */
     protected $active;
+
+    /** @var  int */
+    protected $picture;
+
+    /**
+     *
+     */
+    public function initialize()
+    {
+        $this->hasOne('picture', $this->_userPictureFK, 'id');
+    }
+
+    /**
+     * @param null $parameters
+     * @return UserPicture
+     */
+    public function getUserPicture($parameters = null)
+    {
+        return $this->getRelated($this->_userPictureFK, $parameters);
+    }
+
+    /**
+     * @param int $picture
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
 
     /**
      * @param boolean $active
@@ -193,10 +233,5 @@ class User extends \Phalcon\Mvc\Model
         );
 
         return !$this->validationHasFailed();
-    }
-
-    public function getSource()
-    {
-        return 'user';
     }
 }

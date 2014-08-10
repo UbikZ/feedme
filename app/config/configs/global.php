@@ -2,7 +2,8 @@
 
 return array(
     "phpSettings" => array(
-        "display_errors" => false
+        "display_errors" => false,
+        "error_log" => LOGS_PATH . '/php.log'
     ),
     "database" => array(
         "host" => "my_host",

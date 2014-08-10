@@ -18,4 +18,6 @@ class Update
     public $admin;
     /** @var  boolean */
     public $active;
+    /** @var  int */
+    public $picture;
 }

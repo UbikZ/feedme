@@ -1,5 +1,9 @@
 <?php
 
+use Feedme\Models\Messages\Filters\User\Select;
+use Feedme\Models\Messages\ServiceMessage;
+use Feedme\Models\Services\Service;
+
 class AbstractController extends Phalcon\Mvc\Controller
 {
 
@@ -7,6 +11,16 @@ class AbstractController extends Phalcon\Mvc\Controller
     {
         Phalcon\Tag::prependTitle('Feedme | ');
         $this->view->setVar('auth', $this->_getIdentity());
+        if ($this->_hasIdentity()) {
+            $query = new Select();
+            $query->id =  $this->_getIdentity()['id'];
+            /** @var ServiceMessage $findUserMsg */
+            $findUserMsg = Service::getService('User')->findFirst($query);
+
+            if ($findUserMsg->getSuccess()) {
+                $this->view->setVar('currentUser', $findUserMsg->getMessage());
+            }
+        }
     }
 
     protected function forward($uri)

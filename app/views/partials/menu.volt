@@ -3,7 +3,8 @@
         <ul class="nav" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown">
-                    <p>{{ image('img', 'class': 'img-profile img-circle', 'src':'assets/dashboard/img/user-profile.png') }}</p>
+                    <p>{{ image('img', 'class': 'img-profile img-circle', 'src': currentUser.getUserPicture().getPath())
+                        }}</p>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
