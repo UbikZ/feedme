@@ -18,8 +18,6 @@ class SessionController extends AbstractController
     {
         HandlerSession::push($this->session, 'auth', array(
             "id" => $user->getId(),
-            "firstname" => $user->getFirstname(),
-            "lastname" => $user->getLastname(),
             "bAdmin" => $user->getAdmin()
         ));
     }

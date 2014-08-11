@@ -56,21 +56,11 @@ class AccountController extends AbstractController
                 $updateUserMsg = Service::getService('User')->update($request);
 
                 if ($updateUserMsg->getSuccess()) {
-                    // Account changed == Connected user
-                    if ($id == $this->_getIdentity()['id']) {
-                        HandlerSession::push($this->session, 'auth', array(
-                            "id" => $user->getId(),
-                            "firstname" => $user->getFirstname(),
-                            "lastname" => $user->getLastname(),
-                            "bAdmin" => $user->getAdmin()
-                        ));
-                    }
                     HandlerSession::push($this->session, 'alerts', new Alert(
                         "Your account've been updated successfully",
                         Alert::LV_INFO
                     ));
-                    $this->forward('/');
-
+                    $this->response->redirect('account/edit/2');
                 } else {
                     HandlerSession::push(
                         $this->session,

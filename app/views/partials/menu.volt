@@ -8,7 +8,7 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
-                                {{auth['firstname']}}&nbsp;<strong class="font-bold">{{auth['lastname']}}</strong>
+                                {{currentUser.getFirstname()}}&nbsp;<strong class="font-bold">{{currentUser.getLastname()}}</strong>
                             </span>
                             <p class="text-muted text-xs block">
                                 {% if auth['bAdmin']%}Administrator{% else %}User{% endif %}
