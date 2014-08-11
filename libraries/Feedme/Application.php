@@ -179,7 +179,8 @@ class Application
                 ->setTargetUri('cache/min.js')
                 ->addJs($prefixPath . '/jquery/dist/jquery.js')
                 ->addJs($prefixPath . '/bootstrap/dist/js/bootstrap.js')
-                ->addJs($prefixPath . '/jquery.gritter/js/jquery.gritter.js')
+                ->addJs($prefixPath . '/notifyjs/dist/notify.js')
+                ->addJs($prefixPath . '/notifyjs/dist/styles/bootstrap/notify-bootstrap.js')
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
