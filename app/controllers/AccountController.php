@@ -62,11 +62,10 @@ class AccountController extends AbstractController
                     ));
                     $this->response->redirect('account/edit/2');
                 } else {
-                    HandlerSession::push(
-                        $this->session,
-                        'alerts',
-                        new Alert($updateUserMsg->getErrors(), Alert::LV_ERROR)
-                    );
+                    HandlerSession::push($this->session, 'alerts', new Alert(
+                        $updateUserMsg->getErrors(), 
+                        Alert::LV_ERROR
+                    ));
                 }
             }
 
