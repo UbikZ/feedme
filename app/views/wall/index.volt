@@ -76,9 +76,30 @@
                                                 the like)
                                             </p>
 
-                                            <p class="answer">
-
-                                            </p>
+                                            <div class="answer">
+                                                <div class="messages">
+                                                    <a href="#" class="pull-left">
+                                                        {{image('img', 'class':'image-circle',
+                                                        'src':'assets/dashboard/img/profiles/face-1.png')}}
+                                                    </a>
+                                                    <strong>Gabriel Malet</strong>
+                                                    <small class="text-muted">4:21 pm - 12.06.2014</small>
+                                                    <div>
+                                                        Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                        industry.
+                                                        Lorem
+                                                        Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                        Over the years, sometimes by accident, sometimes on purpose (injected
+                                                        humour
+                                                        and
+                                                        the like)
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div class="reply">
+                                                    <input type="text" class="form-control" placeholder="Write a messsage"/>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="feed-element">

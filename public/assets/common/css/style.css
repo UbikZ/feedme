@@ -1752,11 +1752,7 @@ button.dim:active:before {
     overflow: hidden;
 }
 
-.feed-element img {
-    width: 50px;
-}
-
-.feed-element > .pull-left {
+.feed-element .pull-left {
     margin-right: 10px;
 }
 

@@ -46,3 +46,20 @@ h2 small {
     border: 1px solid #e5e6e7;
 }
 
+
+.feed-element img {
+    width: 50px;
+}
+
+.feed-element .answer {
+    font-size: 0.8em;
+}
+
+.feed-element .answer img {
+    width: 35px;
+}
+
+.feed-element .answer .divider {
+    margin: 16px 0;
+    border-bottom: 1px solid #E7EAEC;
+}
