@@ -59,7 +59,7 @@ h2 small {
     width: 35px;
 }
 
-.feed-element .answer .divider {
+.divider {
     margin: 16px 0;
     border-bottom: 1px solid #E7EAEC;
 }

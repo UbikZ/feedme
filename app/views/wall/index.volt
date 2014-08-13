@@ -55,6 +55,12 @@
                         <div class="ibox-content">
                             <div>
                                 <div class="feed-activity-list">
+                                    <div>
+                                        <form id="new-message" method="post">
+                                            <input name="new-message" type="text" class="form-control" placeholder="Write a message"/>
+                                            <div class="divider"></div>
+                                        </form>
+                                    </div>
                                     <div class="feed-element">
                                         <a href="#" class="pull-left">
                                             {{image('img', 'class':'image-circle',
@@ -97,7 +103,9 @@
                                                 </div>
                                                 <div class="divider"></div>
                                                 <div class="reply">
-                                                    <input type="text" class="form-control" placeholder="Write a messsage"/>
+                                                    <form id="new-message" method="post">
+                                                        <input type="text" class="form-control" placeholder="Write a messsage"/>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
