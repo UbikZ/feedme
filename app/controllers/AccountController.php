@@ -72,7 +72,7 @@ class AccountController extends AbstractController
             $selectPictureMsg = Service::getService('UserPicture')->find(new SelectUserPicture());
             $images = $selectPictureMsg->getSuccess() ? $selectPictureMsg->getMessage() : array();
 
-            $this->view->setVar("name", array("main" => "Account", "sub" => "Profile"));
+            $this->view->setVar("name", array("main" => "Account", "sub" => "Manager"));
             $queryPictures = new SelectUserPicture();
             $this->view->setVar("images", $images);
             $this->view->setVar("user", $user);
