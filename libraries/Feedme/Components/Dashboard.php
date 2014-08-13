@@ -88,7 +88,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
     }
 
     /**
-     * @param array $category
+     * @param  array $category
      * @return bool
      */
     private function _isActive(array $category)

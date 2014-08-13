@@ -8,7 +8,6 @@ use Feedme\Models\Messages\Requests\User\Update;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Feedme\Session\Handler as HandlerSession;
-use Feedme\Utils\Extract;
 use Phalcon\Mvc\View;
 
 class AccountController extends AbstractController
@@ -63,7 +62,7 @@ class AccountController extends AbstractController
                     $this->response->redirect('account/edit/2');
                 } else {
                     HandlerSession::push($this->session, 'alerts', new Alert(
-                        $updateUserMsg->getErrors(), 
+                        $updateUserMsg->getErrors(),
                         Alert::LV_ERROR
                     ));
                 }

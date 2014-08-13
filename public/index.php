@@ -4,6 +4,7 @@ defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'dev'));
 define('ROOT_PATH', __DIR__ . '/..');
 define('APP_PATH', ROOT_PATH . '/app');
+define('CONF_PATH', APP_PATH . '/config');
 define('LIBRARY_PATH', ROOT_PATH . '/libraries');
 define('DATA_PATH', ROOT_PATH . '/data');
 define('CACHE_PATH', ROOT_PATH . '/data/cache');

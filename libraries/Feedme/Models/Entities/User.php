@@ -48,7 +48,7 @@ class User extends \Phalcon\Mvc\Model
     }
 
     /**
-     * @param null $parameters
+     * @param  null        $parameters
      * @return UserPicture
      */
     public function getUserPicture($parameters = null)
@@ -71,7 +71,6 @@ class User extends \Phalcon\Mvc\Model
     {
         return $this->picture;
     }
-
 
     /**
      * @param boolean $active

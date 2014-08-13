@@ -11,7 +11,7 @@ use Feedme\Models\Services\Exceptions\ServiceException;
 class UserPicture
 {
     /**
-     * @param Select $query
+     * @param  Select         $query
      * @return ServiceMessage
      */
     public function find(Select $query)

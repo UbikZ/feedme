@@ -11,18 +11,16 @@ return array(
         'js' => array(
             $externLibPath . '/jquery/dist/jquery.js',
             $externLibPath . '/bootstrap/dist/js/bootstrap.js',
-            $externLibPath . '/jquery.gritter/js/jquery.gritter.js',
-
+            $externLibPath . '/notifyjs/dist/notify.js',
+            $externLibPath . '/notifyjs/dist/styles/bootstrap/notify-bootstrap.js',
         ),
         'css' => array(
             $externLibPath . '/bootstrap/dist/css/bootstrap.css',
             $externLibPath . '/animate.css/animate.css',
             $externLibPath . '/font-awesome/css/font-awesome.css',
-            $externLibPath . '/jquery.gritter/css/jquery.gritter.css',
             $internLibPath . '/common/css/kill-bootstrap.css',
             $internLibPath . '/common/css/theme.css',
             $internLibPath . '/common/css/style.css',
-
         )
     ),
     /* Local configuration */
@@ -36,11 +34,13 @@ return array(
     // Dashboard
     'dash' => array(
         'js' => array(
-            $internLibPath . '/dasboard/js/jquery.menu.js',
             $internLibPath . '/dasboard/js/theme.js',
+            $internLibPath . '/dasboard/js/jquery.menu.js',
+            $externLibPath . '/pace/pace.js',
         ),
         'css' => array(
             $internLibPath . '/dashboard/css/style.css',
+            $externLibPath . '/pace/themes/pace-theme-minimal.css',
         )
     )
 );

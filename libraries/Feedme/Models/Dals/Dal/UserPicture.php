@@ -8,7 +8,7 @@ use Feedme\Models\Entities\UserPicture as EntityUserPicture;
 class UserPicture
 {
     /**
-     * @param Select $query
+     * @param  Select              $query
      * @return EntityUserPicture[]
      */
     public function find(Select $query)
