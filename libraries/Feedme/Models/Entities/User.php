@@ -8,6 +8,8 @@ class User extends \Phalcon\Mvc\Model
 {
     // Foreign key
     private $_userPictureFK = 'Feedme\\Models\\Entities\\UserPicture';
+    private $_userWallPK = 'Feedme\\Models\\Entities\\UserWall';
+    private $_userWallMessagePK = 'Feedme\\Models\\Entities\\UserWallMessage';
 
     /** @var  int */
     protected $id;
@@ -45,6 +47,15 @@ class User extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->hasOne('picture', $this->_userPictureFK, 'id');
+        $this->hasManyToMany(
+            'id',
+            $this->_userWallPK,
+            'idUser',
+            'idMessage',
+            $this->_userWallMessagePK,
+            'id',
+            array('alias' => 'messages')
+        );
     }
 
     /**
