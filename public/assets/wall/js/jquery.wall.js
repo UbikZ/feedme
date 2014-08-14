@@ -15,6 +15,8 @@
                     if (!o.success) {
                         console.info('not good');
                     } else {
+                        $('#count_post').text(o.countPosts);
+                        // Render with blueimp
                         tmpl.regexp = /([\s'\\])(?!(?:[^[]|\[(?!%))*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
                         $render = tmpl("tmpl-feeds", o);
                         $this.find('.messages').html($render);
