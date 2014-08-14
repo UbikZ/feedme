@@ -249,7 +249,7 @@ class User extends \Phalcon\Mvc\Model
     {
         $result = array();
         $_allowed =
-            array('id', 'fistname', 'lastname', 'username', 'email', 'password', 'datetime', 'admin', 'active');
+            array('id', 'firstname', 'lastname', 'username', 'email', 'password', 'datetime', 'admin', 'active');
         foreach ($this as $propName => $propValue) {
             if (in_array($propName, $_allowed)) {
                 $result[$propName] = $propValue;

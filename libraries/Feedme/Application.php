@@ -181,6 +181,7 @@ class Application
                 ->addJs($prefixPath . '/bootstrap/dist/js/bootstrap.js')
                 ->addJs($prefixPath . '/notifyjs/dist/notify.js')
                 ->addJs($prefixPath . '/notifyjs/dist/styles/bootstrap/notify-bootstrap.js')
+                ->addJs($prefixPath . '/blueimp-tmpl/js/tmpl.js')
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
@@ -252,6 +253,7 @@ class Application
             $view = new View();
             $view->setViewsDir(ROOT_PATH . $this->getConf()->application->viewsDir);
             $view->registerEngines(array(
+                ".phtml" => "Phalcon\Mvc\View\Engine\Php",
                 ".volt" => 'volt'
             ));
 

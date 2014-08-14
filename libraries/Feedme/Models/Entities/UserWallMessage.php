@@ -134,7 +134,7 @@ class UserWallMessage extends \Phalcon\Mvc\Model
     public function getSerializable($bBase = false)
     {
         $result = array();
-        $_allowed = array('id', 'message', 'adddae');
+        $_allowed = array('id', 'message', 'adddate');
         foreach ($this as $propName => $propValue) {
             if (in_array($propName, $_allowed)) {
                 $result[$propName] = $propValue;

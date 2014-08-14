@@ -6,6 +6,7 @@
         "bootstrap": "3.1.1",
         "notifyjs": "0.3.2",
         "animate.css": "3.2.0",
-        "pace": "0.5.5"
+        "pace": "0.5.5",
+        "blueimp-tmpl": "2.5.4"
     }
 }

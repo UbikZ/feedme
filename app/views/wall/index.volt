@@ -62,7 +62,15 @@
                         <div class="ibox-content">
                             <div>
                                 <div class="feed-activity-list">
-                                    {% include "wall/partials/wall_messages" with ['currentUser': currentUser] %}
+                                    <div>
+                                        <form id="new-message" method="post">
+                                            <input name="new-message" type="text" class="form-control" placeholder="Write a message"/>
+                                            <div class="divider"></div>
+                                        </form>
+                                    </div>
+                                    <div class="messages">
+                                        {% include "wall/partials/wall_messages.volt" %}
+                                    </div>
                                     <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> Show
                                         More
                                     </button>

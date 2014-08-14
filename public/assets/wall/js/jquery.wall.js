@@ -11,10 +11,13 @@
             return this.each(function () {
                 var $this = $(this);
                 $.get(url, function(data) {
-                    if (!data.success) {
+                    o = JSON.parse(data);
+                    if (!o.success) {
                         console.info('not good');
                     } else {
-                        console.info('good');
+                        tmpl.regexp = /([\s'\\])(?!(?:[^[]|\[(?!%))*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
+                        $render = tmpl("tmpl-feeds", o);
+                        $this.find('.messages').html($render);
                     }
                 });
             });

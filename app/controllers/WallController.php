@@ -36,7 +36,7 @@ class WallController extends AbstractController
             array(
                 'success' => $countUserWallMsg->getSuccess(),
                 'countPosts' => $countUserWallMsg->getMessage(),
-                'wallMessages' => $this->_currentUser->getSerializable()
+                'messages' => $this->_currentUser->getSerializable()['messages']
             )
         ));
 

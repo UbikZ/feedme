@@ -1,33 +1,28 @@
-<div>
-    <form id="new-message" method="post">
-        <input name="new-message" type="text" class="form-control" placeholder="Write a message"/>
-        <div class="divider"></div>
-    </form>
-</div>
-{% for message in currentUser.messages %}
+<script type="text/x-tmpl" id="tmpl-feeds">
+[% for (var i=0; i<o.messages.length; i++) { %]
 <div class="feed-element">
     <a href="#" class="pull-left">
-        {{image('img', 'class':'image-circle', 'src':message.getUserSrc().getUserPicture().getPath())}}
     </a>
 
     <div class="media-body ">
-        <strong>{{message.getUserSrc().getFirstname()}}&nbsp;{{message.getUserSrc().getLastname()}}</strong>.
+        <strong>[%=o.messages[i].user.firstname%]&nbsp;[%=o.messages[i].user.lastname%]</strong>.
         <br>
-        <small class="text-muted">{{message.getAdddate()}}</small>
-        <p>{{message.getMessage()}}</p>
+        <small class="text-muted">[%=o.messages[i].adddate%]</small>
+        <p>[%=o.messages[i].message%]</p>
 
         <div class="answer">
-            {% for answer in message.getAnswers() %}
+            [% for (var j=0; j<o.messages[i].answers.length; j++) { %]
             <div class="messages">
                 <a href="#" class="pull-left">
-                    {{image('img', 'class':'image-circle', 'src':answer.getUserSrc().getUserPicture().getPath())}}
                 </a>
-                <strong>{{answer.getUserSrc().getFirstname()}}&nbsp;{{answer.getUserSrc().getLastname()}}</strong>.
-                <small class="text-muted">{{answer.getAdddate()}}</small>
-                <p>{{answer.getMessage()}}</p>
-
+                <strong>
+                    [%=o.messages[i].answers[j].user.firstname%]&nbsp;
+                    [%=o.messages[i].answers[j].user.lastname%]
+                </strong>.
+                <small class="text-muted">[%=o.messages[i].answers[j].adddate%]</small>
+                <p>[%=o.messages[i].answers[j].message%]</p>
             </div>
-            {% endfor %}
+            [% } %]
             <div class="divider"></div>
             <div class="reply">
                 <form id="new-message" method="post">
@@ -37,4 +32,5 @@
         </div>
     </div>
 </div>
-{% endfor %}
+[% } %]
+</script>
