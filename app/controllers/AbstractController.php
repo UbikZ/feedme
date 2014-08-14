@@ -1,11 +1,14 @@
 <?php
 
+use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\User\Select;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 
 class AbstractController extends Phalcon\Mvc\Controller
 {
+    /** @var User */
+    protected $_currentUser = null;
 
     protected function initialize()
     {
@@ -18,7 +21,8 @@ class AbstractController extends Phalcon\Mvc\Controller
             $findUserMsg = Service::getService('User')->findFirst($query);
 
             if ($findUserMsg->getSuccess()) {
-                $this->view->setVar('currentUser', $findUserMsg->getMessage());
+                $this->_currentUser = $findUserMsg->getMessage();
+                $this->view->setVar('currentUser', $this->_currentUser);
             }
         }
     }

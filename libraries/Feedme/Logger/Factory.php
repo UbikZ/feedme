@@ -6,6 +6,11 @@ use Feedme\Logger\Exceptions\AdapterException;
 
 class Factory
 {
+    /**
+     * @param $path
+     * @return \Phalcon\Logger\Adapter\File
+     * @throws Exceptions\AdapterException
+     */
     public static function getLogger($path)
     {
         /*

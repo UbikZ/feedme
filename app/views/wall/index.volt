@@ -1,3 +1,10 @@
+<!-- todo: improve this to add javascript on load with PHALCON TAG -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.feed-activity-list').wall('loadWall', "{{url('wall/information')}}");
+    });
+</script>
+
 <div id="wrapper">
     {% include "partials/menu" with ['auth': auth] %}
     <div id="page-wrapper" class="gray-bg">

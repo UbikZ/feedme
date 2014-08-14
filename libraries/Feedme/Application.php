@@ -229,6 +229,15 @@ class Application
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
+            // Local js (wall)
+            $assetManager
+                ->collection('wall-js')
+                ->setTargetPath('cache/wall.min.js')
+                ->setTargetUri('cache/wall.min.js')
+                ->addJs('assets/wall/js/jquery.wall.js')
+                ->join($bMinify)
+                ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+
             return $assetManager;
         });
     }

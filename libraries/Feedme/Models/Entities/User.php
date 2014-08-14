@@ -244,4 +244,9 @@ class User extends \Phalcon\Mvc\Model
 
         return !$this->validationHasFailed();
     }
+
+    public function getJson()
+    {
+        //todo
+    }
 }
