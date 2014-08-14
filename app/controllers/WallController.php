@@ -42,4 +42,16 @@ class WallController extends AbstractController
 
         return $response;
     }
+
+    public function postAction()
+    {
+        $this->view->disable();
+
+        // todo
+
+        $response = new Response();
+        $response->setContent(json_encode(array('success' => true)));
+
+        return $response;
+    }
 }

@@ -6,11 +6,12 @@
             });
         },
 
-        load: function (url) {
-            var urlLoad = url;
+        load: function (urlGet, urlPost, idUser) {
+            var urlLoad = urlGet;
+            var urlPost = urlPost;
             return this.each(function () {
                 var $this = $(this);
-                $.get(url, function (data) {
+                $.get(urlLoad, function (data) {
                     o = JSON.parse(data);
                     if (!o.success) {
                         console.info('not good');
@@ -20,18 +21,20 @@
                         tmpl.regexp = /([\s'\\])(?!(?:[^[]|\[(?!%))*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
                         $render = tmpl("tmpl-feeds", o);
                         $this.find('.messages').html($render);
+                        // Post
+                        methods.handlePost(urlPost, idUser);
                     }
                 });
             });
         },
 
         handlePost: function (url, idUser) {
-            var urlPost = url;
-            return this.each(function () {
-                var $this = $(this);
-                $this.find('form input[type=text]').keypress(function (event) {
+            $.each($('form.form-message input.message'), function (i, el) {
+                console.info($(el));
+                $(this).keypress(function (event) {
                     if (event.which == 13) {
                         event.preventDefault();
+                        console.info($(this).parent('form').serialize());
                     }
                 });
             });

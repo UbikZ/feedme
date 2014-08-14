@@ -25,9 +25,9 @@
             [% } %]
             <div class="divider"></div>
             <div class="reply">
-                <form class="new-message" method="post">
+                <form class="form-message" method="post">
                     <input type="hidden" name="idMessageSrc" value="[%=o.messages[i].id%]"/>
-                    <input type="text" name="message" class="form-control" placeholder="Write a messsage"/>
+                    <input type="text" name="message" class="form-control message" placeholder="Write a messsage"/>
                 </form>
             </div>
         </div>
