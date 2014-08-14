@@ -76,4 +76,17 @@ class UserPicture extends \Phalcon\Mvc\Model
     {
         return $this->path;
     }
+
+    public function getSerializable()
+    {
+        $result = array();
+        $_allowed = array('id', 'path', 'description', 'active');
+        foreach ($this as $propName => $propValue) {
+            if (in_array($propName, $_allowed)) {
+                $result[$propName] = $propValue;
+            }
+        }
+
+        return $result;
+    }
 }

@@ -33,11 +33,19 @@ class UserWallMessage extends \Phalcon\Mvc\Model
         );
     }
 
+    /**
+     * @param  null            $parameters
+     * @return UserWallMessage
+     */
     public function getAnswers($parameters = null)
     {
         return $this->getRelated(get_class($this), $parameters);
     }
 
+    /**
+     * @param  null $parameters
+     * @return User
+     */
     public function getUserSrc($parameters = null)
     {
         return $this->getRelated($this->_user, $parameters);
@@ -121,5 +129,26 @@ class UserWallMessage extends \Phalcon\Mvc\Model
     public function getMessage()
     {
         return $this->message;
+    }
+
+    public function getSerializable($bBase = false)
+    {
+        $result = array();
+        $_allowed = array('id', 'message', 'adddae');
+        foreach ($this as $propName => $propValue) {
+            if (in_array($propName, $_allowed)) {
+                $result[$propName] = $propValue;
+            }
+        }
+        $result['user'] = $this->getUserSrc()->getSerializable(true);
+        $result['answers'] = array();
+        if (!$bBase) {
+            /** @var UserWallMessage $message */
+            foreach ($this->getAnswers() as $message) {
+                $result['answers'][] = $message->getSerializable(true);
+            }
+        }
+
+        return $result;
     }
 }

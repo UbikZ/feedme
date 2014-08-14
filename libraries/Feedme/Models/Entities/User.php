@@ -245,8 +245,25 @@ class User extends \Phalcon\Mvc\Model
         return !$this->validationHasFailed();
     }
 
-    public function getJson()
+    public function getSerializable($bBase = false)
     {
-        //todo
+        $result = array();
+        $_allowed =
+            array('id', 'fistname', 'lastname', 'username', 'email', 'password', 'datetime', 'admin', 'active');
+        foreach ($this as $propName => $propValue) {
+            if (in_array($propName, $_allowed)) {
+                $result[$propName] = $propValue;
+            }
+        }
+        $result['picture'] = $this->getUserPicture()->getSerializable();
+        if (!$bBase) {
+            $result['messages'] = array();
+            /** @var UserWallMessage $message */
+            foreach ($this->messages as $message) {
+                $result['messages'][] = $message->getSerializable();
+            }
+        }
+
+        return $result;
     }
 }
