@@ -20,7 +20,7 @@ class UserWallMessage extends \Phalcon\Mvc\Model
 
     public function initialize()
     {
-        $this->hasMany('idMessageSrc', get_class($this), 'id');
+        $this->hasMany('id', get_class($this), 'idMessageSrc');
         $this->hasOne('idUserSrc', $this->_user, 'id');
         $this->hasManyToMany(
             'id',

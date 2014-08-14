@@ -82,7 +82,6 @@ INSERT INTO `user_wall`
 (`idUser`, `idMessage`, `active`)
 VALUES
 (1, 1, '1'),
-(1, 2, '1'),
 (2, 3, '1');
 
 SET FOREIGN_KEY_CHECKS=1;
