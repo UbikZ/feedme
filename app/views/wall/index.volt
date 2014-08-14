@@ -1,7 +1,8 @@
 <!-- todo: improve this to add javascript on load with PHALCON TAG -->
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.feed-activity-list').wall('loadWall', "{{url('wall/information')}}");
+        $('.feed-activity-list').wall('load', "{{url('wall/information')}}");
+        $('.feed-activity-list').wall('handlePost', "{{url('wall/post')}}", {{currentUser.getId()}});
     });
 </script>
 
@@ -66,7 +67,7 @@
                             <div>
                                 <div class="feed-activity-list">
                                     <div>
-                                        <form id="new-message" method="post">
+                                        <form class="new-message" method="post">
                                             <input name="new-message" type="text" class="form-control" placeholder="Write a message"/>
                                             <div class="divider"></div>
                                         </form>

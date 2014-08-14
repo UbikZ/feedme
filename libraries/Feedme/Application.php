@@ -262,7 +262,10 @@ class Application
 
         $di->set('volt', function ($view, $di) {
             $volt = new Volt($view, $di);
-            $volt->setOptions(array("compiledPath" => CACHE_PATH . "/volt/"));
+            $volt->setOptions(array(
+                "compiledPath" => CACHE_PATH . "/volt/",
+                "compileAlways" => $this->getConf()->application->volt->compile
+            ));
 
             return $volt;
         }, true);
