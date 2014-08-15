@@ -154,7 +154,7 @@ class UserWallMessage extends \Phalcon\Mvc\Model
             }
 
             // todo: clean dat dirty thing
-            usort($result['answers'], function($a, $b) {
+            usort($result['answers'], function ($a, $b) {
                 $tsA = date_create_from_format('H\hi Y-m-d', $a['adddate'])->getTimestamp();
                 $tsB = date_create_from_format('H\hi Y-m-d', $b['adddate'])->getTimestamp();
 

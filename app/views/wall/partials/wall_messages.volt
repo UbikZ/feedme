@@ -1,8 +1,7 @@
 <script type="text/x-tmpl" id="tmpl-feeds">
 [% for (var i=0; i<o.messages.length; i++) { %]
 <div class="feed-element">
-    <a href="#" class="pull-left">
-    </a>
+    <a href="#" class="pull-left"></a>
 
     <div class="media-body ">
         <strong>[%=o.messages[i].user.firstname%]&nbsp;[%=o.messages[i].user.lastname%]</strong>.

@@ -11,7 +11,7 @@ use Feedme\Models\Services\Exceptions\ServiceException;
 class UserWallMessage
 {
     /**
-     * @param Insert $request
+     * @param  Insert         $request
      * @return ServiceMessage
      */
     public function insert(Insert $request)

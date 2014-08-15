@@ -1,7 +1,6 @@
 <?php
 
 use Feedme\Models\Messages\Filters\UserWall\Select as SelectUserWall;
-use Feedme\Models\Messages\Requests\User\Update;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
