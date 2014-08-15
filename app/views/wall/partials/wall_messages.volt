@@ -1,7 +1,9 @@
 <script type="text/x-tmpl" id="tmpl-feeds">
 [% for (var i=0; i<o.messages.length; i++) { %]
 <div class="feed-element">
-    <a href="#" class="pull-left"></a>
+    <a href="#" class="pull-left">
+        <img class="image-circle" src="[%=o.baseUri%][%=o.messages[i].user.picture.path%]" />
+    </a>
 
     <div class="media-body ">
         <strong>[%=o.messages[i].user.firstname%]&nbsp;[%=o.messages[i].user.lastname%]</strong>.
@@ -13,6 +15,7 @@
             [% for (var j=0; j<o.messages[i].answers.length; j++) { %]
             <div class="messages">
                 <a href="#" class="pull-left">
+                    <img class="image-circle" src="[%=o.baseUri%][%=o.messages[i].answers[j].user.picture.path%]" />
                 </a>
                 <strong>
                     [%=o.messages[i].answers[j].user.firstname%]&nbsp;
@@ -33,4 +36,5 @@
     </div>
 </div>
 [% } %]
+
 </script>
