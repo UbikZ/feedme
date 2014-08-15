@@ -13,7 +13,7 @@ class UserWallMessage
         // Insert in UserWallMessage
         $userWallMessage = new EntityUserWallMessage();
         $userWallMessage->setMessage($request->message);
-        $userWallMessage->setAdddate((new \DateTime())->format('yyyy-MM-dd HH:mm:ss'));
+        $userWallMessage->setAdddate((new \DateTime())->format('Y-m-d H:i:s '));
         $userWallMessage->setIdMessageSrc($request->idMessageSrc);
         $userWallMessage->setIdUserSrc($request->idUserSrc);
         $resultWallMessage = $userWallMessage->save();

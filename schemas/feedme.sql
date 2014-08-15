@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `user_wall_message` (
   `idMessageSrc` int(11) DEFAULT NULL,
   `idUserSrc` int(11) NOT NULL,
   `message` varchar(255) DEFAULT NULL,
-  `adddate` date DEFAULT NULL,
+  `adddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT FOREIGN KEY (`idMessageSrc`) REFERENCES `user_wall_message`(`id`),
   CONSTRAINT FOREIGN KEY (`idUserSrc`) REFERENCES `user`(`id`)

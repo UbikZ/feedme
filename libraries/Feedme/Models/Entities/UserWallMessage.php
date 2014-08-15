@@ -138,7 +138,11 @@ class UserWallMessage extends \Phalcon\Mvc\Model
         $_allowed = array('id', 'message', 'adddate');
         foreach ($this as $propName => $propValue) {
             if (in_array($propName, $_allowed)) {
-                $result[$propName] = $propValue;
+                if ('adddate' === $propName) {
+                    $result[$propName] =  (new \DateTime($propValue))->format('H\hi Y-m-d');
+                } else {
+                    $result[$propName] = $propValue;
+                }
             }
         }
         $result['user'] = $this->getUserSrc()->getSerializable(true);
