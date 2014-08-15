@@ -2,8 +2,6 @@
 
 namespace Feedme\Models\Entities;
 
-use Phalcon\Mvc\Url;
-
 class UserPicture extends \Phalcon\Mvc\Model
 {
     /** @var  int */
