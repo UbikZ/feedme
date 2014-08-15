@@ -33,9 +33,12 @@
                 $(this).keypress(function (event) {
                     if (event.which == 13) {
                         event.preventDefault();
-                        $.post(url, $(this).parent('form').serialize()).done(function () {
-                            $('.feed-activity-list').wall('load', urlGet, url, idUser);
-                        });
+                        if ($(this).val() != '') {
+                            $.post(url, $(this).parent('form').serialize()).done(function () {
+                                $('.feed-activity-list').wall('load', urlGet, url, idUser);
+                            });
+                            $(this).val('');
+                        }
                     }
                 });
             });
