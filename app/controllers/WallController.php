@@ -1,6 +1,8 @@
 <?php
 
 use Feedme\Models\Messages\Filters\UserWall\Select as SelectUserWall;
+use Feedme\Models\Messages\Requests\User\Update;
+use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Phalcon\Http\Response;
@@ -16,7 +18,7 @@ class WallController extends AbstractController
         $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 
-    public function indexAction()
+    public function profileAction()
     {
         $this->view->setVar("name", array("main" => "Profile", "sub" => "Wall"));
     }
@@ -45,12 +47,24 @@ class WallController extends AbstractController
 
     public function postAction()
     {
-        $this->view->disable();
-
-        // todo
-
         $response = new Response();
-        $response->setContent(json_encode(array('success' => true)));
+
+        $this->view->disable();
+        $request = $this->request;
+        if ((true === $request->isPost()) && (true === $request->isAjax())) {
+            $insert = new Insert();
+            $insert->idMessageSrc = $request->getPost('idMessageSrc');
+            $insert->idUserSrc = $this->_currentUser->getId();
+            $insert->idUserDest = $request->getPost('idUserDest', null, $this->_currentUser->getId());
+            $insert->message = $request->getPost('message');
+
+            /** @var ServiceMessage $insertMessage */
+            $insertMessage = Service::getService('UserWallMessage')->insert($insert);
+
+            $response->setContent(json_encode(array('success' => $insertMessage->getSuccess())));
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
 
         return $response;
     }

@@ -10,7 +10,8 @@ class UserWallMessage extends \Phalcon\Mvc\Model
     /** @var  int */
     protected $id;
     /** @var  int */
-    protected $idMessaceSrc;
+    protected $idMessageSrc;
+
     /** @var  int */
     protected $idUserSrc;
     /** @var  string */
@@ -68,6 +69,22 @@ class UserWallMessage extends \Phalcon\Mvc\Model
     }
 
     /**
+     * @param int $idMessageSrc
+     */
+    public function setIdMessageSrc($idMessageSrc)
+    {
+        $this->idMessageSrc = $idMessageSrc;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdMessageSrc()
+    {
+        return $this->idMessageSrc;
+    }
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -81,22 +98,6 @@ class UserWallMessage extends \Phalcon\Mvc\Model
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param int $idMessaceSrc
-     */
-    public function setIdMessaceSrc($idMessaceSrc)
-    {
-        $this->idMessaceSrc = $idMessaceSrc;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdMessaceSrc()
-    {
-        return $this->idMessaceSrc;
     }
 
     /**

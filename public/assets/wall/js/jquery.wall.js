@@ -22,19 +22,20 @@
                         $render = tmpl("tmpl-feeds", o);
                         $this.find('.messages').html($render);
                         // Post
-                        methods.handlePost(urlPost, idUser);
+                        methods.handlePost(urlPost, urlGet, idUser);
                     }
                 });
             });
         },
 
-        handlePost: function (url, idUser) {
+        handlePost: function (url, urlGet, idUser) {
             $.each($('form.form-message input.message'), function (i, el) {
-                console.info($(el));
                 $(this).keypress(function (event) {
                     if (event.which == 13) {
                         event.preventDefault();
-                        console.info($(this).parent('form').serialize());
+                        $.post(url, $(this).parent('form').serialize()).done(function () {
+                            $('.feed-activity-list').wall('load', urlGet, url, idUser);
+                        });
                     }
                 });
             });

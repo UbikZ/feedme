@@ -2,6 +2,8 @@
 
 namespace Feedme\Models\Messages\Requests\User;
 
+use Feedme\Models\Entities\UserWallMessage;
+
 class Update
 {
     /** @var  int */

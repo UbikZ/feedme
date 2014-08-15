@@ -13,7 +13,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
     {
         $items = array();
         $this->_addItem($items, 'Profile', array(), 'account', 'edit', array($this->session->get('auth')['id']));
-        $this->_addItem($items, 'Wall', array(), 'wall', 'index');
+        $this->_addItem($items, 'Wall', array(), 'wall', 'profile');
         $this->_addItem($items, '', array('divider'));
         $this->_addItem($items, 'Logout', array(), 'session', 'logout');
 
@@ -42,7 +42,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
         // Fill items
         $itemsAccount = array();
         $this->_addItem($itemsAccount, 'Manage', array(), 'account', 'edit', array($auth['id']));
-        $this->_addItem($itemsAccount, 'Wall', array(), 'wall', 'index');
+        $this->_addItem($itemsAccount, 'Wall', array(), 'wall', 'profile');
         $this->_addItem($itemsAccount, 'Settings');
         $this->_addCat($itemsCats, 'Account', $itemsAccount, 'fa fa-user');
 
