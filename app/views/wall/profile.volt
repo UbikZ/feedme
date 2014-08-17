@@ -72,7 +72,10 @@
                                 <div class="feed-activity-list">
                                     <div>
                                         <form class="form-message" method="post">
-                                            <input name="message" type="text" class="form-control message" placeholder="Write a message"/>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                                                <input name="message" type="text" class="form-control message" placeholder="Write a message"/>
+                                            </div>
                                             <div class="divider"></div>
                                         </form>
                                     </div>
