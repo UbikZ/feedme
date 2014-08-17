@@ -82,9 +82,6 @@
                                     <div class="messages">
                                         {% include "wall/partials/wall_messages.volt" %}
                                     </div>
-                                    <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> Show
-                                        More
-                                    </button>
                                 </div>
                             </div>
                         </div>

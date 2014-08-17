@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `user_wall_message` (
   `message` varchar(255) DEFAULT NULL,
   `adddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT FOREIGN KEY (`idMessageSrc`) REFERENCES `user_wall_message`(`id`),
+  CONSTRAINT FOREIGN KEY (`idMessageSrc`) REFERENCES `user_wall_message`(`id`) ON DELETE CASCADE,
   CONSTRAINT FOREIGN KEY (`idUserSrc`) REFERENCES `user`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS  `user_wall` (
   `idMessage` int(11) DEFAULT NULL,
   `active` enum('1', '0') NOT NULL,
   CONSTRAINT FOREIGN KEY (`idUser`) REFERENCES `user`(`id`),
-  CONSTRAINT FOREIGN KEY (`idMessage`) REFERENCES `user_wall_message`(`id`)
+  CONSTRAINT FOREIGN KEY (`idMessage`) REFERENCES `user_wall_message`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 INSERT INTO `user_wall`

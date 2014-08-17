@@ -1,6 +1,7 @@
 <?php
 
 use Feedme\Models\Messages\Filters\UserWall\Select as SelectUserWall;
+use Feedme\Models\Messages\Filters\UserWallMessage\Select;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
@@ -62,6 +63,28 @@ class WallController extends AbstractController
             $insertMessage = Service::getService('UserWallMessage')->insert($insert);
 
             $response->setContent(json_encode(array('success' => $insertMessage->getSuccess())));
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
+
+        return $response;
+    }
+
+    public function deleteAction($id = null)
+    {
+        $response = new Response();
+
+        $this->view->disable();
+        $request = $this->request;
+        if ((true === $request->isAjax()) && !is_null($id)) {
+            $delete = new Select();
+            $delete->id = $id;
+            $delete->idUserSrc = $this->_currentUser->getId();
+
+            /** @var ServiceMessage $deleteMessage */
+            $deleteMessage = Service::getService('UserWallMessage')->delete($delete);
+
+            $response->setContent(json_encode(array('success' => $deleteMessage->getSuccess())));
         } else {
             $response->setContent(json_encode(array('success' => false)));
         }

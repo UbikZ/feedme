@@ -4,6 +4,7 @@ namespace Feedme\Models\Services\Service;
 
 use Feedme\Logger\Factory;
 use Feedme\Models\Dals\Dal;
+use Feedme\Models\Messages\Filters\UserWallMessage\Select;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Exceptions\ServiceException;
@@ -26,9 +27,37 @@ class UserWallMessage
             $message->setMessage($result);
         } catch (ServiceException $e) {
             $message->setError($e->getMessage());
-            Factory::getLogger('userwallmessage')->error($e->getMessage());
+            Factory::getLogger('userwallmessage')->error($e->getTraceAsString());
         } catch (\Exception $e) {
             $message->setError('An error occured while inserting messages');
+            Factory::getLogger('userwallmessage')->error($e->getMessage());
+        }
+
+        return $message;
+    }
+
+    /**
+     * @param  Select         $query
+     * @return ServiceMessage
+     */
+    public function delete(Select $query)
+    {
+        $message = new ServiceMessage();
+
+        try {
+            if (!is_numeric($query->id)) {
+                throw new  ServiceException('Wrong parameter given');
+            }
+            if (false === ($result = Dal::getRepository('UserWallMessage')->delete($query))) {
+                throw new ServiceException('Fail to delete this post.');
+            }
+            $message->setMessage($result);
+            $message->setSuccess(true);
+        } catch (ServiceException $e) {
+            $message->setError($e->getMessage());
+            Factory::getLogger('userwallmessage')->error($e->getMessage());
+        } catch (\Exception $e) {
+            $message->setError('An error occured while deleting messages');
             Factory::getLogger('userwallmessage')->error($e->getMessage());
         }
 

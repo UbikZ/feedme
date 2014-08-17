@@ -45,7 +45,7 @@ class Security extends Plugin
                     'ressources' => array(
                         'index' => array('index'),
                         'dashboard' => array('index', 'profile'),
-                        'wall' => array('profile', 'information', 'post'),
+                        'wall' => array('profile', 'information', 'post', 'delete'),
                         'session' => array('logout'),
                         'account' => array('edit')
                     )
@@ -55,7 +55,7 @@ class Security extends Plugin
                     'ressources' => array(
                         'index' => array('index'),
                         'admin' => array('index'),
-                        'wall' => array('profile', 'information', 'post'),
+                        'wall' => array('profile', 'information', 'post', 'delete'),
                         'dashboard' => array('index', 'profile'),
                         'session' => array('logout'),
                         'account' => array('edit')

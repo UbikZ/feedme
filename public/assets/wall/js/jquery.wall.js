@@ -7,14 +7,13 @@
         },
 
         load: function (urlGet, urlPost, idUser) {
-            var urlLoad = urlGet;
-            var urlPost = urlPost;
             return this.each(function () {
                 var $this = $(this);
-                $.get(urlLoad, function (data) {
-                    o = JSON.parse(data);
+                $.get(urlGet, function (data) {
+                    var o = JSON.parse(data);
                     if (!o.success) {
-                        console.info('not good');
+                        // todo : create notifs for this
+                        console.error('Fail to load wall');
                     } else {
                         $('#count_post').text(o.countPosts);
                         // Render with blueimp (add new syntax to not interfer with volt syntax)
@@ -22,24 +21,42 @@
                         $render = tmpl("tmpl-feeds", o);
                         $this.find('.messages').html($render);
                         // Post
-                        methods.handlePost(urlPost, urlGet, idUser);
+                        methods.handlePost(urlGet, urlPost, idUser);
+                        methods.handleDelete(urlGet, urlPost, idUser);
                     }
                 });
             });
         },
 
-        handlePost: function (url, urlGet, idUser) {
+        handlePost: function (urlGet, urlPost, idUser) {
             $.each($('form.form-message input.message'), function (i, el) {
                 $(this).keypress(function (event) {
                     if (event.which == 13) {
                         event.preventDefault();
                         if ($(this).val() != '') {
-                            $.post(url, $(this).parent('form').serialize()).done(function () {
-                                $('.feed-activity-list').wall('load', urlGet, url, idUser);
+                            $.post(urlPost, $(this).parents('form').serialize()).done(function () {
+                                $('.feed-activity-list').wall('load', urlGet, urlPost, idUser);
                             });
                             $(this).val('');
                         }
                     }
+                });
+            });
+        },
+
+        handleDelete: function(urlGet, urlPost, idUser) {
+            $.each($('.messages .delete a'), function (i, el) {
+                $(el).click(function(event) {
+                    event.preventDefault();
+                    $.get($(this).attr('href'), function(data) {
+                        var o = JSON.parse(data);
+                        if (!o.success) {
+                            // todo : create notifs for this
+                            console.error('Fail to delete message');
+                        } else {
+                            $('.feed-activity-list').wall('load', urlGet, urlPost, idUser);
+                        }
+                    });
                 });
             });
         }
