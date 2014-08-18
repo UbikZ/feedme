@@ -52,6 +52,7 @@ class AccountController extends AbstractController
                 $request->picture = $this->request->getPost('picture');
                 $request->society = $this->request->getPost('society');
                 $request->address = $this->request->getPost('address');
+                $request->about = $this->request->getPost('about');
 
                 /** @var ServiceMessage $updateUserMsg */
                 $updateUserMsg = Service::getService('User')->update($request);

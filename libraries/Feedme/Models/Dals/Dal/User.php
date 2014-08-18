@@ -57,7 +57,9 @@ class User
         if (!is_null($request->society)) {
             $user->setSociety($request->society);
         }
-
+        if (!is_null($request->about)) {
+            $user->setAbout($request->about);
+        }
     }
 
     /**

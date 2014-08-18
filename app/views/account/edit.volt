@@ -63,6 +63,12 @@
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">About me</label>
+                                    <div class="col-sm-10">
+                                        {{ text_area("about", "class":"form-control", "value":user.getAbout()) }}
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
                                 {{ hidden_field('picture', 'value': user.getUserPicture().getId()) }}
                                 <div class="form-group"><label class="col-sm-2 control-label">Image Profile</label>
                                     <div class="row">

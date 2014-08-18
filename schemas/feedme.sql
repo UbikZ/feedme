@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   `society` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
+  `about` varchar(255) DEFAULT NULL,
   `profilePicture` varchar(255) DEFAULT NULL,
   `datetime` date DEFAULT NULL,
   `admin` enum('1','0') NOT NULL,

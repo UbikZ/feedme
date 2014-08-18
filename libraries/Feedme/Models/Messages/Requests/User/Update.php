@@ -20,6 +20,8 @@ class Update
     public $society;
     /** @var  string */
     public $address;
+    /** @var  string */
+    public $about;
     /** @var  boolean */
     public $active;
     /** @var  int */

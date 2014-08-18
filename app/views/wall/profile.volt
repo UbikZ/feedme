@@ -33,14 +33,12 @@
                                     </strong>
                                 </h4>
 
-                                <p><i class="fa fa-map-marker"></i>&nbsp;My address</p>
-                                <h5>About me</h5>
-
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
+                                    <i class="fa fa-institution"></i>&nbsp;{{user.getSociety()}}&nbsp;
+                                    <i class="fa fa-map-marker"></i>&nbsp;{{user.getAddress()}}
                                 </p>
+                                <h5>About me</h5>
+                                <p>{{user.getAbout()}}</p>
 
                                 <div class="row m-t-lg">
                                     <div class="col-md-4">

@@ -36,6 +36,9 @@ class User extends \Phalcon\Mvc\Model
     protected $address;
 
     /** @var  string */
+    protected $about;
+
+    /** @var  string */
     protected $profilePicture;
 
     /** @var  \DateTime */
@@ -92,6 +95,22 @@ class User extends \Phalcon\Mvc\Model
     public function setPicture($picture)
     {
         $this->picture = $picture;
+    }
+
+    /**
+     * @param string $about
+     */
+    public function setAbout($about)
+    {
+        $this->about = $about;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbout()
+    {
+        return $this->about;
     }
 
     /**
