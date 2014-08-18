@@ -48,10 +48,10 @@
                                         </h5>
                                     </div>
                                     <div class="col-md-4">
-                                        <h5><i class="fa fa-star"></i>&nbsp;<strong>28</strong>&nbsp;Favorites</h5>
+                                        <h5><i class="fa fa-star"></i>&nbsp;<strong>0</strong>&nbsp;Favorites</h5>
                                     </div>
                                     <div class="col-md-4">
-                                        <h5><i class="fa fa-heart"></i>&nbsp;<strong>240</strong>&nbsp;Likes</h5>
+                                        <h5><i class="fa fa-heart"></i>&nbsp;<strong>0</strong>&nbsp;Likes</h5>
                                     </div>
                                 </div>
                             </div>

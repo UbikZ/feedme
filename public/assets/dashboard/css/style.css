@@ -72,3 +72,7 @@ h2 small {
 .media-body .pull-right .delete {
     text-align: right;
 }
+
+.file-box {
+    width: 100%;
+}

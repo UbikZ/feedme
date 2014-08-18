@@ -1,12 +1,13 @@
 {
-    "name":"Feedme",
-    "version":"0.0.1",
+    "name": "Feedme",
+    "version": "0.0.1",
     "dependencies": {
         "font-awesome": "4.1.0",
         "bootstrap": "3.1.1",
         "notifyjs": "0.3.2",
         "animate.css": "3.2.0",
         "pace": "0.5.5",
-        "blueimp-tmpl": "2.5.4"
+        "blueimp-tmpl": "2.5.4",
+        "bootstrap-file-input": "1.0.0"
     }
 }
