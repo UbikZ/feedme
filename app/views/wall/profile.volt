@@ -8,7 +8,6 @@
         );
     });
 </script>
-
 <div id="wrapper">
     {% include "partials/menu" with ['auth': auth] %}
     <div id="page-wrapper" class="gray-bg">

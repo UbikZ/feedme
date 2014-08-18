@@ -6,17 +6,15 @@
             });
         },
 
-        search: function (needle) {
+        search: function () {
             return this.each(function () {
                 var $this = $(this);
-                $.get($this.attr('href'), function (data) {
-                    var o = JSON.parse(data);
-                    if (!o.success) {
-                        // todo : create notifs for this
-                        console.error('Fail to load wall');
-                    } else {
-
-                    }
+                $this.keyup(function(event) {
+                    var value = $(this).val();
+                    $('div.contact-box').each(function() {
+                        var $parent = $(this).parent('.box');
+                        $parent.toggleClass('hide', $(this).data('keysearch').search(new RegExp(value, 'i')) == -1);
+                    });
                 });
             });
         }

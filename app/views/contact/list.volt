@@ -1,3 +1,9 @@
+<!-- todo: improve this to add javascript on load with PHALCON TAG -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#search').contact('search');
+    });
+</script>
 <div id="wrapper">
     {% include "partials/menu" with ['auth': auth] %}
     <div id="page-wrapper" class="gray-bg">
@@ -5,9 +11,31 @@
         {% include "partials/breadcrumb" with ['name': name] %}
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Search contact
+                                <small>You can search one contact here by fistname, lastname or username.</small>
+                            </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    {{ text_field("search", "class":"form-control", "placeholder":"Search you contact")
+                                    }}
+                                </div>
+                            </div>
+                            </br>
+                        </div>
+                    </div>
+                </div>
                 {% for user in users %}
-                <div class="col-lg-4">
-                    <div class="contact-box">
+                <div class="col-lg-4 box">
+                    <div
+                        class="contact-box"
+                        data-keysearch=
+                                "{{user.getUsername()|lower}} {{user.getFirstname()|lower}} {{user.getLastname()|lower}}"
+                    >
                         <a href="{{url('wall/profile')}}/{{user.getId()}}">
                             <div class="col-sm-4">
                                 <div class="text-center">
