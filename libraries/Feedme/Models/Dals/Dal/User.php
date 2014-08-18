@@ -51,6 +51,13 @@ class User
         if (!is_null($request->active)) {
             $user->setActive($request->active);
         }
+        if (!is_null($request->address)) {
+            $user->setAddress($request->address);
+        }
+        if (!is_null($request->society)) {
+            $user->setSociety($request->society);
+        }
+
     }
 
     /**

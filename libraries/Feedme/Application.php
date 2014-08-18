@@ -292,7 +292,8 @@ class Application
                 "host" => $this->getConf()->database->host,
                 "username" => $this->getConf()->database->username,
                 "password" => $this->getConf()->database->password,
-                "dbname" => $this->getConf()->database->dbname
+                "dbname" => $this->getConf()->database->dbname,
+                "charset" => $this->getConf()->database->charset
             ));
         });
     }

@@ -29,6 +29,15 @@ class User extends \Phalcon\Mvc\Model
     /** @var  string */
     protected $password;
 
+    /** @var  string */
+    protected $society;
+
+    /** @var  string */
+    protected $address;
+
+    /** @var  string */
+    protected $profilePicture;
+
     /** @var  \DateTime */
     protected $datetime;
 
@@ -91,6 +100,54 @@ class User extends \Phalcon\Mvc\Model
     public function getPicture()
     {
         return $this->picture;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $profilePicture
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * @param string $society
+     */
+    public function setSociety($society)
+    {
+        $this->society = $society;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSociety()
+    {
+        return $this->society;
     }
 
     /**

@@ -25,9 +25,8 @@
                                     <i class="fa fa-heart"></i>&nbsp;<strong>0</strong>&nbsp;Likes
                                 </p>
                                 <address>
-                                    <strong>Galilée, Inc.</strong><br>
-                                    795 Folsom Ave, Suite 600<br>
-                                    San Francisco, CA 94107<br>
+                                    <strong>{{user.getSociety()}}, Inc.</strong><br>
+                                    {{user.getAddress()}}<br>
                                 </address>
                             </div>
                             <div class="clearfix"></div>

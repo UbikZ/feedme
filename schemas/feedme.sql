@@ -33,6 +33,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `society` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `profilePicture` varchar(255) DEFAULT NULL,
   `datetime` date DEFAULT NULL,
   `admin` enum('1','0') NOT NULL,
   `active` enum('1','0') NOT NULL,
@@ -43,10 +46,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 INSERT INTO `user`
-(`id`, `firstname`, `lastname`, `username`, `email`, `password`, `datetime`, `admin`, `active`, `picture`)
+(`id`, `firstname`, `lastname`, `username`, `email`, `password`, `society`, `address`, `datetime`, `admin`, `active`, `picture`)
 VALUES
-(1, 'Gabriel', 'Malet', 'UbikZ', 'gabrielmalet@gmail.com', '2de4a995b7b50c2535f89e4472ba906789929976', '2014-08-02', '1', '1', 1),
-(2, 'Firstname', 'Lastname', 'GuestUser', 'user@user.com', '2de4a995b7b50c2535f89e4472ba906789929976', '2014-08-13', '0', '1', 1);
+(1, 'Gabriel', 'Malet', 'UbikZ', 'gabrielmalet@gmail.com', '2de4a995b7b50c2535f89e4472ba906789929976', 'Galilée', '415, 71th/5th Street, NYC', '2014-08-02', '1', '1', 1),
+(2, 'Firstname', 'Lastname', 'GuestUser', 'user@user.com', '2de4a995b7b50c2535f89e4472ba906789929976', 'Galilée', '21, 39th/5th Street, NYC', '2014-08-13', '0', '1', 1);
 
 DROP TABLE IF EXISTS `user_wall_message`;
 

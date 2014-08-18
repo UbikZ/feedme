@@ -10,7 +10,8 @@ return array(
         "adapter" => "my_adapter",
         "username" => "root",
         "password" => "toor",
-        "dbname" => "my_dbname"
+        "dbname" => "my_dbname",
+        "charset" => "utf8"
     ),
     "application" => array(
         "controllersDir" => "/app/controllers/",

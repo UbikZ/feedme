@@ -16,6 +16,10 @@ class Update
     public $password;
     /** @var  boolean */
     public $admin;
+    /** @var  string */
+    public $society;
+    /** @var  string */
+    public $address;
     /** @var  boolean */
     public $active;
     /** @var  int */

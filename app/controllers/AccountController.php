@@ -50,6 +50,8 @@ class AccountController extends AbstractController
                 $request->username = $this->request->getPost('username');
                 $request->password = $this->request->getPost('password');
                 $request->picture = $this->request->getPost('picture');
+                $request->society = $this->request->getPost('society');
+                $request->address = $this->request->getPost('address');
 
                 /** @var ServiceMessage $updateUserMsg */
                 $updateUserMsg = Service::getService('User')->update($request);
@@ -59,7 +61,7 @@ class AccountController extends AbstractController
                         "Your account've been updated successfully",
                         Alert::LV_INFO
                     ));
-                    $this->response->redirect('account/edit/2');
+                    $this->response->redirect('account/edit/' .  $user->getId());
                 } else {
                     HandlerSession::push($this->session, 'alerts', new Alert(
                         $updateUserMsg->getErrors(),

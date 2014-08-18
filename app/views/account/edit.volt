@@ -22,7 +22,6 @@
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Username</label>
-
                                     <div class="col-sm-10">
                                         <div class="input-group">
                                             <span class="input-group-addon">@</span>
@@ -33,7 +32,6 @@
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Firstname</label>
-
                                     <div class="col-sm-10">
                                         {{ text_field("firstname", "class":"form-control", "value":user.getFirstname())
                                         }}
@@ -41,9 +39,20 @@
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Lastname</label>
-
                                     <div class="col-sm-10">
                                         {{ text_field("lastname", "class":"form-control", "value":user.getLastname()) }}
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Society</label>
+                                    <div class="col-sm-10">
+                                        {{ text_field("society", "class":"form-control", "value":user.getSociety()) }}
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Address</label>
+                                    <div class="col-sm-10">
+                                        {{ text_field("address", "class":"form-control", "value":user.getAddress()) }}
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
