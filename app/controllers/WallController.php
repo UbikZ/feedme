@@ -44,12 +44,6 @@ class WallController extends AbstractController
         $this->view->disable();
         $request = $this->request;
         if ((true === $request->isAjax()) && !is_null($id)) {
-            // Count posts account in wall controller
-            $query = new Select();
-            $query->idUserSrc = $id;
-            /** @var ServiceMessage $countUserWallMsg */
-            $countUserWallMsg = Service::getService('UserWallMessage')->count($query);
-
             // Get user wall
             $queryUser = new SelectUser();
             $queryUser->id = $id;
@@ -59,10 +53,10 @@ class WallController extends AbstractController
             $user = $userMsg->getMessage();
             $response->setContent(json_encode(
                 array(
-                    'success' => $countUserWallMsg->getSuccess() && $userMsg->getSuccess(),
+                    'success' => $userMsg->getSuccess(),
                     'allowDelete' => ($this->_currentUser->getId() == $user->getId())
                         || $this->_currentUser->getAdmin(),
-                    'countPosts' => $countUserWallMsg->getMessage(),
+                    'countPosts' => $user->getAllMessages()->count(),
                     'messages' => $user->getSerializable()['messages'],
                     'baseUri' => $this->url->getBaseUri()
                 )
