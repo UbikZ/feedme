@@ -98,6 +98,14 @@ class User extends \Phalcon\Mvc\Model
     }
 
     /**
+     * @return File
+     */
+    public function getWallPicture()
+    {
+        return new File($this->getProfilePicture());
+    }
+
+    /**
      * @param string $about
      */
     public function setAbout($about)

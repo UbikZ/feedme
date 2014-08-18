@@ -135,19 +135,19 @@
                                                         <ul class="folder-list">
                                                             <li>
                                                                 <i class="fa fa-caret-right"></i>&nbsp;Name:
-                                                                <span class="pull-right"><strong>nature_morte</strong></span>
+                                                                <span class="pull-right"><strong>{{user.getWallPicture().getName()}}</strong></span>
                                                             </li>
                                                             <li>
                                                                 <i class="fa fa-caret-right"></i>&nbsp;Extension:
-                                                                <span class="pull-right"><strong>png</strong></span>
+                                                                <span class="pull-right"><strong>{{user.getWallPicture().getExtension()}}</strong></span>
                                                             </li>
                                                             <li>
                                                                 <i class="fa fa-caret-right"></i>&nbsp;Mime:
-                                                                <span class="pull-right"><strong>image/png</strong></span>
+                                                                <span class="pull-right"><strong>{{user.getWallPicture().getMime()}}</strong></span>
                                                             </li>
                                                             <li>
                                                                 <i class="fa fa-caret-right"></i>&nbsp;Size:
-                                                                <span class="pull-right"><strong>126&nbsp;ko</strong></span>
+                                                                <span class="pull-right"><strong>{{user.getWallPicture().getSize()}}&nbsp;ko</strong></span>
                                                             </li>
                                                         </ul>
                                                         <div class="clearfix"></div>
@@ -166,9 +166,9 @@
                                                                 <i class="fa fa-file"></i>
                                                             </div>
                                                             <div class="file-name">
-                                                                nature_morte.png
+                                                                {{user.getWallPicture().getName()}}.{{user.getWallPicture().getExtension()}}
                                                                 <br>
-                                                                <small>Added: Jan 11, 2014</small>
+                                                                <small>Added: {{user.getWallPicture().getAddDate()}}</small>
                                                             </div>
                                                         </div>
                                                     </div>
