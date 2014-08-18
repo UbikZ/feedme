@@ -1,6 +1,5 @@
 <?php
 
-use Feedme\Models\Messages\Filters\UserWall\Select as SelectUserWall;
 use Feedme\Models\Messages\Filters\UserWallMessage\Select;
 use Feedme\Models\Messages\Filters\User\Select as SelectUser;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
@@ -24,6 +23,7 @@ class WallController extends AbstractController
         if (is_null($id)) {
             $id = $this->_currentUser->getId();
         }
+
         $select = new SelectUser();
         $select->id = $id;
         $findUserMsg = Service::getService('User')->find($select);
@@ -36,25 +36,36 @@ class WallController extends AbstractController
         $this->view->setVar("name", array("main" => "Profile", "sub" => "Wall"));
     }
 
-    public function informationAction()
+    public function informationAction($id = null)
     {
-        $this->view->disable();
-
-        // Count posts account in wall controller
-        $query = new SelectUserWall();
-        $query->idUser = $this->_getIdentity()['id'];
-        /** @var ServiceMessage $countUserWallMsg */
-        $countUserWallMsg = Service::getService('UserWall')->count($query);
-
         $response = new Response();
-        $response->setContent(json_encode(
-            array(
-                'success' => $countUserWallMsg->getSuccess(),
-                'countPosts' => $countUserWallMsg->getMessage(),
-                'messages' => $this->_currentUser->getSerializable()['messages'],
-                'baseUri' => $this->url->getBaseUri()
-            )
-        ));
+
+        $this->view->disable();
+        $request = $this->request;
+        if ((true === $request->isAjax()) && !is_null($id)) {
+            // Count posts account in wall controller
+            $query = new Select();
+            $query->idUserSrc = $id;
+            /** @var ServiceMessage $countUserWallMsg */
+            $countUserWallMsg = Service::getService('UserWallMessage')->count($query);
+
+            // Get user wall
+            $queryUser = new SelectUser();
+            $queryUser->id = $id;
+            /** @var ServiceMessage $userMsg */
+            $userMsg = Service::getService('User')->find($queryUser);
+
+            $response->setContent(json_encode(
+                array(
+                    'success' => $countUserWallMsg->getSuccess() && $userMsg->getSuccess(),
+                    'countPosts' => $countUserWallMsg->getMessage(),
+                    'messages' => $userMsg->getMessage()->getSerializable()['messages'],
+                    'baseUri' => $this->url->getBaseUri()
+                )
+            ));
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
 
         return $response;
     }
@@ -72,17 +83,17 @@ class WallController extends AbstractController
         }
     }
 
-    public function postAction()
+    public function postAction($id = null)
     {
         $response = new Response();
 
         $this->view->disable();
         $request = $this->request;
-        if ((true === $request->isPost()) && (true === $request->isAjax())) {
+        if ((true === $request->isPost()) && (true === $request->isAjax()) && !is_null($id)) {
             $insert = new Insert();
             $insert->idMessageSrc = $request->getPost('idMessageSrc');
             $insert->idUserSrc = $this->_currentUser->getId();
-            $insert->idUserDest = $request->getPost('idUserDest', null, $this->_currentUser->getId());
+            $insert->idUserDest = $id;
             $insert->message = $request->getPost('message');
 
             /** @var ServiceMessage $insertMessage */

@@ -152,14 +152,6 @@ class UserWallMessage extends \Phalcon\Mvc\Model
             foreach ($this->getAnswers() as $message) {
                 $result['answers'][] = $message->getSerializable(true);
             }
-
-            // todo: clean dat dirty thing
-            usort($result['answers'], function ($a, $b) {
-                $tsA = date_create_from_format('H\hi Y-m-d', $a['adddate'])->getTimestamp();
-                $tsB = date_create_from_format('H\hi Y-m-d', $b['adddate'])->getTimestamp();
-
-                return ($tsA == $tsB) ? 0 : (($tsA < $tsB) ? 1 : -1);
-            });
         }
 
         return $result;

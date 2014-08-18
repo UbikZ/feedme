@@ -263,7 +263,6 @@ class User extends \Phalcon\Mvc\Model
             foreach ($this->messages as $message) {
                 $result['messages'][] = $message->getSerializable();
             }
-
             // todo: clean dat dirty thing
             usort($result['messages'], function ($a, $b) {
                 $tsA = date_create_from_format('H\hi Y-m-d', $a['adddate'])->getTimestamp();

@@ -39,6 +39,11 @@ class UserWallMessage
         return EntityUserWallMessage::find($this->_parseQuery($query));
     }
 
+    public function count(Select $query)
+    {
+        return EntityUserWallMessage::count($this->_parseQuery($query));
+    }
+
     public function delete(Select $query)
     {
         $result = false;

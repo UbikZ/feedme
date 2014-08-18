@@ -3,9 +3,8 @@
     $(document).ready(function () {
         $('.feed-activity-list').wall(
                 'load',
-                "{{url('wall/information')}}",
-                "{{url('wall/post')}}",
-                "{{user.getId()}}"
+                "{{url('wall/information')}}/{{user.getId()}}",
+                "{{url('wall/post')}}//{{user.getId()}}"
         );
     });
 </script>

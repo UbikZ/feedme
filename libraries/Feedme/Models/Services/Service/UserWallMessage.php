@@ -12,6 +12,32 @@ use Feedme\Models\Services\Exceptions\ServiceException;
 class UserWallMessage
 {
     /**
+     * @param  Select         $query
+     * @return ServiceMessage
+     */
+    public function count(Select $query)
+    {
+        $message = new ServiceMessage();
+
+        try {
+
+            if (false === ($result = Dal::getRepository('UserWallMessage')->count($query))) {
+                throw new ServiceException('Fail to count posts.');
+            }
+            $message->setMessage($result);
+            $message->setSuccess(true);
+        } catch (ServiceException $e) {
+            $message->setError($e->getMessage());
+            Factory::getLogger('userwallmessage')->error($e->getMessage());
+        } catch (\Exception $e) {
+            $message->setError('An error occured while counting messages');
+            Factory::getLogger('userwallmessage')->error($e->getMessage());
+        }
+
+        return $message;
+    }
+
+    /**
      * @param  Insert         $request
      * @return ServiceMessage
      */
