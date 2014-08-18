@@ -51,9 +51,9 @@ class Application
             $application->setDI($di);
             echo $application->handle()->getContent();
 
-        } catch (Phalcon\Exception $e) {
+        } catch (\Phalcon\Exception $e) {
             LoggerFactory::getLogger('phalcon')->error($e->getMessage());
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             LoggerFactory::getLogger('database')->error($e->getMessage());
         } catch (\Exception $e) {
             LoggerFactory::getLogger('error')->error($e->getMessage());
@@ -236,6 +236,15 @@ class Application
                 ->setTargetPath('cache/wall.min.js')
                 ->setTargetUri('cache/wall.min.js')
                 ->addJs('assets/wall/js/jquery.wall.js')
+                ->join($bMinify)
+                ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+
+            // Local js (contact)
+            $assetManager
+                ->collection('contact-js')
+                ->setTargetPath('cache/contact.min.js')
+                ->setTargetUri('cache/contact.min.js')
+                ->addJs('assets/contact/js/jquery.contact.js')
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 

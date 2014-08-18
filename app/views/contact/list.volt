@@ -20,9 +20,9 @@
                                 <h3><strong>{{user.getFirstname()}}&nbsp;{{user.getLastname()}}</strong></h3>
 
                                 <p>
-                                    <i class="fa fa-envelope"></i>&nbsp;<strong>5</strong>&nbsp;Posts
-                                    <i class="fa fa-star"></i>&nbsp;<strong>28</strong>&nbsp;Favorites
-                                    <i class="fa fa-heart"></i>&nbsp;<strong>240</strong>&nbsp;Likes
+                                    <i class="fa fa-envelope"></i>&nbsp;<strong>{{user.getAllMessages().count()}}</strong>&nbsp;Posts
+                                    <i class="fa fa-star"></i>&nbsp;<strong>0</strong>&nbsp;Favorites
+                                    <i class="fa fa-heart"></i>&nbsp;<strong>0</strong>&nbsp;Likes
                                 </p>
                                 <address>
                                     <strong>Galilée, Inc.</strong><br>

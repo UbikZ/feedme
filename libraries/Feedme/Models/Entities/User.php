@@ -47,6 +47,7 @@ class User extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->hasOne('picture', $this->_userPictureFK, 'id');
+        $this->hasMany('id', $this->_userWallMessagePK, 'idUserSrc');
         $this->hasManyToMany(
             'id',
             $this->_userWallPK,
@@ -65,6 +66,15 @@ class User extends \Phalcon\Mvc\Model
     public function getUserPicture($parameters = null)
     {
         return $this->getRelated($this->_userPictureFK, $parameters);
+    }
+
+    /**
+     * @param  null            $parameters
+     * @return UserWallMessage
+     */
+    public function getAllMessages($parameters = null)
+    {
+        return $this->getRelated($this->_userWallMessagePK, $parameters);
     }
 
     /**
