@@ -61,13 +61,6 @@ CREATE TABLE IF NOT EXISTS `user_wall_message` (
   CONSTRAINT FOREIGN KEY (`idUserSrc`) REFERENCES `user`(`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-INSERT INTO `user_wall_message`
-(`id`, `idMessageSrc`, `idUserSrc`, `message`, `adddate`)
-VALUES
-(1, null, 1, 'My name is Gabriel, and I send you one message to test this feature on your wall, mister GuestUser', '2014-08-13'),
-(2, 1, 2, 'This is my reply for your message Gabriel, and my name is GuestUser', '2014-08-13'),
-(3, null, 2, 'My name is Firstname, and I send you one message to test this feature on your wall, mister UbikZ', '20114-08-14');
-
 DROP TABLE IF EXISTS `user_wall`;
 
 CREATE TABLE IF NOT EXISTS  `user_wall` (
@@ -77,11 +70,5 @@ CREATE TABLE IF NOT EXISTS  `user_wall` (
   CONSTRAINT FOREIGN KEY (`idUser`) REFERENCES `user`(`id`),
   CONSTRAINT FOREIGN KEY (`idMessage`) REFERENCES `user_wall_message`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
-INSERT INTO `user_wall`
-(`idUser`, `idMessage`, `active`)
-VALUES
-(1, 1, '1'),
-(2, 3, '1');
 
 SET FOREIGN_KEY_CHECKS=1;

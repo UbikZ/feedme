@@ -6,11 +6,14 @@
     </a>
 
     <div class="media-body ">
-        <strong>[%=o.messages[i].user.firstname%]&nbsp;[%=o.messages[i].user.lastname%]</strong>.
+        <strong>[%=o.messages[i
+        ].user.firstname%]&nbsp;[%=o.messages[i].user.lastname%]</strong>.
         <div class="pull-right">
+            [% if (o.allowDelete) { %]
             <div class="delete">
                 <a href="[%=o.baseUri%]wall/delete/[%=o.messages[i].id%]"><i class="fa fa-times"></i></a>
             </div>
+            [% } %]
             <i class="fa fa-comments"></i>&nbsp;<strong>[%=o.messages[i].answers.length%]</strong>
         </div>
         <br>

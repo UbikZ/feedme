@@ -1,5 +1,6 @@
 <?php
 
+use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\UserWallMessage\Select;
 use Feedme\Models\Messages\Filters\User\Select as SelectUser;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
@@ -54,12 +55,15 @@ class WallController extends AbstractController
             $queryUser->id = $id;
             /** @var ServiceMessage $userMsg */
             $userMsg = Service::getService('User')->find($queryUser);
-
+            /** @var User $user */
+            $user = $userMsg->getMessage();
             $response->setContent(json_encode(
                 array(
                     'success' => $countUserWallMsg->getSuccess() && $userMsg->getSuccess(),
+                    'allowDelete' => ($this->_currentUser->getId() == $user->getId())
+                        || $this->_currentUser->getAdmin(),
                     'countPosts' => $countUserWallMsg->getMessage(),
-                    'messages' => $userMsg->getMessage()->getSerializable()['messages'],
+                    'messages' => $user->getSerializable()['messages'],
                     'baseUri' => $this->url->getBaseUri()
                 )
             ));
