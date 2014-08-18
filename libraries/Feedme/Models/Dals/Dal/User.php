@@ -23,9 +23,9 @@ class User
      * @param  Select $query
      * @return mixed
      */
-    public function findFirst(Select $query)
+    public function find(Select $query)
     {
-        return EntityUser::findFirst($this->_parseQuery($query));
+        return EntityUser::find($this->_parseQuery($query));
     }
 
     /**

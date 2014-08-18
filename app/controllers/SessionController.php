@@ -35,7 +35,7 @@ class SessionController extends AbstractController
             $query->password = $request->getPost('password');
 
             /** @var ServiceMessage $message */
-            $message = Service::getService('User')->findFirst($query);
+            $message = Service::getService('User')->find($query);
             if ($message->getSuccess()) {
                 /** @var User $user */
                 $user = $message->getMessage();

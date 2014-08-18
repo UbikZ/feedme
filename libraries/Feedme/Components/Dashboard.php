@@ -43,6 +43,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
         $itemsAccount = array();
         $this->_addItem($itemsAccount, 'Manage', array(), 'account', 'edit', array($auth['id']));
         $this->_addItem($itemsAccount, 'Wall', array(), 'wall', 'profile');
+        $this->_addItem($itemsAccount, 'Contacts', array(), 'wall', 'contacts');
         $this->_addItem($itemsAccount, 'Settings');
         $this->_addCat($itemsCats, 'Account', $itemsAccount, 'fa fa-user');
 
@@ -61,7 +62,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
             $this->_addCat($itemsCats, 'Admin', $itemsAdmin, 'fa fa-gear');
         }
 
-        echo $this->_renderCategoriesMenu($itemsCats);
+        $this->_renderCategoriesMenu($itemsCats);
     }
 
     /**

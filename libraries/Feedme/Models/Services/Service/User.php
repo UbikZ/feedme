@@ -25,10 +25,11 @@ class User
             }
             $query = new Select();
             $query->id = $request->id;
-            if (false === ($user = Dal::getRepository('User')->findFirst($query))) {
+            /** @var \Phalcon\Mvc\Model\Resultset\Simple $users */
+            if (false === ($users = Dal::getRepository('User')->find($query))) {
                 throw new \Exception('Can\'t load user `' . $query->id . '`.');
             }
-            if (false === ($result = Dal::getRepository('User')->update($user, $request))) {
+            if (false === ($result = Dal::getRepository('User')->update($users->getFirst(), $request))) {
                 throw new ServiceException('You can\'t update the account for now.');
             }
 
@@ -49,19 +50,17 @@ class User
      * @param  Select         $query
      * @return ServiceMessage
      */
-    public function findFirst(Select $query)
+    public function find(Select $query)
     {
         $message = new ServiceMessage();
 
         try {
-            if ((is_null($query->email) || is_null($query->password)) && is_null($query->id)) {
-                throw new \Exception('Invalid parameter given');
-            }
-            if (false === ($user = Dal::getRepository('User')->findFirst($query))) {
+            /** @var \Phalcon\Mvc\Model\Resultset\Simple $users */
+            if (false === ($users = Dal::getRepository('User')->find($query))) {
                 throw new ServiceException('Authentication failed.');
             }
 
-            $message->setMessage($user);
+            $message->setMessage(($users->count() > 1) ? $users : $users->getFirst());
             $message->setSuccess(true);
         } catch (ServiceException $e) {
             $message->setError($e->getMessage());

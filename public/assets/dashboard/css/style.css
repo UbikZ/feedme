@@ -3,6 +3,11 @@
     height: 48px;
 }
 
+.img-contact {
+    width: 127px;
+    height: 127px;
+}
+
 .nav-header {
     padding: 33px 25px 0 25px;
     background: url("../img/header-profile.png") no-repeat;

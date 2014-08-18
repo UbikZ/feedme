@@ -5,7 +5,7 @@
                 'load',
                 "{{url('wall/information')}}",
                 "{{url('wall/post')}}",
-                "{{currentUser.getId()}}"
+                "{{user.getId()}}"
         );
     });
 </script>
@@ -29,9 +29,9 @@
                             <div class="ibox-content profile-content">
                                 <h4>
                                     <strong>
-                                        {{currentUser.getFirstname()}}&nbsp;
-                                        `{{currentUser.getUsername()}}`
-                                        {{currentUser.getLastname()}}&nbsp;
+                                        {{user.getFirstname()}}&nbsp;
+                                        `{{user.getUsername()}}`
+                                        {{user.getLastname()}}&nbsp;
                                     </strong>
                                 </h4>
 

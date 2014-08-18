@@ -18,7 +18,7 @@ class AbstractController extends Phalcon\Mvc\Controller
             $query = new Select();
             $query->id =  $this->_getIdentity()['id'];
             /** @var ServiceMessage $findUserMsg */
-            $findUserMsg = Service::getService('User')->findFirst($query);
+            $findUserMsg = Service::getService('User')->find($query);
 
             if ($findUserMsg->getSuccess()) {
                 $this->_currentUser = $findUserMsg->getMessage();

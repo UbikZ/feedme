@@ -2,6 +2,7 @@
 
 use Feedme\Models\Messages\Filters\UserWall\Select as SelectUserWall;
 use Feedme\Models\Messages\Filters\UserWallMessage\Select;
+use Feedme\Models\Messages\Filters\User\Select as SelectUser;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
@@ -18,8 +19,20 @@ class WallController extends AbstractController
         $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 
-    public function profileAction()
+    public function profileAction($id = null)
     {
+        if (is_null($id)) {
+            $id = $this->_currentUser->getId();
+        }
+        $select = new SelectUser();
+        $select->id = $id;
+        $findUserMsg = Service::getService('User')->find($select);
+
+        if ($findUserMsg->getSuccess()) {
+            $this->view->setVar('user', $findUserMsg->getMessage());
+        } else {
+            $this->internalErrorAction();
+        }
         $this->view->setVar("name", array("main" => "Profile", "sub" => "Wall"));
     }
 
@@ -44,6 +57,19 @@ class WallController extends AbstractController
         ));
 
         return $response;
+    }
+
+    public function contactsAction()
+    {
+        /** @var ServiceMessage $findUserMsg */
+        $findUserMsg = Service::getService('User')->find(new SelectUser());
+
+        if ($findUserMsg->getSuccess()) {
+            $this->view->setVar('users', $findUserMsg->getMessage());
+            $this->view->setVar("name", array("main" => "Contacts", "sub" => "List"));
+        } else {
+            $this->internalErrorAction();
+        }
     }
 
     public function postAction()

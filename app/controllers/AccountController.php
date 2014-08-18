@@ -35,7 +35,7 @@ class AccountController extends AbstractController
         $query->id = $id;
 
         /** @var ServiceMessage $findUserMsg */
-        $findUserMsg = Service::getService('User')->findFirst($query);
+        $findUserMsg = Service::getService('User')->find($query);
 
         if ($findUserMsg->getSuccess()) {
             /** @var User $user */
