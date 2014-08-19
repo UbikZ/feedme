@@ -22,7 +22,9 @@
                         </div>
                         <div>
                             <div class="ibox-content wallfile no-padding border-left-right">
-                                {{ image('img', 'class':'wallpicture col-md-12', 'src': user.getWallPicture().getPublicPath())}}
+                                {% if user.getWallPicture().getPublicPath() %}
+                                    {{ image('img', 'class':'wallpicture col-md-12', 'src': user.getWallPicture().getPublicPath())}}
+                                {% endif %}
                             </div>
                             <div class="ibox-content profile-content">
                                 <h4>
