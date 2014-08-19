@@ -47,6 +47,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
         $this->_addCat($itemsCats, 'Account', $itemsAccount, 'fa fa-user');
 
         $itemsFeeds = array();
+        $this->_addItem($itemsFeeds, 'New', array(), 'feed', 'new');
         $this->_addItem($itemsFeeds, 'Manage');
         $this->_addItem($itemsFeeds, 'Reader');
         $this->_addItem($itemsFeeds, 'Viewer');

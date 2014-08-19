@@ -21,7 +21,6 @@ class UserWallMessage
         $userWallMessage->setIdUserSrc($request->idUserSrc);
         $resultWallMessage = $userWallMessage->save();
 
-        // Insert in UserWall : TODO => put a trigger in database instead of this ugly thing
         $resultWall = true;
         if (is_null($request->idMessageSrc) && $resultWallMessage) {
             $userWall = new EntityUserWall();
