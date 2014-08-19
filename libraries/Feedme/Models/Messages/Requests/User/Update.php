@@ -26,4 +26,6 @@ class Update
     public $active;
     /** @var  int */
     public $picture;
+    /** @var  string */
+    public $wallPicture;
 }

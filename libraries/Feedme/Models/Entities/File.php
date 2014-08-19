@@ -19,15 +19,22 @@ class File
     /** @var  \DateTime */
     protected $_addDate;
 
-    public function __construct($path)
+    public function __construct($psPath, $pbStatic = true)
     {
-        if (!is_null($path) && file_exists(realpath($path))) {
-            $infos = pathinfo($path);
-            $this->setName($infos['filename']);
-            $this->setExtension($infos['extension']);
-            $this->setMime(mime_content_type($path));
-            $this->setAddDate(date('d F Y', filemtime($path)));
-            $this->setSize(floatval(filesize($path) / 1024));
+        if (!is_null($psPath)) {
+            $path = $psPath;
+            if ($pbStatic) {
+                $path = PUBLIC_PATH . '/' . $psPath;
+            }
+            if (file_exists(realpath($path))) {
+                $infos = pathinfo($path);
+                $this->setName($infos['filename']);
+                $this->setExtension($infos['extension']);
+                $this->setMime(mime_content_type($path));
+                $this->setAddDate(date('d F Y', filemtime($path)));
+                $this->setSize(round(filesize($path) / 1024, 2));
+                $this->setPublicPath($psPath);
+            }
         }
     }
 

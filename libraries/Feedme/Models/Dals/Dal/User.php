@@ -60,6 +60,9 @@ class User
         if (!is_null($request->about)) {
             $user->setAbout($request->about);
         }
+        if (!is_null($request->wallPicture)) {
+            $user->setProfilePicture($request->wallPicture);
+        }
     }
 
     /**

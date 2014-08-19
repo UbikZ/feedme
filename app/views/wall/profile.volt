@@ -21,8 +21,8 @@
                             <h5>Profile Detail</h5>
                         </div>
                         <div>
-                            <div class="ibox-content no-padding border-left-right">
-                                <!-- image profile (not user picture)-->
+                            <div class="ibox-content wallfile no-padding border-left-right">
+                                {{ image('img', 'class':'wallpicture', 'src': user.getWallPicture().getPublicPath())}}
                             </div>
                             <div class="ibox-content profile-content">
                                 <h4>

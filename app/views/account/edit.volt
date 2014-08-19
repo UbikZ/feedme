@@ -32,6 +32,7 @@
                         </div>
                         <div class="ibox-content">
                             <form method="post" class="form-horizontal"
+                                  enctype="multipart/form-data"
                                   id="edit-account"
                                   action="{{ url('account/edit')}}/{{user.getId()}}">
                                 <div class="form-group"><label class="col-lg-2 control-label">E-mail</label>
@@ -162,9 +163,7 @@
                                                         <div class="file">
                                                             <span class="corner"></span>
 
-                                                            <div class="icon">
-                                                                <i class="fa fa-file"></i>
-                                                            </div>
+                                                            {{ image('img', 'class':'wallpicture', 'src': user.getWallPicture().getPublicPath())}}
                                                             <div class="file-name">
                                                                 {{user.getWallPicture().getName()}}.{{user.getWallPicture().getExtension()}}
                                                                 <br>

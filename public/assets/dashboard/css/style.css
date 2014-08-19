@@ -76,3 +76,18 @@ h2 small {
 .file-box {
     width: 100%;
 }
+
+.file-box .file,
+.ibox-content.wallfile {
+    text-align: center;
+    width: 100%;
+}
+
+.file-box .file img.wallpicture,
+.ibox-content.wallfile img.wallpicture {
+    height: 300px;
+}
+
+.file-box .file-name {
+    text-align: left;
+}

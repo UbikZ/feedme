@@ -54,6 +54,17 @@ class AccountController extends AbstractController
                 $request->address = $this->request->getPost('address');
                 $request->about = $this->request->getPost('about');
 
+                // todo: ugly => put this in File service asap
+                if (true == ($this->request->hasFiles())) {
+                    $files = $this->request->getUploadedFiles();
+                    if (is_array($files) && isset($files[0])) {
+                        $file = $files[0];
+                        $filename = 'uploads/' . $user->getId() . '-' . $file->getName();
+                        $file->moveTo(PUBLIC_PATH . '/' . $filename);
+                        $request->wallPicture = $filename;
+                    }
+                }
+
                 /** @var ServiceMessage $updateUserMsg */
                 $updateUserMsg = Service::getService('User')->update($request);
 
