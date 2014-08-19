@@ -1,5 +1,7 @@
 <?php
 
+use Phalcon\Mvc\View;
+
 class FeedController extends AbstractController
 {
     public function initialize()
@@ -12,6 +14,6 @@ class FeedController extends AbstractController
 
     public function newAction()
     {
-
+        $this->view->setVar("name", array("main" => "Feed", "sub" => "Manage"));
     }
 }
