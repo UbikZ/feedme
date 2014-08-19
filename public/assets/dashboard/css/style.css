@@ -85,7 +85,7 @@ h2 small {
 
 .file-box .file img.wallpicture,
 .ibox-content.wallfile img.wallpicture {
-    height: 300px;
+    padding: 0;
 }
 
 .file-box .file-name {

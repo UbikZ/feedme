@@ -163,7 +163,7 @@
                                                         <div class="file">
                                                             <span class="corner"></span>
 
-                                                            {{ image('img', 'class':'wallpicture', 'src': user.getWallPicture().getPublicPath())}}
+                                                            {{ image('img', 'class':'wallpicture col-md-12', 'src': user.getWallPicture().getPublicPath())}}
                                                             <div class="file-name">
                                                                 {{user.getWallPicture().getName()}}.{{user.getWallPicture().getExtension()}}
                                                                 <br>
