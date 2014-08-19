@@ -136,19 +136,35 @@
                                                         <ul class="folder-list">
                                                             <li>
                                                                 <i class="fa fa-caret-right"></i>&nbsp;Name:
-                                                                <span class="pull-right"><strong>{{user.getWallPicture().getName()}}</strong></span>
+                                                                <span class="pull-right"><strong>
+                                                                    {% if user.getWallPicture().getName() %}
+                                                                        {{user.getWallPicture().getName()}}
+                                                                    {% else %} - {% endif %}
+                                                                </strong></span>
                                                             </li>
                                                             <li>
                                                                 <i class="fa fa-caret-right"></i>&nbsp;Extension:
-                                                                <span class="pull-right"><strong>{{user.getWallPicture().getExtension()}}</strong></span>
+                                                                <span class="pull-right"><strong>
+                                                                    {% if user.getWallPicture().getExtension() %}
+                                                                        {{user.getWallPicture().getExtension()}}
+                                                                    {% else %} - {% endif %}
+                                                                </strong></span>
                                                             </li>
                                                             <li>
                                                                 <i class="fa fa-caret-right"></i>&nbsp;Mime:
-                                                                <span class="pull-right"><strong>{{user.getWallPicture().getMime()}}</strong></span>
+                                                                <span class="pull-right"><strong>
+                                                                    {% if user.getWallPicture().getMime() %}
+                                                                        {{user.getWallPicture().getMime()}}
+                                                                    {% else %} - {% endif %}
+                                                                </strong></span>
                                                             </li>
                                                             <li>
                                                                 <i class="fa fa-caret-right"></i>&nbsp;Size:
-                                                                <span class="pull-right"><strong>{{user.getWallPicture().getSize()}}&nbsp;ko</strong></span>
+                                                                <span class="pull-right"><strong>
+                                                                    {% if user.getWallPicture().getSize() %}
+                                                                        {{user.getWallPicture().getSize()}}&nbsp;kb
+                                                                    {% else %} - {% endif %}
+                                                                </strong></span>
                                                             </li>
                                                         </ul>
                                                         <div class="clearfix"></div>
@@ -162,10 +178,17 @@
                                                     <div class="file-box">
                                                         <div class="file">
                                                             <span class="corner"></span>
-
-                                                            {{ image('img', 'class':'wallpicture col-md-12', 'src': user.getWallPicture().getPublicPath())}}
+                                                            {% if user.getWallPicture().getPublicPath() %}
+                                                                {{ image('img', 'class':'wallpicture col-md-12', 'src': user.getWallPicture().getPublicPath())}}
+                                                            {% else %}
+                                                                <div class="icon">
+                                                                    <i class="fa fa-file"></i>
+                                                                </div>
+                                                            {% endif %}
                                                             <div class="file-name">
-                                                                {{user.getWallPicture().getName()}}.{{user.getWallPicture().getExtension()}}
+                                                                {% if user.getWallPicture().getName() %}
+                                                                    {{user.getWallPicture().getName()}}.{{user.getWallPicture().getExtension()}}
+                                                                {% else %} - {% endif %}
                                                                 <br>
                                                                 <small>Added: {{user.getWallPicture().getAddDate()}}</small>
                                                             </div>

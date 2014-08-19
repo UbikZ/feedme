@@ -91,3 +91,8 @@ h2 small {
 .file-box .file-name {
     text-align: left;
 }
+
+.file .icon {
+    height: 200px;
+    padding: 65px 10px;
+}
