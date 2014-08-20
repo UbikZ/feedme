@@ -4,6 +4,7 @@ namespace Feedme\Models\Services\Service;
 
 use Feedme\Logger\Factory;
 use Feedme\Models\Dals\Dal;
+use Feedme\Models\Messages\DalMessage;
 use Feedme\Models\Messages\Filters\UserWallMessage\Select;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
 use Feedme\Models\Messages\ServiceMessage;
@@ -46,13 +47,15 @@ class UserWallMessage
         $message = new ServiceMessage();
 
         try {
-            if (false === ($result = Dal::getRepository('UserWallMessage')->insert($request))) {
-                throw new ServiceException('Fail to insert messages.');
+            /** @var DalMessage $dalMessage */
+            $dalMessage = Dal::getRepository('UserWallMessage')->insert($request);
+            if (false === $dalMessage->getSuccess()) {
+                throw new ServiceException($dalMessage);
             }
             $message->setSuccess(true);
-            $message->setMessage($result);
+            $message->setMessage($dalMessage->getSuccess());
         } catch (ServiceException $e) {
-            $message->setError($e->getMessage());
+            $message->setError($dalMessage->getErrorMessages());
             Factory::getLogger('userwallmessage')->error($e->getMessage());
         } catch (\Exception $e) {
             $message->setError('An error occured while inserting messages');

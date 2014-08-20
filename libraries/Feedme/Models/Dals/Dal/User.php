@@ -3,20 +3,26 @@
 namespace Feedme\Models\Dals\Dal;
 
 use Feedme\Models\Entities\User as EntityUser;
+use Feedme\Models\Messages\DalMessage;
 use Feedme\Models\Messages\Filters\User\Select;
 use Feedme\Models\Messages\Requests\User\Update;
 
 class User
 {
     /**
-     * @param  Update $request
-     * @return mixed
+     * @param  EntityUser $user
+     * @param  Update     $request
+     * @return DalMessage
      */
     public function update(EntityUser $user, Update $request)
     {
         $this->_parseRequest($user, $request);
 
-        return $user->update();
+        $return = new DalMessage();
+        $return->setSuccess($user->update());
+        $return->setErrorMessages($user->getMessages());
+
+        return $return;
     }
 
     /**

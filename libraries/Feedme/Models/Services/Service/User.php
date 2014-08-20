@@ -4,6 +4,7 @@ namespace Feedme\Models\Services\Service;
 
 use Feedme\Logger\Factory;
 use Feedme\Models\Dals\Dal;
+use Feedme\Models\Messages\DalMessage;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Messages\Filters\User\Select;
 use Feedme\Models\Messages\Requests\User\Update;
@@ -29,14 +30,17 @@ class User
             if (false === ($users = Dal::getRepository('User')->find($query))) {
                 throw new \Exception('Can\'t load user `' . $query->id . '`.');
             }
-            if (false === ($result = Dal::getRepository('User')->update($users->getFirst(), $request))) {
-                throw new ServiceException('You can\'t update the account for now.');
+
+            /** @var DalMessage $daMessage */
+            $daMessage = Dal::getRepository('User')->update($users->getFirst(), $request);
+            if (false === $daMessage->getSuccess()) {
+                throw new ServiceException($daMessage);
             }
 
-            $message->setMessage($result);
             $message->setSuccess(true);
+            $message->setMessage($daMessage->getSuccess());
         } catch (ServiceException $e) {
-            $message->setError($e->getMessage());
+            $message->setError($daMessage->getErrorMessages());
             Factory::getLogger('user')->error($e->getMessage());
         } catch (\Exception $e) {
             $message->setError("An error occured while updating account.");

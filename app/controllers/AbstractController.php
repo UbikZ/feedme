@@ -9,11 +9,14 @@ class AbstractController extends Phalcon\Mvc\Controller
 {
     /** @var User */
     protected $_currentUser = null;
+    /** @var array  */
+    protected $_errors = array();
 
     protected function initialize()
     {
         Phalcon\Tag::prependTitle('Feedme | ');
         $this->view->setVar('auth', $this->_getIdentity());
+        $this->view->setVar('errors', $this->_getIdentity());
         if ($this->_hasIdentity()) {
             $query = new Select();
             $query->id =  $this->_getIdentity()['id'];
@@ -25,6 +28,11 @@ class AbstractController extends Phalcon\Mvc\Controller
                 $this->view->setVar('currentUser', $this->_currentUser);
             }
         }
+    }
+
+    public function afterExecuteRoute($dispatcher)
+    {
+        $this->view->setVar('errors', $this->_errors);
     }
 
     protected function forward($uri)

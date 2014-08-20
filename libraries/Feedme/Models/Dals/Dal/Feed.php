@@ -2,14 +2,15 @@
 
 namespace Feedme\Models\Dals\Dal;
 
+use Feedme\Models\Messages\DalMessage;
 use Feedme\Models\Messages\Requests\Feed\Insert;
 use Feedme\Models\Entities\Feed as EntityFeed;
 
 class Feed
 {
     /**
-     * @param  Insert $request
-     * @return bool
+     * @param  Insert     $request
+     * @return DalMessage
      */
     public function insert(Insert $request)
     {
@@ -22,6 +23,10 @@ class Feed
         $feed->setValidate(1); // set validation to "waiting"
         $feed->setAdddate((new \DateTime())->format('Y-m-d H:i:s'));
 
-        return $feed->save();
+        $return = new DalMessage();
+        $return->setSuccess($feed->save());
+        $return->setErrorMessages($feed->getMessages());
+
+        return $return;
     }
 }

@@ -4,6 +4,7 @@ namespace Feedme\Models\Dals\Dal;
 
 use Feedme\Models\Entities\UserWall as EntityUserWall;
 use Feedme\Models\Entities\UserWallMessage as EntityUserWallMessage;
+use Feedme\Models\Messages\DalMessage;
 use Feedme\Models\Messages\Filters\UserWallMessage\Select;
 use Feedme\Models\Messages\Requests\UserWallMessage\Delete;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
@@ -11,6 +12,10 @@ use Phalcon\Mvc\Model;
 
 class UserWallMessage
 {
+    /**
+     * @param  Insert     $request
+     * @return DalMessage
+     */
     public function insert(Insert $request)
     {
         // Insert in UserWallMessage
@@ -30,7 +35,11 @@ class UserWallMessage
             $resultWall = $userWall->save();
         }
 
-        return $resultWall && $resultWallMessage;
+        $return = new DalMessage();
+        $return->setSuccess($resultWallMessage && $resultWall);
+        $return->setErrorMessages($userWallMessage->getMessages());
+
+        return $return;
     }
 
     public function find(Select $query)

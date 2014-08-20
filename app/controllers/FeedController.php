@@ -40,10 +40,7 @@ class FeedController extends AbstractController
                 ));
                 $this->response->redirect('feed/list');
             } else {
-                HandlerSession::push($this->session, 'alerts', new Alert(
-                    $insertFeedMsg->getErrors(),
-                    Alert::LV_ERROR
-                ));
+                $this->_errors = $insertFeedMsg->getErrorsArray();
             }
         }
 

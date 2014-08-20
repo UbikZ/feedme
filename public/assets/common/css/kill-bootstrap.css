@@ -50,3 +50,7 @@ a {
     marging: 15px 0;
     border-radius: 1px;
 }
+
+.center {
+    text-align: center;
+}

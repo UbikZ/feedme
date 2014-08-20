@@ -28,11 +28,19 @@ class ServiceMessage
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getErrors()
     {
         return implode(PHP_EOL, $this->_errors);
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrorsArray()
+    {
+        return $this->_errors;
     }
 
     /**

@@ -13,6 +13,7 @@
                             </h5>
                         </div>
                         <div class="ibox-content">
+                            {% include "partials/errors" with ['errors': errors] %}
                             <form method="post" class="form-horizontal"
                                   id="feed-new"
                                   action="{{ url('feed/new')}}">

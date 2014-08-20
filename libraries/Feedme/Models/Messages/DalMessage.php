@@ -2,15 +2,17 @@
 
 namespace Feedme\Models\Messages;
 
+use Phalcon\Mvc\Model\MessageInterface;
+
 class DalMessage
 {
     /** @var bool */
     protected $_success = false;
-    /** @var array  */
+    /** @var MessageInterface[]  */
     protected $_errorMessages = array();
 
     /**
-     * @param $errorMessage
+     * @param MessageInterface $errorMessage
      */
     public function setErrorMessage($errorMessage)
     {
@@ -18,7 +20,7 @@ class DalMessage
     }
 
     /**
-     * @param array $errorMessages
+     * @param MessageInterface[] $errorMessages
      */
     public function setErrorMessages($errorMessages)
     {
@@ -26,7 +28,7 @@ class DalMessage
     }
 
     /**
-     * @return array
+     * @return MessageInterface[]
      */
     public function getErrorMessages()
     {
@@ -47,5 +49,19 @@ class DalMessage
     public function getSuccess()
     {
         return $this->_success;
+    }
+
+    public function __toString()
+    {
+        $return = '';
+
+        foreach ($this->getErrorMessages() as $message) {
+            $return .= "Message: " . $message->getMessage() . " / ";
+            $return .= "Field: " . $message->getField() . " / ";
+            $return .= "Type: " . $message->getType();
+
+        }
+
+        return $return;
     }
 }
