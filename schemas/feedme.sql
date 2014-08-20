@@ -56,9 +56,9 @@ INSERT INTO `user`
 (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `society`, `address`, `datetime`, `admin`, `active`, `picture`)
 VALUES
   (1, 'Gabriel', 'Malet', 'UbikZ', 'gabrielmalet@gmail.com', '2de4a995b7b50c2535f89e4472ba906789929976', 'Galilée',
-   '415, 71th/5th Street, NYC', '1407005418', '1', '1', 1),
+   '415, 71th/5th Street, NYC', '2014-08-02', '1', '1', 1),
   (2, 'Firstname', 'Lastname', 'GuestUser', 'user@user.com', '2de4a995b7b50c2535f89e4472ba906789929976', 'Galilée',
-   '21, 39th/5th Street, NYC', '1407005418', '0', '1', 1);
+   '21, 39th/5th Street, NYC', '2014-08-02', '0', '1', 2);
 
 DROP TABLE IF EXISTS `user_wall_message`;
 
@@ -127,10 +127,10 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `description` VARCHAR(255) DEFAULT NULL,
   `type`        INT(11)        NOT NULL,
   `adddate`     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `active`      ENUM('0', '1') NOT NULL,
+  `validate`  ENUM('0', '1', '2') DEFAULT '1',
   `public`      ENUM('0', '1') NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX (`active`, `public`, `url`),
+  INDEX (`validate`, `public`, `url`),
   CONSTRAINT FOREIGN KEY (`type`) REFERENCES `feed_type` (`id`),
   CONSTRAINT FOREIGN KEY (`idCreator`) REFERENCES `user` (`id`)
     ON DELETE CASCADE
@@ -140,12 +140,12 @@ CREATE TABLE IF NOT EXISTS `feed` (
   AUTO_INCREMENT =6;
 
 INSERT INTO `feed`
-(`id`, `idCreator`, `url`, `description`, `type`, `adddate`, `active`, `public`)
+(`id`, `idCreator`, `url`, `description`, `type`, `adddate`, `validate`, `public`)
 VALUES
-  (1, 1, 'http://runningdrawing.tumblr.com', '', 4, '1408474218', '1', '1'),
-  (2, 1, 'http://www.reddit.com/r/philosophy', '', 1, '1408474218', '1', '1'),
-  (3, 2, 'http://stackoverflow.com/questions/25313878', '', 3, '1408474218', '1', '0'),
-  (4, 1, 'http://stackoverflow.com/questions/5964825', '', 3, '1408474218', '0', '1');
+  (1, 1, 'http://runningdrawing.tumblr.com', '', 4, '2014-08-02', '1', '1'),
+  (2, 1, 'http://www.reddit.com/r/philosophy', '', 1, '2014-08-02', '2', '1'),
+  (3, 2, 'http://stackoverflow.com/questions/25313878', '', 3, '2014-08-02', '1', '0'),
+  (4, 1, 'http://stackoverflow.com/questions/5964825', '', 3, '2014-08-02', '0', '1');
 
 DROP TABLE IF EXISTS `user_feed`;
 
@@ -153,9 +153,8 @@ CREATE TABLE IF NOT EXISTS `user_feed` (
   `idUser`    INT(11) NOT NULL,
   `idFeed`    INT(11) NOT NULL,
   `subscribe` ENUM('0', '1') DEFAULT '0',
-  `validate`  ENUM('0', '1', '2') DEFAULT '1',
   `like`      ENUM('0', '1') DEFAULT '0',
-  INDEX (`subscribe`, `validate`, `like`),
+  INDEX (`subscribe`, `like`),
   CONSTRAINT FOREIGN KEY (`idUser`) REFERENCES `user` (`id`)
     ON DELETE CASCADE,
   CONSTRAINT FOREIGN KEY (`idFeed`) REFERENCES `feed` (`id`)
@@ -166,12 +165,12 @@ CREATE TABLE IF NOT EXISTS `user_feed` (
   AUTO_INCREMENT =7;
 
 INSERT INTO `user_feed`
-(`idUser`, `idFeed`, `validate`, `like`)
+(`idUser`, `idFeed`, `subscribe`, `like`)
 VALUES
-  (1, 1, '1', '0'),
+  (1, 1, '0', '0'),
   (1, 2, '1', '1'),
   (2, 1, '0', '1'),
-  (2, 2, '0', '1'),
+  (2, 2, '2', '1'),
   (2, 3, '1', '0');
 
 DROP TABLE IF EXISTS `feed_item`;

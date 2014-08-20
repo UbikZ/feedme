@@ -15,8 +15,6 @@ class UserFeed extends Model
     protected $idFeed;
     /** @var  boolean */
     protected $subscribe;
-    /** @var  string */
-    protected $validate;
     /** @var  boolean */
     protected $like;
 
@@ -40,22 +38,6 @@ class UserFeed extends Model
     public function getSubscribe()
     {
         return $this->subscribe;
-    }
-
-    /**
-     * @param string $validate
-     */
-    public function setValidate($validate)
-    {
-        $this->validate = $validate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValidate()
-    {
-        return $this->validate;
     }
 
     /**

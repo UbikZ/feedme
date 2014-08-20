@@ -2,6 +2,8 @@
 
 namespace Feedme\Models\Entities;
 
+use Phalcon\Mvc\Model\Validator\Url;
+
 class Feed extends \Phalcon\Mvc\Model
 {
     // Foreign keys
@@ -22,8 +24,8 @@ class Feed extends \Phalcon\Mvc\Model
     protected $type;
     /** @var  \DateTime */
     protected $adddate;
-    /** @var  boolean */
-    protected $active;
+    /** @var  string */
+    protected $validate;
     /** @var  boolean */
     protected $public;
 
@@ -77,22 +79,6 @@ class Feed extends \Phalcon\Mvc\Model
     }
 
     /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
-
-    /**
      * @param \DateTime $adddate
      */
     public function setAdddate($adddate)
@@ -106,6 +92,22 @@ class Feed extends \Phalcon\Mvc\Model
     public function getAdddate()
     {
         return $this->adddate;
+    }
+
+    /**
+     * @param string $validate
+     */
+    public function setValidate($validate)
+    {
+        $this->validate = $validate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValidate()
+    {
+        return $this->validate;
     }
 
     /**
@@ -202,5 +204,22 @@ class Feed extends \Phalcon\Mvc\Model
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @return bool
+     */
+    public function validation()
+    {
+        $this->validate(
+            new Url(
+                array(
+                    "field" => "url",
+                    "required" => true,
+                )
+            )
+        );
+
+        return !$this->validationHasFailed();
     }
 }
