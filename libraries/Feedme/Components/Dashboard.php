@@ -48,7 +48,7 @@ class Dashboard extends \Phalcon\Mvc\User\Component
 
         $itemsFeeds = array();
         $this->_addItem($itemsFeeds, 'New', array(), 'feed', 'new');
-        $this->_addItem($itemsFeeds, 'Manage');
+        $this->_addItem($itemsFeeds, 'List', array(), 'feed', 'list');
         $this->_addItem($itemsFeeds, 'Reader');
         $this->_addItem($itemsFeeds, 'Viewer');
         $this->_addItem($itemsFeeds, 'Statitics');

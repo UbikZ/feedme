@@ -55,4 +55,14 @@ class FeedController extends AbstractController
             $this->internalErrorAction();
         }
     }
+
+    public function listAction()
+    {
+        if (true) {
+
+            $this->view->setVar("name", array("main" => "Feed", "sub" => "List"));
+        } else {
+            $this->internalErrorAction();
+        }
+    }
 }

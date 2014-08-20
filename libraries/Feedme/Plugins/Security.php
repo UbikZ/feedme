@@ -47,7 +47,7 @@ class Security extends Plugin
                         'dashboard' => array('index', 'profile'),
                         'wall' => array('profile', 'information', 'post', 'delete'),
                         'contact' => array('list'),
-                        'feed' => array('new'),
+                        'feed' => array('new', 'list'),
                         'session' => array('logout'),
                         'account' => array('edit')
                     )
@@ -60,7 +60,7 @@ class Security extends Plugin
                         'wall' => array('profile', 'information', 'post', 'delete'),
                         'contact' => array('list'),
                         'dashboard' => array('index', 'profile'),
-                        'feed' => array('new'),
+                        'feed' => array('new', 'list'),
                         'session' => array('logout'),
                         'account' => array('edit')
                     )

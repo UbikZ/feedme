@@ -11,7 +11,7 @@
                                 {{currentUser.getFirstname()}}&nbsp;<strong class="font-bold">{{currentUser.getLastname()}}</strong>
                             </span>
                             <p class="text-muted text-xs block">
-                                {% if auth['bAdmin']%}Administrator{% else %}User{% endif %}
+                                {% if currentUser.getAdmin() %}Administrator {% else %} User {% endif %}
                                 <b class="caret"></b>
                             </p>
                         </span>

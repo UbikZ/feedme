@@ -1,10 +1,10 @@
 <div id="wrapper">
-    {% include "partials/menu" with ['auth': auth] %}
+    {% include "partials/menu.volt" %}
     <div id="page-wrapper" class="gray-bg">
-        {% include "partials/header" with ['auth': auth] %}
-        {% include "partials/express" with ['auth': auth] %}
+        {% include "partials/header.volt" %}
+        {% include "partials/express.volt" %}
         <div class="wrapper wrapper-content animated fadeInRight">
-            {% include "partials/board" with ['auth': auth] %}
+            {% include "partials/board.volt" %}
         </div>
     </div>
 </div>

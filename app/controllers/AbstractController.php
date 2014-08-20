@@ -15,7 +15,6 @@ class AbstractController extends Phalcon\Mvc\Controller
     protected function initialize()
     {
         Phalcon\Tag::prependTitle('Feedme | ');
-        $this->view->setVar('auth', $this->_getIdentity());
         $this->view->setVar('errors', $this->_getIdentity());
         if ($this->_hasIdentity()) {
             $query = new Select();

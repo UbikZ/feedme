@@ -9,10 +9,10 @@
     });
 </script>
 <div id="wrapper">
-    {% include "partials/menu" with ['auth': auth] %}
+    {% include "partials/menu.volt" %}
     <div id="page-wrapper" class="gray-bg">
-        {% include "partials/header" with ['auth': auth] %}
-        {% include "partials/breadcrumb" with ['name': name] %}
+        {% include "partials/header.volt" %}
+        {% include "partials/breadcrumb.volt" %}
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row animated fadeInRight">
                 <div class="col-md-4">
