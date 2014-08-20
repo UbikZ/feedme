@@ -14,7 +14,7 @@ class UserFeedItem extends Model
     /** @var  int */
     protected $idFeedItem;
     /** @var  boolean */
-    protected $favorite;
+    protected $seen;
     /** @var  boolean */
     protected $like;
 
@@ -25,19 +25,19 @@ class UserFeedItem extends Model
     }
 
     /**
-     * @param boolean $favorite
+     * @param boolean $seen
      */
-    public function setFavorite($favorite)
+    public function setSeen($seen)
     {
-        $this->favorite = $favorite;
+        $this->seen = $seen;
     }
 
     /**
      * @return boolean
      */
-    public function getFavorite()
+    public function getSeen()
     {
-        return $this->favorite;
+        return $this->seen;
     }
 
     /**

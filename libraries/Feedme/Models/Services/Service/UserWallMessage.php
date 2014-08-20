@@ -53,7 +53,7 @@ class UserWallMessage
             $message->setMessage($result);
         } catch (ServiceException $e) {
             $message->setError($e->getMessage());
-            Factory::getLogger('userwallmessage')->error($e->getTraceAsString());
+            Factory::getLogger('userwallmessage')->error($e->getMessage());
         } catch (\Exception $e) {
             $message->setError('An error occured while inserting messages');
             Factory::getLogger('userwallmessage')->error($e->getMessage());

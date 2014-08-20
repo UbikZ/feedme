@@ -14,7 +14,9 @@ class UserFeed extends Model
     /** @var  int */
     protected $idFeed;
     /** @var  boolean */
-    protected $favorite;
+    protected $subscribe;
+    /** @var  string */
+    protected $validate;
     /** @var  boolean */
     protected $like;
 
@@ -25,19 +27,35 @@ class UserFeed extends Model
     }
 
     /**
-     * @param boolean $favorite
+     * @param boolean $subscribe
      */
-    public function setFavorite($favorite)
+    public function setSubscribe($subscribe)
     {
-        $this->favorite = $favorite;
+        $this->subscribe = $subscribe;
     }
 
     /**
      * @return boolean
      */
-    public function getFavorite()
+    public function getSubscribe()
     {
-        return $this->favorite;
+        return $this->subscribe;
+    }
+
+    /**
+     * @param string $validate
+     */
+    public function setValidate($validate)
+    {
+        $this->validate = $validate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValidate()
+    {
+        return $this->validate;
     }
 
     /**
