@@ -19,6 +19,8 @@ class Feed extends \Phalcon\Mvc\Model
     /** @var  string */
     protected $url;
     /** @var  string */
+    protected $label;
+    /** @var  string */
     protected $description;
     /** @var  int */
     protected $type;
@@ -65,17 +67,25 @@ class Feed extends \Phalcon\Mvc\Model
     /**
      * @return int
      */
-    public function countFavorites()
+    public function countLikes()
     {
         return $this->getRelated($this->_userFeedFK);
     }
 
     /**
-     * @return int
+     * @param string $label
      */
-    public function countLikes()
+    public function setLabel($label)
     {
-        return $this->getRelated($this->_userFeedFK);
+        $this->label = $label;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 
     /**

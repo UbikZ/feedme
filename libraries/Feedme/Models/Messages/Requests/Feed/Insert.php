@@ -9,6 +9,8 @@ class Insert
     /** @var  string */
     public $url;
     /** @var  string */
+    public $label;
+    /** @var  string */
     public $description;
     /** @var  int */
     public $type;

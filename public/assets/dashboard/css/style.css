@@ -96,3 +96,7 @@ h2 small {
     height: 200px;
     padding: 65px 10px;
 }
+
+.todo-list > li {
+    border-radius: 1px;
+}

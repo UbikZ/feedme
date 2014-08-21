@@ -124,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `id`          INT(11)        NOT NULL AUTO_INCREMENT,
   `idCreator`   INT(11)        NOT NULL,
   `url`         VARCHAR(255)   NOT NULL,
+  `label`         VARCHAR(255)   NOT NULL,
   `description` VARCHAR(255) DEFAULT NULL,
   `type`        INT(11)        NOT NULL,
   `adddate`     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -140,12 +141,12 @@ CREATE TABLE IF NOT EXISTS `feed` (
   AUTO_INCREMENT =6;
 
 INSERT INTO `feed`
-(`id`, `idCreator`, `url`, `description`, `type`, `adddate`, `validate`, `public`)
+(`id`, `idCreator`, `url`, `label`, `type`, `adddate`, `validate`, `public`)
 VALUES
-  (1, 1, 'http://runningdrawing.tumblr.com', '', 4, '2014-08-02', '1', '1'),
-  (2, 1, 'http://www.reddit.com/r/philosophy', '', 1, '2014-08-02', '2', '1'),
-  (3, 2, 'http://stackoverflow.com/questions/25313878', '', 3, '2014-08-02', '1', '0'),
-  (4, 1, 'http://stackoverflow.com/questions/5964825', '', 3, '2014-08-02', '0', '1');
+  (1, 1, 'http://runningdrawing.tumblr.com', 'Runnning Drawing', 4, '2014-08-02', '1', '1'),
+  (2, 1, 'http://www.reddit.com/r/philosophy', 'Philosophy', 1, '2014-08-02', '2', '1'),
+  (3, 2, 'http://stackoverflow.com/questions/25313878', 'Algo 1', 3, '2014-08-02', '1', '0'),
+  (4, 1, 'http://stackoverflow.com/questions/5964825', 'Algo 2', 3, '2014-08-02', '0', '1');
 
 DROP TABLE IF EXISTS `user_feed`;
 

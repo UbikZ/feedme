@@ -19,6 +19,7 @@ class Feed
         $feed->setDescription($request->description);
         $feed->setPublic($request->public);
         $feed->setType($request->type);
+        $feed->setLabel($request->label);
         $feed->setUrl($request->url);
         $feed->setValidate(1); // set validation to "waiting"
         $feed->setAdddate((new \DateTime())->format('Y-m-d H:i:s'));

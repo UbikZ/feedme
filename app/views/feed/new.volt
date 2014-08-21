@@ -23,6 +23,12 @@
                                         {{ text_field("url", "class":"form-control")}}
                                     </div>
                                 </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Label</label>
+
+                                    <div class="col-sm-10">
+                                        {{ text_field("label", "class":"form-control")}}
+                                    </div>
+                                </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Type</label>
 
                                     <div class="col-sm-10">

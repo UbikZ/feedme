@@ -28,6 +28,7 @@ class FeedController extends AbstractController
             $insert->description = $request->getPost('description');
             $insert->url = $request->getPost('url');
             $insert->idCreator = $this->_currentUser->getId();
+            $insert->label = $request->getPost('label');
             $insert->active = true;
 
             /** @var ServiceMessage $insertFeedMsg */
