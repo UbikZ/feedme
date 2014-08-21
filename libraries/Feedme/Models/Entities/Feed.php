@@ -66,6 +66,21 @@ class Feed extends \Phalcon\Mvc\Model
     }
 
     /**
+     * @param $idUser
+     * @return null|\Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getUserFeed($idUser)
+    {
+        $result = null;
+        if (is_numeric($idUser)) {
+            /** @var UserFeed $result */
+            $result = $this->getRelated($this->_userFeedFK, "[idUser]=" . intval($idUser))->getFirst();
+        }
+
+        return $result;
+    }
+
+    /**
      * @return int
      */
     public function countLikes()

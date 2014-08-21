@@ -42,10 +42,11 @@
                                 <div class="pull-right">
                                     <i class="{{feed.getFeedType().getClass()}}"></i>&nbsp;
                                     <a href="#">
-                                        <i class="fa fa-star"></i>&nbsp;Subscribe&nbsp;
+                                        <i class="fa fa-star"></i>
                                     </a>
-                                    <a href="#">
-                                        <i class="fa fa-heart"></i>&nbsp;Like&nbsp;
+                                    <a href="#"
+                                       class="">
+                                        <i class="fa fa-heart"></i>
                                     </a>
                                     |&nbsp;
                                     <small><a href="{{url('wall/profile')}}/{{feed.getCreator().getId()}}">
