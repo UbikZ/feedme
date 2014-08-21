@@ -29,13 +29,28 @@
                                 {% else %}
                                 <span class="label label-danger"><i class="fa fa-warning"></i></span>
                                 {% endif %}
-                                <span class="m-l-xs"><strong>{{feed.getLabel()}}</strong></span>
-
+                                <span class="m-l-xs count">
+                                    <strong>{{feed.getLabel()}}</strong>
+                                    <small class="text-muted">
+                                        [&nbsp;<i class="fa fa-star"></i>&nbsp;
+                                        <span class="subscripes">{{feed.countSubscribes()}}</span>&nbsp;
+                                        <i class="fa fa-heart"></i>&nbsp;
+                                        <span class="likes">{{feed.countLikes()}}</span>
+                                        &nbsp;]
+                                    </small>
+                                </span>
                                 <div class="pull-right">
+                                    <i class="{{feed.getFeedType().getClass()}}"></i>&nbsp;
+                                    <a href="#">
+                                        <i class="fa fa-star"></i>&nbsp;Subscribe&nbsp;
+                                    </a>
+                                    <a href="#">
+                                        <i class="fa fa-heart"></i>&nbsp;Like&nbsp;
+                                    </a>
+                                    |&nbsp;
                                     <small><a href="{{url('wall/profile')}}/{{feed.getCreator().getId()}}">
                                         {{feed.getCreator().getUsername()}}</a> .
                                     </small>
-                                    <i class="{{feed.getFeedType().getClass()}}"></i>
                                 </div>
                             </li>
                             {% endfor %}

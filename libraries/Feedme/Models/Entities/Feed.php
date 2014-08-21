@@ -2,6 +2,7 @@
 
 namespace Feedme\Models\Entities;
 
+use Phalcon\Mvc\Model\Resultset;
 use Phalcon\Mvc\Model\Validator\Url;
 
 class Feed extends \Phalcon\Mvc\Model
@@ -69,7 +70,21 @@ class Feed extends \Phalcon\Mvc\Model
      */
     public function countLikes()
     {
-        return $this->getRelated($this->_userFeedFK);
+        /** @var Resultset\Simple $userFeed */
+        $userFeed = $this->getRelated($this->_userFeedFK, "[like]='1'");
+
+        return $userFeed->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function countSubscribes()
+    {
+        /** @var UserFeed $userFeed */
+        $userFeed = $this->getRelated($this->_userFeedFK, "[subscribe]='1'");
+
+        return $userFeed->count();
     }
 
     /**
