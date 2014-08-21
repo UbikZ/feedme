@@ -1,7 +1,8 @@
 <?php
 
 use Feedme\Com\Notification\Alert;
-use Feedme\Models\Messages\Filters\FeedType\Select;
+use Feedme\Models\Messages\Filters\FeedType\Select as SelectFeedType;
+use Feedme\Models\Messages\Filters\Feed\Select as SelectFeed;
 use Feedme\Models\Messages\Requests\Feed\Insert;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
@@ -45,7 +46,7 @@ class FeedController extends AbstractController
             }
         }
 
-        $select = new Select();
+        $select = new SelectFeedType();
         $select->active = true;
         /** @var ServiceMessage $findTypesMsg */
         $findTypesMsg = Service::getService('FeedType')->find($select);
@@ -59,8 +60,13 @@ class FeedController extends AbstractController
 
     public function listAction()
     {
-        if (true) {
+        $select = new SelectFeed();
+        $select->public = true;
+        /** @var ServiceMessage $findFeeds */
+        $findFeeds = Service::getService('Feed')->find($select);
 
+        if ($findFeeds->getSuccess()) {
+            $this->view->setVar('listFeeds', $findFeeds->getMessage());
             $this->view->setVar("name", array("main" => "Feed", "sub" => "List"));
         } else {
             $this->internalErrorAction();

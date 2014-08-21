@@ -7,23 +7,38 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="ibox-content">
-                        <h2>Search engine</h2>
+                        <h2><i class="fa fa-gears"></i> Search engine</h2>
 
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="ibox-content">
-                        <h2>TODO List</h2>
-                        <small>This is example of task list</small>
-                        <ul class="todo-list m-t">
-                            <li>
-                                <span class="m-l-xs">Buy a milk</span>
-                                <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
+                        <h2><i class="fa fa-rss"></i> Feed List</h2>
+                        <small>This is an exhaustive list of all public feeds available.</small>
+                        <ul class="feed-list m-t">
+                            {% for feed in listFeeds %}
+                            <li class="feed"
+                                data-keysearch="{{feed.getLabel()}} {{feed.getCreator().getUsername()}}"
+                                data-owner="{{feed.getCreator().getId()}}"
+                                data-validate="{{feed.getValidate()}}"
+                                data-type="{{feed.getType()}}">
+                                {% if feed.getValidate() == 2 %}
+                                <span class="label label-info"><i class="fa fa-check"></i></span>
+                                {% elseif feed.getValidate() == 1 %}
+                                <span class="label label-warning"><i class="fa fa-spin fa-spinner"></i></span>
+                                {% else %}
+                                <span class="label label-danger"><i class="fa fa-warning"></i></span>
+                                {% endif %}
+                                <span class="m-l-xs"><strong>{{feed.getLabel()}}</strong></span>
+
+                                <div class="pull-right">
+                                    <small><a href="{{url('wall/profile')}}/{{feed.getCreator().getId()}}">
+                                        {{feed.getCreator().getUsername()}}</a> .
+                                    </small>
+                                    <i class="{{feed.getFeedType().getClass()}}"></i>
+                                </div>
                             </li>
-                            <li>
-                                <span class="m-l-xs">Go to shop and find some products.</span>
-                                <small class="label label-info"><i class="fa fa-clock-o"></i> 3 mins</small>
-                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

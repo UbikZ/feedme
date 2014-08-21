@@ -51,7 +51,6 @@ h2 small {
     border: 1px solid #e5e6e7;
 }
 
-
 .feed-element img {
     width: 50px;
 }
@@ -97,6 +96,23 @@ h2 small {
     padding: 65px 10px;
 }
 
-.todo-list > li {
+.feed-list {
+    list-style: none outside none;
+    padding: 0;
+    font-size: 14px;
+}
+
+.feed-list > li {
+    background: #f3f3f4;
+    border-left: 6px solid #E7EAEC;
+    border-right: 6px solid #E7EAEC;
+    color: inherit;
+    margin-bottom: 2px;
+    padding: 10px;
     border-radius: 1px;
+}
+
+.feed-list > li .label {
+    margin-right: 10px;
+    font-size: 14px;
 }
