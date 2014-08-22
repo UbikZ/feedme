@@ -22,6 +22,7 @@
                                 data-owner="{{feed.getCreator().getId()}}"
                                 data-validate="{{feed.getValidate()}}"
                                 data-type="{{feed.getType()}}">
+                                {% set valid = true %}
                                 {% if feed.getValidate() == 2 %}
                                 <span class="label label-info"><i class="fa fa-check"></i></span>
                                 {% elseif feed.getValidate() == 1 %}
@@ -39,6 +40,7 @@
                                         &nbsp;]
                                     </small>
                                 </span>
+                                {% if feed.getValidate() == 2 %}
                                 <div class="pull-right">
                                     {% set bSubscribed = feed.getUserFeed(feed.getCreator().getId()).getSubscribe() %}
                                     {% set bLiked = feed.getUserFeed(feed.getCreator().getId()).getLike() %}
@@ -56,6 +58,21 @@
                                         {{feed.getCreator().getUsername()}}</a> .
                                     </small>
                                 </div>
+                                {% elseif feed.getValidate() == 1 %}
+                                    <div class="pull-right">
+                                        <strong><small class="text-warning">
+                                            Wait for approval.
+                                        </small></strong>
+                                        |&nbsp;
+                                        <small><a href="{{url('wall/profile')}}/{{feed.getCreator().getId()}}">
+                                            {{feed.getCreator().getUsername()}}</a> .
+                                        </small>
+                                    </div>
+                                {% else %}
+                                    <strong><small class="pull-right text-danger">
+                                        This feed has been moderated.
+                                    </small></strong>
+                                {% endif %}
                             </li>
                             {% endfor %}
                         </ul>

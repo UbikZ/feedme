@@ -72,4 +72,14 @@ class FeedController extends AbstractController
             $this->internalErrorAction();
         }
     }
+
+    public function asynchToggleSubscribe()
+    {
+
+    }
+
+    public function asynchToggleLike()
+    {
+
+    }
 }
