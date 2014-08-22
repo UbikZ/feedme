@@ -41,7 +41,6 @@ class UserFeed
     public function update(EntityUserFeed $userFeed, Insert $request)
     {
         $this->_parseRequest($userFeed, $request);
-
         $return = new DalMessage();
         $return->setSuccess($userFeed->update());
         $return->setErrorMessages($userFeed->getMessages());
@@ -76,11 +75,14 @@ class UserFeed
     private function _parseQuery(Select $query)
     {
         $whereClause = array();
+        if (!is_null($id = $query->id)) {
+            $whereClause[] = 'id=\'' . intval(id) . '\'';
+        }
         if (!is_null($idUser = $query->idUser)) {
             $whereClause[] = 'idUser=\'' . intval($idUser) . '\'';
         }
         if (!is_null($idFeed = $query->idFeed)) {
-            $whereClause[] = 'idFeed=\'' . $idFeed . '\'';
+            $whereClause[] = 'idFeed=\'' . intval($idFeed) . '\'';
         }
         if (!is_null($like = $query->like)) {
             $whereClause[] = '[like]=\'' . intval($like) . '\'';

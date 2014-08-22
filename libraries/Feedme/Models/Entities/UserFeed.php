@@ -10,6 +10,8 @@ class UserFeed extends Model
     private $_feed = 'Feedme\\Models\\Entities\\Feed';
 
     /** @var  int */
+    protected $id;
+    /** @var  int */
     protected $idUser;
     /** @var  int */
     protected $idFeed;
@@ -37,7 +39,23 @@ class UserFeed extends Model
      */
     public function getSubscribe()
     {
-        return (bool) intval($this->subscribe);
+        return filter_var($this->subscribe, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -85,6 +103,6 @@ class UserFeed extends Model
      */
     public function getLike()
     {
-        return (bool) intval($this->like);
+        return filter_var($this->like, FILTER_VALIDATE_BOOLEAN);
     }
 }

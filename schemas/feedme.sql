@@ -124,11 +124,11 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `id`          INT(11)        NOT NULL AUTO_INCREMENT,
   `idCreator`   INT(11)        NOT NULL,
   `url`         VARCHAR(255)   NOT NULL,
-  `label`         VARCHAR(255)   NOT NULL,
+  `label`       VARCHAR(255)   NOT NULL,
   `description` VARCHAR(255) DEFAULT NULL,
   `type`        INT(11)        NOT NULL,
   `adddate`     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `validate`  ENUM('0', '1', '2') DEFAULT '1',
+  `validate`    ENUM('0', '1', '2') DEFAULT '1',
   `public`      ENUM('0', '1') NOT NULL,
   PRIMARY KEY (`id`),
   INDEX (`validate`, `public`, `url`),
@@ -151,10 +151,12 @@ VALUES
 DROP TABLE IF EXISTS `user_feed`;
 
 CREATE TABLE IF NOT EXISTS `user_feed` (
+  `id`        INT(11) NOT NULL AUTO_INCREMENT,
   `idUser`    INT(11) NOT NULL,
   `idFeed`    INT(11) NOT NULL,
   `subscribe` ENUM('0', '1') DEFAULT '0',
   `like`      ENUM('0', '1') DEFAULT '0',
+  PRIMARY KEY (`id`),
   INDEX (`subscribe`, `like`),
   CONSTRAINT FOREIGN KEY (`idUser`) REFERENCES `user` (`id`)
     ON DELETE CASCADE,
@@ -166,13 +168,13 @@ CREATE TABLE IF NOT EXISTS `user_feed` (
   AUTO_INCREMENT =7;
 
 INSERT INTO `user_feed`
-(`idUser`, `idFeed`, `subscribe`, `like`)
+(`id`, `idUser`, `idFeed`, `subscribe`, `like`)
 VALUES
-  (1, 1, '0', '0'),
-  (1, 2, '1', '1'),
-  (2, 1, '0', '1'),
-  (2, 2, '2', '1'),
-  (2, 3, '1', '0');
+  (1, 1, 1, '0', '0'),
+  (2, 1, 2, '1', '1'),
+  (3, 2, 1, '0', '1'),
+  (4, 2, 2, '2', '1'),
+  (5, 2, 3, '1', '0');
 
 DROP TABLE IF EXISTS `feed_item`;
 
@@ -184,8 +186,8 @@ CREATE TABLE IF NOT EXISTS `feed_item` (
   `authorName` VARCHAR(255) DEFAULT NULL,
   `authorUri`  VARCHAR(255) DEFAULT NULL,
   `link`       VARCHAR(255) DEFAULT NULL,
-  `adddate`    TIMESTAMP NOT NULL,
-  `changedate` TIMESTAMP NOT NULL,
+  `adddate`    TIMESTAMP      NOT NULL,
+  `changedate` TIMESTAMP      NOT NULL,
   `summary`    TEXT DEFAULT NULL,
   `extract`    TEXT DEFAULT NULL,
   `active`     ENUM('0', '1') NOT NULL,

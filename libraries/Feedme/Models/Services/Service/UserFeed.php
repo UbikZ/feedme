@@ -52,13 +52,16 @@ class UserFeed
             $query = new Select();
             $query->idFeed = $request->idFeed;
             $query->idUser = $request->idUser;
-            $selectMsg = $this->find($query);
+            /** @var Simple $userFeeds */
+            $userFeeds = Dal::getRepository('UserFeed')->find($query);
             // If we have no result => insert
             /** @var UserFeed $userFeed */
-            if (false === ($userFeed = $selectMsg->getMessage())) {
+            if ($userFeeds->count() == 0) {
                 $dalMessage = Dal::getRepository('UserFeed')->insert($request);
-            } else { // Selse => update
-                $dalMessage = Dal::getRepository('UserFeed')->update($userFeed, $request);
+            } elseif ($userFeeds->count() == 1) { // Selse => update
+                $dalMessage = Dal::getRepository('UserFeed')->update($userFeeds->getFirst(), $request);
+            } else {
+                throw new ServiceException('There are too many userFeeds');
             }
             /** @var DalMessage $dalMessage */
             if (false === $dalMessage->getSuccess()) {

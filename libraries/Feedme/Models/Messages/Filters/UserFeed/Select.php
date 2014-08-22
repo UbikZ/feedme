@@ -5,6 +5,8 @@ namespace Feedme\Models\Messages\Filters\UserFeed;
 class Select
 {
     /** @var  int */
+    public $id;
+    /** @var  int */
     public $idUser;
     /** @var int */
     public $idFeed;
