@@ -21,7 +21,7 @@
                         <div class="ibox-content">
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    {{ text_field("search", "class":"form-control", "placeholder":"Search you contact")
+                                    {{ text_field("search", "class":"form-control", "placeholder":"Search your contact")
                                     }}
                                 </div>
                             </div>

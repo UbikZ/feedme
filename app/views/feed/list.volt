@@ -11,15 +11,25 @@
         {% include "partials/breadcrumb.volt" %}
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                     <div class="ibox-content">
                         <h2><i class="fa fa-gears"></i> Search engine</h2>
 
+                        <div class="form-group m-t">
+                            <div class="input-group">
+                                {{ text_field("search", "class":"form-control", "placeholder":"Search a feed")}}
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="ibox-content">
-                        <h2><i class="fa fa-rss"></i> Feed List</h2>
+                        <h2><i class="fa fa-rss"></i> Feeds List</h2>
                         <small>This is an exhaustive list of all public feeds available.</small>
                         <ul class="feed-list m-t">
                             {% for feed in listFeeds %}
@@ -38,13 +48,13 @@
                                 <span class="label label-danger"><i class="fa fa-warning"></i></span>
                                 {% endif %}
                                 <span class="m-l-xs count">
-                                    <strong>{{feed.getLabel()}}</strong>
+                                    <strong><a href="{{feed.getUrl()}}">{{feed.getLabel()}}</a></strong>
                                     <small class="text-muted">
                                         [&nbsp;<i class="fa fa-star"></i>&nbsp;
                                         <span class="subscribes">{{feed.countSubscribes()}}</span>&nbsp;
                                         <i class="fa fa-heart"></i>&nbsp;
                                         <span class="likes">{{feed.countLikes()}}</span>
-                                        &nbsp;]
+                                        &nbsp;]&nbsp;
                                     </small>
                                 </span>
                                 {% if feed.getValidate() == 2 %}
@@ -66,23 +76,33 @@
                                     </small>
                                 </div>
                                 {% elseif feed.getValidate() == 1 %}
-                                    <div class="pull-right">
-                                        <strong><small class="text-warning">
+                                <div class="pull-right">
+                                    <strong>
+                                        <small class="text-warning">
                                             Wait for approval.
-                                        </small></strong>
-                                        |&nbsp;
-                                        <small><a href="{{url('wall/profile')}}/{{feed.getCreator().getId()}}">
-                                            {{feed.getCreator().getUsername()}}</a> .
                                         </small>
-                                    </div>
+                                    </strong>
+                                    |&nbsp;
+                                    <small><a href="{{url('wall/profile')}}/{{feed.getCreator().getId()}}">
+                                        {{feed.getCreator().getUsername()}}</a> .
+                                    </small>
+                                </div>
                                 {% else %}
-                                    <strong><small class="pull-right text-danger">
+                                <strong>
+                                    <small class="pull-right text-danger">
                                         This feed has been moderated.
-                                    </small></strong>
+                                    </small>
+                                </strong>
                                 {% endif %}
                             </li>
                             {% endfor %}
                         </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox-content">
+                        <h2><i class="fa fa-bar-chart-o"></i> Statistics</h2>
+
                     </div>
                 </div>
             </div>

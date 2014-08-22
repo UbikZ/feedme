@@ -1286,10 +1286,6 @@ a.compose-mail {
 
 /* BUTTONS */
 
-.btn {
-    border-radius: 3px;
-}
-
 .float-e-margins .btn {
     margin-bottom: 5px;
 }
