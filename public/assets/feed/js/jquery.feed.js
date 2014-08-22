@@ -25,6 +25,7 @@
                                     $that.addClass('inactive text-danger').removeClass('active text-info');
                                 }
                                 $this.feed('handleRefresh', urlRefresh);
+                                $.notify(o.message.content, o.message.success, {style: 'feedme'});
                             } else {
                                 // todo : create notifs for this
                                 console.error("Fail when post");

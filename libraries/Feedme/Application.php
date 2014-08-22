@@ -195,6 +195,7 @@ class Application
                 ->addCss($prefixPath . '/font-awesome/css/font-awesome.css')
                 ->addCss($prefixPath . '/jquery.gritter/css/jquery.gritter.css')
                 ->addCss('assets/common/css/kill-bootstrap.css')
+                ->addCss('assets/common/css/notify.css')
                 ->addCss('assets/common/css/theme.css')
                 ->addCss('assets/common/css/style.css')
                 ->join($bMinify)

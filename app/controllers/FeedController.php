@@ -133,11 +133,19 @@ class FeedController extends AbstractController
                 /** @var UserFeed $userFeed */
                 $userFeed = $msgFind->getMessage();
 
-                $val = ($scope == 'subscribe') ? $userFeed->getSubscribe() : $userFeed->getLike();
+                $message['success'] = $value ? "success" : "warning";
+                if ($scope == 'subscribe') {
+                    $val = $userFeed->getSubscribe();
+                    $message['content'] = $value ? 'You have subscribed a new feed' : "You have unsubscribed a feed";
+                } else {
+                    $val = $userFeed->getLike();
+                    $message['content'] = $value ? 'You have liked a new feed' : "You have unliked a feed";
+                }
                 $response->setContent(json_encode(
                     array(
                         'success' => $msgFind->getSuccess(),
-                        'active' => filter_var($val, FILTER_VALIDATE_BOOLEAN)
+                        'active' => filter_var($val, FILTER_VALIDATE_BOOLEAN),
+                        'message' => $message
                     )
                 ));
             }
