@@ -1,11 +1,16 @@
 <?php
 
 use Feedme\Com\Notification\Alert;
+use Feedme\Models\Entities\Feed;
+use Feedme\Models\Entities\UserFeed;
 use Feedme\Models\Messages\Filters\FeedType\Select as SelectFeedType;
 use Feedme\Models\Messages\Filters\Feed\Select as SelectFeed;
 use Feedme\Models\Messages\Requests\Feed\Insert;
+use Feedme\Models\Messages\Requests\UserFeed\Insert as InsertUserFeed;
+use Feedme\Models\Messages\Filters\UserFeed\Select as SelectUserFeed;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
+use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
 use Feedme\Session\Handler as HandlerSession;
 
@@ -73,13 +78,80 @@ class FeedController extends AbstractController
         }
     }
 
-    public function asynchToggleSubscribe()
+    public function refreshAction($id = null)
     {
+        $response = new Response();
+        $request = $this->request;
+        if (!is_null($id) && is_numeric($id) && true === $request->isAjax()) {
+            $select = new SelectFeed();
+            $select->id = $id;
+            /** @var ServiceMessage $findFeeds */
+            $findFeeds = Service::getService('Feed')->find($select);
+            /** @var Feed $feed */
+            $feed = $findFeeds->getMessage();
+            $response->setContent(json_encode(
+                array(
+                    'success' => $findFeeds->getSuccess(),
+                    'countSubscribes' => intval($feed->countSubscribes()),
+                    'contLikes' => intval($feed->countLikes())
+                )
+            ));
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
 
+        return $response;
     }
 
-    public function asynchToggleLike()
+    public function subscribeAction()
     {
+        $response = new Response();
+        $request = $this->request;
+        if (true === $request->isPost() && true === $request->isAjax()) {
+            $req = new InsertUserFeed();
+            $req->idUser = $this->_currentUser->getId();
+            $req->idFeed = $request->getPost('idfeed');
+            $req->subscribe = filter_var($request->getPost('value'), FILTER_VALIDATE_BOOLEAN);
+            /** @var ServiceMessage $msgInsert */
+            $msgInsert = Service::getService('UserFeed')->insert($req);
+            if (false === $msgInsert->getSuccess()) {
+                $response->setContent(json_encode(array('success' => $msgInsert->getSuccess())));
+            } else {
+                $quer = new SelectUserFeed();
+                $quer->idFeed = $request->getPost('idfeed');
+                $quer->idUser = $this->_currentUser->getId();
+                /** @var ServiceMessage $msgFind */
+                $msgFind = Service::getService('UserFeed')->find($quer);
+                /** @var UserFeed $userFeed */
+                $userFeed = $msgFind->getMessage();
+                $response->setContent(json_encode(
+                    array(
+                        'success' => $msgFind->getSuccess(),
+                        'active' => filter_var($userFeed->getSubscribe(), FILTER_VALIDATE_BOOLEAN)
+                    )
+                ));
+            }
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
 
+        return $response;
+    }
+
+    public function likeAction()
+    {
+        $response = new Response();
+        $request = $this->request;
+        if (true === $request->isPost() && true === $request->isAjax()) {
+            $req = new UserFeedInsert();
+            $req->idUser = $this->_currentUser->getId();
+            $req->like = $request->getPost('like');
+            $req->idFeed = $request->getPost('idFeed');
+            var_dump($req);die;
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
+
+        return $response;
     }
 }

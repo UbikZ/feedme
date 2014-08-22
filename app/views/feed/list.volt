@@ -1,3 +1,9 @@
+<!-- todo: improve this to add javascript on load with PHALCON TAG -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.feed-list .feed').feed('handleAsynch', '{{"feed/refresh"}}');
+    });
+</script>
 <div id="wrapper">
     {% include "partials/menu.volt" %}
     <div id="page-wrapper" class="gray-bg">
@@ -18,6 +24,7 @@
                         <ul class="feed-list m-t">
                             {% for feed in listFeeds %}
                             <li class="feed"
+                                data-id="{{feed.getId()}}"
                                 data-keysearch="{{feed.getLabel()}} {{feed.getCreator().getUsername()}}"
                                 data-owner="{{feed.getCreator().getId()}}"
                                 data-validate="{{feed.getValidate()}}"
@@ -45,11 +52,11 @@
                                     {% set bSubscribed = feed.getUserFeed(feed.getCreator().getId()).getSubscribe() %}
                                     {% set bLiked = feed.getUserFeed(feed.getCreator().getId()).getLike() %}
                                     <i class="{{feed.getFeedType().getClass()}}"></i>&nbsp;
-                                    <a href="#"
+                                    <a href="{{url('feed/subscribe')}}"
                                        class="action {% if bSubscribed %}active text-info{% else %}inactive text-danger{% endif %}">
                                         <i class="fa fa-star"></i>
                                     </a>
-                                    <a href="#"
+                                    <a href="{{url('feed/like')}}"
                                        class="action {% if bLiked %}active text-info{% else %}inactive text-danger{% endif %}">
                                         <i class="fa fa-heart"></i>
                                     </a>

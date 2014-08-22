@@ -8,6 +8,7 @@
     {{ assets.outputCss('global-css') }}
     {{ assets.outputCss('dash-css') }}
     {{ assets.outputJs('dash-js') }}
+    {{ assets.outputJs('feed-js') }}
 </head>
 <body>
 {{ content() }}

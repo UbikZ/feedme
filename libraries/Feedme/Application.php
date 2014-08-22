@@ -248,6 +248,15 @@ class Application
                 ->join($bMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
+            // Local js (contact)
+            $assetManager
+                ->collection('feed-js')
+                ->setTargetPath('cache/feed.min.js')
+                ->setTargetUri('cache/feed.min.js')
+                ->addJs('assets/feed/js/jquery.feed.js')
+                ->join($bMinify)
+                ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+
             return $assetManager;
         });
     }
