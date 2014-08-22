@@ -2,8 +2,21 @@
     var methods = {
         init: function () {
             return this.each(function () {
-                var $this = $(this);
+                var $this = $(this),
+                    pbExclusive = $this.hasClass('checkspan-exclusive'),
+                    $checkspans = $this.find('.checkspan');
+                $checkspans.click(function() {
+                    if (pbExclusive) {
+                        $checkspans.removeClass('enabled');
+                    }
+                    $(this).toggleClass('enabled');
+                    methods.loadList();
+                });
             });
+        },
+
+        loadList: function () {
+            // todo: perform search/sort/etc.
         },
 
         handleAsynch: function (urlRefresh) {

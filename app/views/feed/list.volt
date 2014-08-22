@@ -1,6 +1,7 @@
 <!-- todo: improve this to add javascript on load with PHALCON TAG -->
 <script type="text/javascript">
     $(document).ready(function () {
+        $('.criterias .crit-row').feed();
         $('.feed-list .feed').feed('handleAsynch', '{{url("feed/refresh")}}');
     });
 </script>
@@ -12,10 +13,10 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="ibox-content">
+                    <div class="ibox-content criterias">
                         <h2><i class="fa fa-gears"></i> Search engine</h2>
 
-                        <div class="form-group m-t">
+                        <div class="crit-row search form-group m-t">
                             <div class="input-group">
                                 {{ text_field("search", "class":"form-control", "placeholder":"Search a feed")}}
                                 <span class="input-group-btn">
@@ -25,10 +26,58 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="divider"></div>
+                        <div class="crit-row validation form-group m-t-md-m">
+                            <strong class="pull-right">Validation criteria</strong>
+
+                            <div>
+                                <a href="#" class="checkspan enabled" data-validid="2"><i class="fa fa-check"></i></a>
+                                <a href="#" class="checkspan enabled" data-validid="1"><i class="fa fa-warning"></i></a>
+                                <a href="#" class="checkspan enabled" data-validid="0"><i class="fa fa-spinner"></i></a>
+                            </div>
+                        </div>
+                        <div class="crit-row order-subcribe checkspan-exclusive form-group m-t-md-m">
+                            <strong class="pull-right">Order/Sort subscriptions</strong>
+
+                            <div>
+                                <a href="#" class="checkspan" data-order="asc">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-sort-amount-asc"></i>
+                                </a>
+                                <a href="#" class="checkspan enabled" data-order="desc">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-sort-amount-desc"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="crit-row order-like checkspan-exclusive form-group m-t-md-m">
+                            <strong class="pull-right">Order/Sort likes</strong>
+
+                            <div>
+                                <a href="#" class="checkspan" data-order="asc">
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-sort-amount-asc"></i>
+                                </a>
+                                <a href="#" class="checkspan enabled" data-order="desc">
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-sort-amount-desc"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="crit-row limit checkspan-exclusive form-group m-t-md-m">
+                            <strong class="pull-right">Limitation</strong>
+                            <strong>
+                                <div>
+                                    <a href="#" class="checkspan" data-limit="10">10</a>
+                                    <a href="#" class="checkspan enabled" data-limit="20">20</a>
+                                    <a href="#" class="checkspan" data-limit="50">50</a>
+                                </div>
+                            </strong>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="ibox-content">
+                    <div class="ibox-content feed-listing">
                         <h2><i class="fa fa-rss"></i> Feeds List</h2>
                         <small>This is an exhaustive list of all public feeds available.</small>
                         <ul class="feed-list m-t">
@@ -100,7 +149,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="ibox-content">
+                    <div class="ibox-content statistics">
                         <h2><i class="fa fa-bar-chart-o"></i> Statistics</h2>
 
                     </div>

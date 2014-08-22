@@ -125,3 +125,26 @@ h2 small {
     opacity: 1;
 }
 
+.checkspan {
+    padding: 10px 16px;
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #e5e6e7;
+    margin-right: 5px;
+    border-radius: 1px;
+}
+
+.checkspan.enabled {
+    color: #fff;
+    background-color: #3276b1;
+    border-color: #285e8e;
+}
+
+.checkspan.enabled:hover {
+    opacity: 0.9;
+}
+
+.m-t-md-m {
+    margin-top: 25px;
+}
+
