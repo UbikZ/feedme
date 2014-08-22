@@ -116,3 +116,12 @@ h2 small {
     margin-right: 10px;
     font-size: 14px;
 }
+
+.feed-list > li a.action.inactive {
+    opacity: 0.3;
+}
+
+.feed-list > li a.action.active {
+    opacity: 1;
+}
+

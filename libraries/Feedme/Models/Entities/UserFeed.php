@@ -37,7 +37,7 @@ class UserFeed extends Model
      */
     public function getSubscribe()
     {
-        return $this->subscribe;
+        return (bool) intval($this->subscribe);
     }
 
     /**
@@ -85,6 +85,6 @@ class UserFeed extends Model
      */
     public function getLike()
     {
-        return $this->like;
+        return (bool) intval($this->like);
     }
 }

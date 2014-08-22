@@ -40,12 +40,15 @@
                                     </small>
                                 </span>
                                 <div class="pull-right">
+                                    {% set bSubscribed = feed.getUserFeed(feed.getCreator().getId()).getSubscribe() %}
+                                    {% set bLiked = feed.getUserFeed(feed.getCreator().getId()).getLike() %}
                                     <i class="{{feed.getFeedType().getClass()}}"></i>&nbsp;
-                                    <a href="#">
+                                    <a href="#"
+                                       class="action {% if bSubscribed %}active text-info{% else %}inactive text-danger{% endif %}">
                                         <i class="fa fa-star"></i>
                                     </a>
                                     <a href="#"
-                                       class="">
+                                       class="action {% if bLiked %}active text-info{% else %}inactive text-danger{% endif %}">
                                         <i class="fa fa-heart"></i>
                                     </a>
                                     |&nbsp;
