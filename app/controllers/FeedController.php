@@ -93,7 +93,7 @@ class FeedController extends AbstractController
                 array(
                     'success' => $findFeeds->getSuccess(),
                     'countSubscribes' => intval($feed->countSubscribes()),
-                    'contLikes' => intval($feed->countLikes())
+                    'countLikes' => intval($feed->countLikes())
                 )
             ));
         } else {
@@ -103,15 +103,23 @@ class FeedController extends AbstractController
         return $response;
     }
 
-    public function subscribeAction()
+    public function postAction($scope = null)
     {
+        $_allowedScope = array('subscribe', 'like');
         $response = new Response();
         $request = $this->request;
-        if (true === $request->isPost() && true === $request->isAjax()) {
+        if (true === $request->isPost() && true === $request->isAjax() && in_array($scope, $_allowedScope)) {
             $req = new InsertUserFeed();
             $req->idUser = $this->_currentUser->getId();
             $req->idFeed = $request->getPost('idfeed');
-            $req->subscribe = filter_var($request->getPost('value'), FILTER_VALIDATE_BOOLEAN);
+
+            $value = filter_var($request->getPost('value'), FILTER_VALIDATE_BOOLEAN);
+            if ($scope == "subscribe") {
+                $req->subscribe = $value;
+            } else {
+                $req->like = $value;
+            }
+
             /** @var ServiceMessage $msgInsert */
             $msgInsert = Service::getService('UserFeed')->insert($req);
             if (false === $msgInsert->getSuccess()) {
@@ -124,30 +132,15 @@ class FeedController extends AbstractController
                 $msgFind = Service::getService('UserFeed')->find($quer);
                 /** @var UserFeed $userFeed */
                 $userFeed = $msgFind->getMessage();
+
+                $val = ($scope == 'subscribe') ? $userFeed->getSubscribe() : $userFeed->getLike();
                 $response->setContent(json_encode(
                     array(
                         'success' => $msgFind->getSuccess(),
-                        'active' => filter_var($userFeed->getSubscribe(), FILTER_VALIDATE_BOOLEAN)
+                        'active' => filter_var($val, FILTER_VALIDATE_BOOLEAN)
                     )
                 ));
             }
-        } else {
-            $response->setContent(json_encode(array('success' => false)));
-        }
-
-        return $response;
-    }
-
-    public function likeAction()
-    {
-        $response = new Response();
-        $request = $this->request;
-        if (true === $request->isPost() && true === $request->isAjax()) {
-            $req = new UserFeedInsert();
-            $req->idUser = $this->_currentUser->getId();
-            $req->like = $request->getPost('like');
-            $req->idFeed = $request->getPost('idFeed');
-            var_dump($req);die;
         } else {
             $response->setContent(json_encode(array('success' => false)));
         }

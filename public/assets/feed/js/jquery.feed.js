@@ -38,15 +38,15 @@
         handleRefresh: function (url) {
             return this.each(function () {
                 var $this = $(this),
-                    urlResresh = url + '/' + $this.data('id');
-                $.get(urlResresh, function (data) {
+                    urlRefresh = url + '/' + $this.data('id');
+                $.get(urlRefresh, function (data) {
                     var o = JSON.parse(data);
                     if (!o.success) {
                         // todo : create notifs for this
                         console.error('Fail to load wall');
                     } else {
                         $this.find('span.subscribes').text(o.countSubscribes);
-                        $this.find('span.subscribes').text(o.countLikes);
+                        $this.find('span.likes').text(o.countLikes);
                     }
                 });
             });

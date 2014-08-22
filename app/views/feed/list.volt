@@ -1,7 +1,7 @@
 <!-- todo: improve this to add javascript on load with PHALCON TAG -->
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.feed-list .feed').feed('handleAsynch', '{{"feed/refresh"}}');
+        $('.feed-list .feed').feed('handleAsynch', '{{url("feed/refresh")}}');
     });
 </script>
 <div id="wrapper">
@@ -41,7 +41,7 @@
                                     <strong>{{feed.getLabel()}}</strong>
                                     <small class="text-muted">
                                         [&nbsp;<i class="fa fa-star"></i>&nbsp;
-                                        <span class="subscripes">{{feed.countSubscribes()}}</span>&nbsp;
+                                        <span class="subscribes">{{feed.countSubscribes()}}</span>&nbsp;
                                         <i class="fa fa-heart"></i>&nbsp;
                                         <span class="likes">{{feed.countLikes()}}</span>
                                         &nbsp;]
@@ -52,11 +52,11 @@
                                     {% set bSubscribed = feed.getUserFeed(feed.getCreator().getId()).getSubscribe() %}
                                     {% set bLiked = feed.getUserFeed(feed.getCreator().getId()).getLike() %}
                                     <i class="{{feed.getFeedType().getClass()}}"></i>&nbsp;
-                                    <a href="{{url('feed/subscribe')}}"
+                                    <a href="{{url('feed/post/subscribe')}}"
                                        class="action {% if bSubscribed %}active text-info{% else %}inactive text-danger{% endif %}">
                                         <i class="fa fa-star"></i>
                                     </a>
-                                    <a href="{{url('feed/like')}}"
+                                    <a href="{{url('feed/post/like')}}"
                                        class="action {% if bLiked %}active text-info{% else %}inactive text-danger{% endif %}">
                                         <i class="fa fa-heart"></i>
                                     </a>
