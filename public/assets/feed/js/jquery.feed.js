@@ -1,11 +1,12 @@
 (function ($) {
     var methods = {
-        init: function () {
+        init: function (urlRefresh) {
             return this.each(function () {
                 var $this = $(this),
                     pbExclusive = $this.hasClass('checkspan-exclusive'),
                     $checkspans = $this.find('.checkspan');
-                $checkspans.click(function () {
+                $checkspans.click(function (event) {
+                    event.preventDefault();
                     if (pbExclusive) {
                         $checkspans.removeClass('enabled');
                     }
@@ -15,12 +16,27 @@
             });
         },
 
-        loadList: function () {
+        loadList: function (urlRefresh) {
             var $sections = $('.criterias .crit-row');
 
             var obj = {};
             $sections.each(function() {
-                obj = $.extend({}, obj, $(this).find('.checkspan.enabled').data());
+                var $checkspans = $(this).find('.checkspan.enabled');
+                if ($checkspans.length > 1) {
+                    var tab = [],
+                        propName;
+                    $checkspans.each(function() {
+                        $.each($(this).data(), function(name, value) {
+                            propName = name;
+                            tab.push(value);
+                        });
+                    });
+                    var objTemp = {};
+                    objTemp[propName] = tab;
+                    obj = $.extend({}, obj, objTemp);
+                } else {
+                    obj = $.extend({}, obj, $checkspans.data());
+                }
             });
             $list = $('ul.feed-list');
             $.post($list.data('url'), obj).done(
@@ -30,6 +46,7 @@
                     tmpl.regexp = /([\s'\\])(?!(?:[^[]|\[(?!%))*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
                     $render = tmpl("tmpl-feeds", o);
                     $list.html($render);
+                    $list.find('.feed').feed('handleAsynch', urlRefresh);
                 }
             );
         },

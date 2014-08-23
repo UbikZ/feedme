@@ -1,9 +1,8 @@
 <!-- todo: improve this to add javascript on load with PHALCON TAG -->
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.criterias .crit-row').feed();
-        $('.feed-list .feed').feed('handleAsynch', '{{url("feed/refresh")}}');
-        $('body').feed('loadList');
+        $('.criterias .crit-row').feed('init', '{{url("feed/refresh")}}');
+        $('body').feed('loadList', '{{url("feed/refresh")}}');
     });
 </script>
 <div id="wrapper">
@@ -32,10 +31,11 @@
                             <strong class="pull-right">Validation criteria</strong>
 
                             <div>
-                                <a href="#" class="checkspan enabled" data-validate="2"><i class="fa fa-check"></i></a>
-                                <a href="#" class="checkspan enabled" data-validate="1"><i
-                                        class="fa fa-warning"></i></a>
+                                <a href="#" class="checkspan enabled" data-validate="2"><i
+                                        class="fa fa-check"></i></a>
                                 <a href="#" class="checkspan enabled" data-validate="0"><i
+                                        class="fa fa-warning"></i></a>
+                                <a href="#" class="checkspan enabled" data-validate="1"><i
                                         class="fa fa-spinner"></i></a>
                             </div>
                         </div>
