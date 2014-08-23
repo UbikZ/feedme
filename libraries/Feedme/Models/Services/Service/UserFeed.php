@@ -54,6 +54,7 @@ class UserFeed
             $query->idUser = $request->idUser;
             /** @var Simple $userFeeds */
             $userFeeds = Dal::getRepository('UserFeed')->find($query);
+
             // If we have no result => insert
             /** @var UserFeed $userFeed */
             if ($userFeeds->count() == 0) {

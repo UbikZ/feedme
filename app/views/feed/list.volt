@@ -83,7 +83,7 @@
                             <script type="text/x-tmpl" id="tmpl-feeds">
                             [% for (var i=0; i<o.feeds.length; i++) { %]
                                 [% var feed = o.feeds[i]; %]
-                                <li class="feed">
+                                <li class="feed" data-id="[%= feed.id %]">
                                     [% var valid=true; %]
                                     [% if (feed.validate == 2) { %]
                                         <span class="label label-info"><i class="fa fa-check"></i></span>

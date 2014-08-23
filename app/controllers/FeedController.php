@@ -129,7 +129,7 @@ class FeedController extends AbstractController
             /** @var ServiceMessage $findFeeds */
             $findFeeds = Service::getService('Feed')->find($select);
             /** @var Feed $feed */
-            $feed = $findFeeds->getMessage();
+            $feed = $findFeeds->getMessage()->getFirst();
             $response->setContent(json_encode(
                 array(
                     'success' => $findFeeds->getSuccess(),
