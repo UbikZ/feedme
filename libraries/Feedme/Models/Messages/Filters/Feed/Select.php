@@ -14,4 +14,6 @@ class Select extends Base
     public $validate;
     /** @var  boolean */
     public $public;
+    /** @var  string */
+    public $needle;
 }

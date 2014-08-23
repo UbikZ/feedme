@@ -86,10 +86,14 @@ class Feed extends BaseAbstract
             );
             $whereClause[] = '(' . implode(' OR ', $orClause) . ')';
         }
+        if (!is_null($needle = $query->needle)) {
+            $whereClause[] = 'label like \'%' . $needle . '%\'';
+        }
         if (!is_null($type = $query->type)) {
             $whereClause[] = 'type=\'' . intval($type) . '\'';
         }
-        if (!is_null($validate = $query->validate) && is_array($validate)) {
+        if (!is_null($query->validate)) {
+            $validate = is_array($query->validate) ? $query->validate : array($query->validate);
             $whereClause[] = 'validate IN (\'' . implode("','", $validate) . '\')';
         }
 

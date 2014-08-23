@@ -20,7 +20,7 @@
                             <div class="input-group">
                                 {{ text_field("search", "class":"form-control", "placeholder":"Search a feed")}}
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary">
+                                    <button type="button" class="search btn btn-primary">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>

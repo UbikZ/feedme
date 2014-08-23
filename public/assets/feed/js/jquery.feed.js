@@ -4,7 +4,9 @@
             return this.each(function () {
                 var $this = $(this),
                     pbExclusive = $this.hasClass('checkspan-exclusive'),
-                    $checkspans = $this.find('.checkspan');
+                    $checkspans = $this.find('.checkspan'),
+                    $inputSearch = $this.find('input[name=search]');
+                // Bind click event
                 $checkspans.click(function (event) {
                     event.preventDefault();
                     if (pbExclusive) {
@@ -13,20 +15,32 @@
                     $(this).toggleClass('enabled');
                     methods.loadList();
                 });
+                // Bind search event on enter key
+                $inputSearch.keyup(function (event) {
+                    event.preventDefault();
+                    methods.loadList();
+                });
+                // Bin search event on "search button"
+                $this.find('button.search').click(function (event) {
+                    event.preventDefault();
+                    if ($this.find('input[name=search]').val() != '') {
+                        methods.loadList();
+                    }
+                });
             });
         },
 
         loadList: function (urlRefresh) {
-            var $sections = $('.criterias .crit-row');
+            var $sections = $('.criterias .crit-row'),
+                obj = {};
 
-            var obj = {};
-            $sections.each(function() {
+            $sections.each(function () {
                 var $checkspans = $(this).find('.checkspan.enabled');
                 if ($checkspans.length > 1) {
                     var tab = [],
                         propName;
-                    $checkspans.each(function() {
-                        $.each($(this).data(), function(name, value) {
+                    $checkspans.each(function () {
+                        $.each($(this).data(), function (name, value) {
                             propName = name;
                             tab.push(value);
                         });
@@ -38,6 +52,7 @@
                     obj = $.extend({}, obj, $checkspans.data());
                 }
             });
+            obj = $.extend({}, obj, {needle: $('.criterias .search input').val()});
             $list = $('ul.feed-list');
             $.post($list.data('url'), obj).done(
                 function (data) {
