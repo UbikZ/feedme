@@ -27,6 +27,7 @@ class Console extends InstanceAbstract
             $arguments = array();
             $this->_handleArguments($arguments, $argv);
             $this->_enableTasksChain($di, $console);
+            $this->_registerDatabase($di);
 
             $console->handle($arguments);
 

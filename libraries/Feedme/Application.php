@@ -264,24 +264,6 @@ class Application extends InstanceAbstract
     }
 
     /**
-     * Register database connection with specific adapter
-     * @param DI $di
-     */
-    private function _registerDatabase(DI &$di)
-    {
-        $di->set('db', function () {
-            return DbFactory::getDriver(array(
-                "adapter" => $this->getConf()->database->adapter,
-                "host" => $this->getConf()->database->host,
-                "username" => $this->getConf()->database->username,
-                "password" => $this->getConf()->database->password,
-                "dbname" => $this->getConf()->database->dbname,
-                "charset" => $this->getConf()->database->charset
-            ));
-        });
-    }
-
-    /**
      * Register metadata adapter (todo: improve this in factory mode)
      * @param DI $di
      */

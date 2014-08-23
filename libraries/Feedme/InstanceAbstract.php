@@ -2,7 +2,11 @@
 
 namespace Feedme;
 
-use \Phalcon\Config;
+use Feedme\Db\Factory as DbFactory;
+use Feedme\Db\Handler as DbHandler;
+
+use Phalcon\Config;
+use Phalcon\DiInterface;
 
 abstract class InstanceAbstract
 {
@@ -38,6 +42,29 @@ abstract class InstanceAbstract
                 ini_set($key, $value);
             }
         }
+    }
+
+    /**
+     * Register database connection with specific adapter
+     * @param DiInterface $di
+     */
+    protected function _registerDatabase(DiInterface &$di)
+    {
+        $dbConf = array(
+            "adapter" => $this->getConf()->database->adapter,
+            "host" => $this->getConf()->database->host,
+            "username" => $this->getConf()->database->username,
+            "password" => $this->getConf()->database->password,
+            "dbname" => $this->getConf()->database->dbname,
+            "charset" => $this->getConf()->database->charset
+        );
+
+        // ORM-less setup
+        DbHandler::$conf = $dbConf;
+        // ORM setup
+        $di->set('db', function () use ($dbConf) {
+            return DbFactory::getDriver($dbConf);
+        });
     }
 
     // Getters & Setters
