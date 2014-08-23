@@ -13,6 +13,8 @@ class FeedType extends EntityAbstract
 
     public function initialize()
     {
+        parent::initialize();
+
         $this->belongsTo('id', $this->_feed, 'type');
     }
 

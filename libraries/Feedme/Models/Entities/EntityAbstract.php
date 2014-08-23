@@ -6,10 +6,40 @@ use Phalcon\Mvc\Model;
 
 abstract class EntityAbstract extends Model implements EntityInterface
 {
+    /** @var  array */
+    protected $_allowSerializabledFields;
+
     /** @var  int */
     protected $id;
     /** @var  boolean */
     protected $active;
+
+    public function initialize()
+    {
+        foreach ($this as $propName => $propValue) {
+            if ($propName != '_allowSerializabledFields') {
+                $this->_allowSerializabledFields[] = $propName;
+            }
+        }
+    }
+
+    /**
+     * @param bool $pbBase
+     * @param array $options
+     * @return array|mixed
+     */
+    public function getSerializable($pbBase = false, $options = array())
+    {
+        $result = array();
+
+        foreach ($this as $propName => $propValue) {
+            if (in_array($propName, $this->_allowSerializabledFields)) {
+                $result[$propName] = $propValue;
+            }
+        }
+
+        return $result;
+    }
 
     /**
      * @param boolean $active
@@ -41,14 +71,5 @@ abstract class EntityAbstract extends Model implements EntityInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param  bool  $pbBase
-     * @return mixed
-     */
-    public function getSerializable($pbBase = false)
-    {
-        // TODO: Implement getSerializable() method.
     }
 }

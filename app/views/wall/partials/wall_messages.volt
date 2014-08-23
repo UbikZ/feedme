@@ -1,4 +1,4 @@
-<script type="text/x-tmpl" id="tmpl-feeds">
+<script type="text/x-tmpl" id="tmpl-messages">
 [% for (var i=0; i<o.messages.length; i++) { %]
 <div class="feed-element">
     <a href="#" class="pull-left">

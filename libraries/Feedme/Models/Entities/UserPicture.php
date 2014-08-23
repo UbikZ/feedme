@@ -9,6 +9,11 @@ class UserPicture extends EntityAbstract
     /** @var  string */
     protected $description;
 
+    public function initialize()
+    {
+        parent::initialize();
+    }
+
     /**
      * @param string $description
      */
@@ -39,18 +44,5 @@ class UserPicture extends EntityAbstract
     public function getPath()
     {
         return $this->path;
-    }
-
-    public function getSerializable($pbBase = false)
-    {
-        $result = array();
-        $_allowed = array('id', 'path', 'description', 'active');
-        foreach ($this as $propName => $propValue) {
-            if (in_array($propName, $_allowed)) {
-                $result[$propName] = $propValue;
-            }
-        }
-
-        return $result;
     }
 }

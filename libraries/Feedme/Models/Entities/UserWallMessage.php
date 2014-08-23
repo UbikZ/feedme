@@ -19,6 +19,8 @@ class UserWallMessage extends EntityAbstract
 
     public function initialize()
     {
+        parent::initialize();
+
         $this->hasMany('id', get_class($this), 'idMessageSrc');
         $this->hasOne('idUserSrc', $this->_user, 'id');
         $this->hasManyToMany(
@@ -114,22 +116,14 @@ class UserWallMessage extends EntityAbstract
         return $this->message;
     }
 
-    public function getSerializable($bBase = false)
+    public function getSerializable($pbBase = false, $options = array())
     {
-        $result = array();
-        $_allowed = array('id', 'message', 'adddate');
-        foreach ($this as $propName => $propValue) {
-            if (in_array($propName, $_allowed)) {
-                if ('adddate' === $propName) {
-                    $result[$propName] =  (new \DateTime($propValue))->format('H\hi Y-m-d');
-                } else {
-                    $result[$propName] = $propValue;
-                }
-            }
-        }
+        $result = parent::getSerializable($pbBase, $options);
+
+        $result['addate'] =  (new \DateTime($this->getAdddate()))->format('H\hi Y-m-d');
         $result['user'] = $this->getUserSrc()->getSerializable(true);
         $result['answers'] = array();
-        if (!$bBase) {
+        if (!$pbBase) {
             /** @var UserWallMessage $message */
             foreach ($this->getAnswers() as $message) {
                 $result['answers'][] = $message->getSerializable(true);

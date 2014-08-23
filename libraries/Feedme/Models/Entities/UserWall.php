@@ -15,6 +15,8 @@ class UserWall extends EntityAbstract
 
     public function initialize()
     {
+        parent::initialize();
+
         $this->belongsTo('idUser', $this->_user, 'id');
         $this->belongsTo('idMessage', $this->_userWall, 'id');
     }

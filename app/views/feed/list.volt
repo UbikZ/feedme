@@ -81,70 +81,66 @@
                         <h2><i class="fa fa-rss"></i> Feeds List</h2>
                         <small>This is an exhaustive list of all public feeds available.</small>
                         <ul class="feed-list m-t">
-                            {% for feed in listFeeds %}
-                            <li class="feed"
-                                data-id="{{feed.getId()}}"
-                                data-keysearch="{{feed.getLabel()|lower}} {{feed.getCreator().getUsername()|lower}}"
-                                data-validate="{{feed.getValidate()}}"
-                                data-countsub="{% if feed.getValidate() != 2 %}{{feed.countSubscribes()}}{% else %}0{% endif %}"
-                                data-countlike="{% if feed.getValidate() != 2 %}{{feed.countLikes()}}{% else %}0{% endif %}">
-                                {% set valid = true %}
-                                {% if feed.getValidate() == 2 %}
-                                <span class="label label-info"><i class="fa fa-check"></i></span>
-                                {% elseif feed.getValidate() == 1 %}
-                                <span class="label label-warning"><i class="fa fa-spin fa-spinner"></i></span>
-                                {% else %}
-                                <span class="label label-danger"><i class="fa fa-warning"></i></span>
-                                {% endif %}
-                                <span class="m-l-xs count">
-                                    <strong><a href="{{feed.getUrl()}}">{{feed.getLabel()}}</a></strong>
-                                    <small class="text-muted">
-                                        [&nbsp;<i class="fa fa-star"></i>&nbsp;
-                                        <span class="subscribes">{{feed.countSubscribes()}}</span>&nbsp;
-                                        <i class="fa fa-heart"></i>&nbsp;
-                                        <span class="likes">{{feed.countLikes()}}</span>
-                                        &nbsp;]&nbsp;
-                                    </small>
-                                </span>
-                                {% if feed.getValidate() == 2 %}
-                                <div class="pull-right">
-                                    {% set bSubscribed = feed.getUserFeed(feed.getCreator().getId()).getSubscribe() %}
-                                    {% set bLiked = feed.getUserFeed(feed.getCreator().getId()).getLike() %}
-                                    <i class="{{feed.getFeedType().getClass()}}"></i>&nbsp;
-                                    <a href="{{url('feed/post/subscribe')}}"
-                                       class="action {% if bSubscribed %}active text-info{% else %}inactive text-danger{% endif %}">
-                                        <i class="fa fa-star"></i>
-                                    </a>
-                                    <a href="{{url('feed/post/like')}}"
-                                       class="action {% if bLiked %}active text-info{% else %}inactive text-danger{% endif %}">
-                                        <i class="fa fa-heart"></i>
-                                    </a>
-                                    |&nbsp;
-                                    <small><a href="{{url('wall/profile')}}/{{feed.getCreator().getId()}}">
-                                        {{feed.getCreator().getUsername()}}</a> .
-                                    </small>
-                                </div>
-                                {% elseif feed.getValidate() == 1 %}
-                                <div class="pull-right">
+                            <script type="text/x-tmpl" id="tmpl-feeds">
+                            [% for (var i=0; i<o.feeds.length; i++) { %]
+                                [% var feed = o.feeds[i]; %]
+                                <li class="feed">
+                                    [% var valid=true; %]
+                                    [% if (feed.validate == 2) { %]
+                                        <span class="label label-info"><i class="fa fa-check"></i></span>
+                                    [% } elseif (feed.validate == 1) { %]
+                                        <span class="label label-warning"><i class="fa fa-spin fa-spinner"></i></span>
+                                    [% } %]
+                                    <span class="m-l-xs count">
+                                        <strong><a href="[%=feed.url%]">[%= feed.label %]</a></strong>
+                                        <small class="text-muted">
+                                            [&nbsp;<i class="fa fa-star"></i>&nbsp;
+                                            <span class="subscribes">[%= feed.countSubscribe s%]</span>&nbsp;
+                                            <i class="fa fa-heart"></i>&nbsp;
+                                            <span class="likes">[%= feed.countLikes %]</span>
+                                            &nbsp;]&nbsp;
+                                        </small>
+                                    </span>
+                                </li>
+                                [% if (feed.validate == 2) %]
+                                    <div class="pull-right">
+                                        [% var bSubscribed = feed.userFeed.subscribe %]
+                                        [% var bLiked = feed.getUserFeed.like %]
+                                        <i class="[%= feed.feedTypee.class %]"></i>&nbsp;
+                                        <a href="[%= o.baseUri %]feed/post/subscribe"
+                                           class="action [% if (bSubscribed) %]active text-info[% else %]inactive text-danger[% endif %]">
+                                            <i class="fa fa-star"></i>
+                                        </a>
+                                        <a href="[[url('feed/post/like')]]"
+                                           class="action [% if (bLiked) %]active text-info[% else %]inactive text-danger[% endif %]">
+                                            <i class="fa fa-heart"></i>
+                                        </a>
+                                        |&nbsp;
+                                        <small><a href="[%= o.baseUri %]wall/profile/[%=feed.creator.id %]">
+                                            [[feed.getCreator().getUsername()]]</a> .
+                                        </small>
+                                    </div>
+                                [% elseif (feed.validate == 1) %]
+                                    <div class="pull-right">
+                                        <strong>
+                                            <small class="text-warning">
+                                                Wait for approval.
+                                            </small>
+                                        </strong>
+                                        |&nbsp;
+                                        <small><a href="[%= o.baseUri %]wall/profile/[%= feed.creator.id %]">
+                                            [%= feed.creator.username %]</a> .
+                                        </small>
+                                    </div>
+                                [% else %]
                                     <strong>
-                                        <small class="text-warning">
-                                            Wait for approval.
+                                        <small class="pull-right text-danger">
+                                            This feed has been moderated.
                                         </small>
                                     </strong>
-                                    |&nbsp;
-                                    <small><a href="{{url('wall/profile')}}/{{feed.getCreator().getId()}}">
-                                        {{feed.getCreator().getUsername()}}</a> .
-                                    </small>
-                                </div>
-                                {% else %}
-                                <strong>
-                                    <small class="pull-right text-danger">
-                                        This feed has been moderated.
-                                    </small>
-                                </strong>
-                                {% endif %}
-                            </li>
-                            {% endfor %}
+                                [% } %]
+                            [% } %]
+                            </script>
                         </ul>
                     </div>
                 </div>

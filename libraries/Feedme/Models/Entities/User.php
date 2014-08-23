@@ -41,6 +41,8 @@ class User extends EntityAbstract
      */
     public function initialize()
     {
+        parent::initialize();
+
         $this->hasOne('picture', $this->_userPictureFK, 'id');
         $this->hasMany('id', $this->_userWallMessageFK, 'idUserSrc');
         $this->hasManyToMany(
@@ -290,18 +292,12 @@ class User extends EntityAbstract
         return !$this->validationHasFailed();
     }
 
-    public function getSerializable($bBase = false)
+    public function getSerializable($pbBase = false, $options = array())
     {
-        $result = array();
-        $_allowed =
-            array('id', 'firstname', 'lastname', 'username', 'email', 'password', 'datetime', 'admin', 'active');
-        foreach ($this as $propName => $propValue) {
-            if (in_array($propName, $_allowed)) {
-                $result[$propName] = $propValue;
-            }
-        }
+        $result = parent::getSerializable($pbBase, $options);
+
         $result['picture'] = $this->getUserPicture()->getSerializable();
-        if (!$bBase) {
+        if (!$pbBase) {
             $result['messages'] = array();
 
             /** @var UserWallMessage $message */

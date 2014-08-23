@@ -32,6 +32,8 @@ class Feed extends EntityAbstract
 
     public function initialize()
     {
+        parent::initialize();
+
         $this->hasOne('type', $this->_feedTypeFK, 'id');
         $this->hasOne('idCreator', $this->_userFK, 'id');
         $this->hasMany('id', $this->_feedItemFK, 'idFeed');
@@ -248,5 +250,21 @@ class Feed extends EntityAbstract
         );
 
         return !$this->validationHasFailed();
+    }
+
+    public function getSerializable($pbBase = false, $options = array())
+    {
+        $result = parent::getSerializable($pbBase, $options);
+        $result['countSubscribes'] = $this->countSubscribes();
+        $result['countLikes'] = $this->countLikes();
+
+        if (!$pbBase) {
+            $result['feedType'] = $this->getFeedType()->getSerializable(true);
+            $result['creator'] = $this->getCreator()->getSerializable(true);
+            if (isset($options['idUser'])) {
+                $result['userFeed'] = $this->getUserFeed($options['idUser'])->getSerializable(true);
+            }
+        }
+
     }
 }

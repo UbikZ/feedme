@@ -32,6 +32,8 @@ class FeedItem extends EntityAbstract
 
     public function initialize()
     {
+        parent::initialize();
+
         $this->belongsTo('idFeed', $this->_feed, 'id');
         $this->hasMany('id', $this->_userFeedItem, 'idFeedItem');
     }
