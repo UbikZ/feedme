@@ -68,6 +68,7 @@ class FeedController extends AbstractController
         $select = new SelectFeed();
         $select->public = true;
         $select->connectedUserId = $this->_currentUser->getId();
+
         /** @var ServiceMessage $findFeeds */
         $findFeeds = Service::getService('Feed')->find($select);
 
@@ -77,6 +78,30 @@ class FeedController extends AbstractController
         } else {
             $this->internalErrorAction();
         }
+    }
+
+    public function loadAction()
+    {
+        $response = new Response();
+        $request = $this->request;
+        if ((true === $request->getPost()) && (true === $request->isAjax())) {
+            // todo; continue
+            $select = new SelectFeed();
+            $select->public = true;
+            $select->direction = $request->getPost('direction');
+            $select->order = $request->getPost('order');
+            $select->limit = $request->getPost('limit');
+            $select->validate = array(0,1);//$request->getPost('validation');
+            $select->connectedUserId = $this->_currentUser->getId();
+
+            /** @var ServiceMessage $findFeeds */
+            $findFeeds = Service::getService('Feed')->find($select);
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
+
+        return $response;
+
     }
 
     public function refreshAction($id = null)

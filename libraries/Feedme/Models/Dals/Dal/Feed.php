@@ -87,8 +87,8 @@ class Feed extends BaseAbstract
         if (!is_null($type = $query->type)) {
             $whereClause[] = 'type=\'' . intval($type) . '\'';
         }
-        if (!is_null($validate = $query->validate)) {
-            $whereClause[] = 'validate=\'' . intval($validate) . '\'';
+        if (!is_null($validate = $query->validate) && is_array($validate)) {
+            $whereClause[] = 'validate IN (\'' . implode("','", $validate) . '\')';
         }
 
         return $whereClause;
