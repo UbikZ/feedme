@@ -149,7 +149,7 @@
                 <div class="col-lg-3">
                     <div class="ibox-content statistics">
                         <h2><i class="fa fa-bar-chart-o"></i> Statistics</h2>
-
+                        <span class="text-muted">In progress</span>
                     </div>
                 </div>
             </div>

@@ -59,9 +59,15 @@ class User
         $message = new ServiceMessage();
 
         try {
+            $users = Dal::getRepository('User')->find($query);
+
             /** @var \Phalcon\Mvc\Model\Resultset\Simple $users */
-            if (false === ($users = Dal::getRepository('User')->find($query))) {
+            if (false === $users) {
                 throw new ServiceException('Authentication failed.');
+            }
+            /** @var \Phalcon\Mvc\Model\Resultset\Simple $users */
+            if (0 == $users->count()) {
+                throw new ServiceException('Invalid email/password.');
             }
 
             $message->setMessage(($users->count() > 1) ? $users : $users->getFirst());
