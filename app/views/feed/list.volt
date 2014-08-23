@@ -42,22 +42,22 @@
                         <div class="crit-row order-like checkspan-exclusive form-group m-t-md-m">
                             <div>
                                 <strong class="pull-right">Order Subscriptions</strong>
-                                <a href="#" class="checkspan" data-order="subscribe" data-direction="asc">
+                                <a href="#" class="checkspan" data-order="subscribe" data-direction="ASC">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-sort-amount-asc"></i>
                                 </a>
-                                <a href="#" class="checkspan enabled" data-order="subscribe" data-direction="desc">
+                                <a href="#" class="checkspan enabled" data-order="subscribe" data-direction="DESC">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-sort-amount-desc"></i>
                                 </a><br/>
                             </div>
                             <div class="m-t-md-m">
                                 <strong class="pull-right">Order likes</strong>
-                                <a href="#" class="checkspan" data-order="like" data-direction="asc">
+                                <a href="#" class="checkspan" data-order="like" data-direction="ASC">
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-sort-amount-asc"></i>
                                 </a>
-                                <a href="#" class="checkspan" data-order="like" data-direction="desc">
+                                <a href="#" class="checkspan" data-order="like" data-direction="DESC">
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-sort-amount-desc"></i>
                                 </a>
