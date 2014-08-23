@@ -67,6 +67,7 @@ class FeedController extends AbstractController
     {
         $select = new SelectFeed();
         $select->public = true;
+        $select->connectedUserId = $this->_currentUser->getId();
         /** @var ServiceMessage $findFeeds */
         $findFeeds = Service::getService('Feed')->find($select);
 

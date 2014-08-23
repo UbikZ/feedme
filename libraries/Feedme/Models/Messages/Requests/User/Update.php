@@ -2,10 +2,10 @@
 
 namespace Feedme\Models\Messages\Requests\User;
 
-class Update
+use Feedme\Models\Messages\Requests\Base;
+
+class Update extends Base
 {
-    /** @var  int */
-    public $id;
     /** @var  string */
     public $firstname;
     /** @var  string */
@@ -22,8 +22,6 @@ class Update
     public $address;
     /** @var  string */
     public $about;
-    /** @var  boolean */
-    public $active;
     /** @var  int */
     public $picture;
     /** @var  string */

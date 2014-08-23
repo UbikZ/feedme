@@ -2,15 +2,15 @@
 
 namespace Feedme\Models\Messages\Filters\Feed;
 
-class Select
+use Feedme\Models\Messages\Filters\Base;
+
+class Select extends Base
 {
-    /** @var  int */
-    public $id;
     /** @var  int */
     public $idCreator;
     /** @var  int */
     public $type;
-    /** @var  int */
+    /** @var  array */
     public $validate;
     /** @var  boolean */
     public $public;

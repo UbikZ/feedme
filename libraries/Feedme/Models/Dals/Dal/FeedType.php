@@ -5,7 +5,7 @@ namespace Feedme\Models\Dals\Dal;
 use Feedme\Models\Messages\Filters\FeedType\Select;
 use Feedme\Models\Entities\FeedType as EntityFeedType;
 
-class FeedType
+class FeedType extends BaseAbstract
 {
     /**
      * @param  Select                                $query
@@ -13,23 +13,17 @@ class FeedType
      */
     public function find(Select $query)
     {
-        return EntityFeedType::find($this->_parseQuery($query));
+        return EntityFeedType::find($this->_parseFilter($query));
     }
 
     /**
-     * @param  Select $query
-     * @return string
+     * @param  Select       $query
+     * @return mixed|string
      */
-    private function _parseQuery(Select $query)
+    public function _parseQuery($query)
     {
-        $whereClause = array();
-        if (!is_null($id = $query->id)) {
-            $whereClause[] = 'id=\'' . intval($id) . '\'';
-        }
-        if (!is_null($active = $query->active)) {
-            $whereClause[] = 'active=\'' . intval($active) . '\'';
-        }
+        $whereClause = parent::_parseQuery($query);
 
-        return implode(' AND ', $whereClause);
+        return $whereClause;
     }
 }

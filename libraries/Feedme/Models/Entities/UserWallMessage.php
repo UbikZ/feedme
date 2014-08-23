@@ -2,13 +2,11 @@
 
 namespace Feedme\Models\Entities;
 
-class UserWallMessage extends \Phalcon\Mvc\Model
+class UserWallMessage extends EntityAbstract
 {
     private $_user = 'Feedme\\Models\\Entities\\User';
     private $_userWall = 'Feedme\\Models\\Entities\\UserWall';
 
-    /** @var  int */
-    protected $id;
     /** @var  int */
     protected $idMessageSrc;
 
@@ -82,22 +80,6 @@ class UserWallMessage extends \Phalcon\Mvc\Model
     public function getIdMessageSrc()
     {
         return $this->idMessageSrc;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

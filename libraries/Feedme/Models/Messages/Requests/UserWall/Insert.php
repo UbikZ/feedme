@@ -2,12 +2,12 @@
 
 namespace Feedme\Models\Messages\Requests\UserWall;
 
-class Insert
+use Feedme\Models\Messages\Requests\Base;
+
+class Insert extends Base
 {
     /** @var  int */
     public $idUser;
     /** @var  string */
     public $idMessage;
-    /** @var  boolean */
-    public $active;
 }

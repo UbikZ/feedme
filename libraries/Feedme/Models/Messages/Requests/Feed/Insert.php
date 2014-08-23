@@ -2,7 +2,9 @@
 
 namespace Feedme\Models\Messages\Requests\Feed;
 
-class Insert
+use Feedme\Models\Messages\Requests\Base;
+
+class Insert extends Base
 {
     /** @var  int */
     public $idCreator;
@@ -14,8 +16,6 @@ class Insert
     public $description;
     /** @var  int */
     public $type;
-    /** @var  boolean */
-    public $active;
     /** @var  boolean */
     public $public;
 }

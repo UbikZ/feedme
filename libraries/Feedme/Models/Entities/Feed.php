@@ -5,7 +5,7 @@ namespace Feedme\Models\Entities;
 use Phalcon\Mvc\Model\Resultset;
 use Phalcon\Mvc\Model\Validator\Url;
 
-class Feed extends \Phalcon\Mvc\Model
+class Feed extends EntityAbstract
 {
     // Foreign keys
     private $_userFK = 'Feedme\\Models\\Entities\\User';
@@ -13,8 +13,6 @@ class Feed extends \Phalcon\Mvc\Model
     private $_feedItemFK = 'Feedme\\Models\\Entities\\FeedItem';
     private $_feedTypeFK = 'Feedme\\Models\\Entities\\FeedType';
 
-    /** @var  int */
-    protected $id;
     /** @var  int */
     protected $idCreator;
     /** @var  string */
@@ -169,22 +167,6 @@ class Feed extends \Phalcon\Mvc\Model
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

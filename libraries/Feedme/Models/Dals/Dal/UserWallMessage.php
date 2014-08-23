@@ -6,13 +6,13 @@ use Feedme\Models\Entities\UserWall as EntityUserWall;
 use Feedme\Models\Entities\UserWallMessage as EntityUserWallMessage;
 use Feedme\Models\Messages\DalMessage;
 use Feedme\Models\Messages\Filters\UserWallMessage\Select;
-use Feedme\Models\Messages\Requests\UserWallMessage\Delete;
 use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
 use Phalcon\Mvc\Model;
 
-class UserWallMessage
+class UserWallMessage extends BaseAbstract
 {
     /**
+     * todo: create a parseRequest for that
      * @param  Insert     $request
      * @return DalMessage
      */
@@ -42,16 +42,28 @@ class UserWallMessage
         return $return;
     }
 
+    /**
+     * @param  Select                   $query
+     * @return Model\ResultsetInterface
+     */
     public function find(Select $query)
     {
-        return EntityUserWallMessage::find($this->_parseQuery($query));
+        return EntityUserWallMessage::find($this->_parseFilter($query));
     }
 
+    /**
+     * @param  Select $query
+     * @return int
+     */
     public function count(Select $query)
     {
-        return EntityUserWallMessage::count($this->_parseQuery($query));
+        return EntityUserWallMessage::count($this->_parseFilter($query));
     }
 
+    /**
+     * @param  Select $query
+     * @return bool
+     */
     public function delete(Select $query)
     {
         $result = false;
@@ -67,19 +79,21 @@ class UserWallMessage
         return $result;
     }
 
-    private function _parseQuery(Select $query)
+    /**
+     * @param  Select       $query
+     * @return mixed|string
+     */
+    public function _parseQuery($query)
     {
-        $whereClause = array();
+        $whereClause = parent::_parseQuery($query);
+
         if (!is_null($idUserSrc = $query->idUserSrc)) {
             $whereClause[] = 'idUserSrc=\'' . intval($idUserSrc) . '\'';
-        }
-        if (!is_null($id = $query->id)) {
-            $whereClause[] = 'id=\'' . intval($id) . '\'';
         }
         if (!is_null($idMessageSrc = $query->idMessageSrc)) {
             $whereClause[] = 'idMessageSrc=\'' . intval($idMessageSrc) . '\'';
         }
 
-        return implode(' AND ', $whereClause);
+        return $whereClause;
     }
 }

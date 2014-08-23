@@ -7,7 +7,7 @@ use Feedme\Models\Messages\DalMessage;
 use Feedme\Models\Messages\Filters\User\Select;
 use Feedme\Models\Messages\Requests\User\Update;
 
-class User
+class User extends BaseAbstract
 {
     /**
      * @param  EntityUser $user
@@ -31,16 +31,18 @@ class User
      */
     public function find(Select $query)
     {
-        return EntityUser::find($this->_parseQuery($query));
+        return EntityUser::find($this->_parseFilter($query));
     }
 
     /**
-     * @param EntityUser $user
-     * @param Update     $request
+     * @param  EntityUser $user
+     * @param  Update     $request
+     * @return mixed|void
      */
-    private function _parseRequest(EntityUser &$user, Update $request)
+    public function _parseRequest(&$user, $request)
     {
-        $user->setId($request->id);
+        parent::_parseRequest($user, $request);
+
         $user->setFirstname($request->firstname);
         $user->setLastname($request->lastname);
         $user->setUsername($request->username);
@@ -53,9 +55,6 @@ class User
         }
         if (!is_null($request->admin)) {
             $user->setAdmin($request->admin);
-        }
-        if (!is_null($request->active)) {
-            $user->setActive($request->active);
         }
         if (!is_null($request->address)) {
             $user->setAddress($request->address);
@@ -72,28 +71,23 @@ class User
     }
 
     /**
-     * @param  Select $query
-     * @return string
+     * @param  Select       $query
+     * @return mixed|string
      */
-    private function _parseQuery(Select $query)
+    public function _parseQuery($query)
     {
-        $whereClause = array();
-        if (!is_null($id = $query->id)) {
-            $whereClause[] = 'id=\'' . intval($id) . '\'';
-        }
+        $whereClause = parent::_parseQuery($query);
+
         if (!is_null($email = $query->email)) {
             $whereClause[] = 'email=\'' . $email . '\'';
         }
         if (!is_null($password = $query->password)) {
             $whereClause[] = 'password=\'' . sha1($password) . '\'';
         }
-        if (!is_null($active = $query->active)) {
-            $whereClause[] = 'active=\'' . intval($active) . '\'';
-        }
         if (!is_null($admin = $query->admin)) {
             $whereClause[] = 'admin=\'' . intval($admin) . '\'';
         }
 
-        return implode(' AND ', $whereClause);
+        return $whereClause;
     }
 }

@@ -2,39 +2,18 @@
 
 namespace Feedme\Models\Entities;
 
-use Phalcon\Mvc\Model;
-
-class FeedType extends Model
+class FeedType extends EntityAbstract
 {
     private $_feed = 'Feedme\\Models\\Entities\\Feed';
 
-    /** @var  int */
-    protected $id;
     /** @var  string */
     protected $label;
     /** @var  string */
     protected $class;
-    /** @var  boolean */
-    protected $active;
 
     public function initialize()
     {
         $this->belongsTo('id', $this->_feed, 'type');
-    }
-    /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
     }
 
     /**
@@ -51,22 +30,6 @@ class FeedType extends Model
     public function getClass()
     {
         return $this->class;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

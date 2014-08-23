@@ -16,7 +16,14 @@
         },
 
         loadList: function () {
-            // todo: perform search/sort/etc.
+            var $checkspansEnabled = $('.checkspan.enabled'),
+                validations = $checkspansEnabled.data('validid'),
+                orderSubscribe = $checkspansEnabled.data('ordersub'),
+                orderLike = $checkspansEnabled.data('orderlike'),
+                limit = $checkspansEnabled.data('limit');
+            $('.feed-list li.feed').each(function() {
+
+            });
         },
 
         handleAsynch: function (urlRefresh) {

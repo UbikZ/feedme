@@ -2,32 +2,12 @@
 
 namespace Feedme\Models\Entities;
 
-class UserPicture extends \Phalcon\Mvc\Model
+class UserPicture extends EntityAbstract
 {
-    /** @var  int */
-    protected $id;
     /** @var  string */
     protected $path;
     /** @var  string */
     protected $description;
-    /** @var  boolean */
-    protected $active;
-
-    /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
 
     /**
      * @param string $description
@@ -46,22 +26,6 @@ class UserPicture extends \Phalcon\Mvc\Model
     }
 
     /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * @param string $path
      */
     public function setPath($path)
@@ -77,7 +41,7 @@ class UserPicture extends \Phalcon\Mvc\Model
         return $this->path;
     }
 
-    public function getSerializable()
+    public function getSerializable($pbBase = false)
     {
         $result = array();
         $_allowed = array('id', 'path', 'description', 'active');

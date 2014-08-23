@@ -2,15 +2,11 @@
 
 namespace Feedme\Models\Entities;
 
-use Phalcon\Mvc\Model;
-
-class FeedItem extends Model
+class FeedItem extends EntityAbstract
 {
     private $_userFeedItem = 'Feedme\\Models\\Entities\\UserFeedItem';
     private $_feed = 'Feedme\\Models\\Entities\\Feed';
 
-    /** @var  int */
-    protected $id;
     /** @var  int */
     protected $idFeed;
     /** @var  string */
@@ -33,8 +29,6 @@ class FeedItem extends Model
     protected $extract;
     /** @var  int */
     protected $countView;
-    /** @var  boolean */
-    protected $active;
 
     public function initialize()
     {
@@ -56,22 +50,6 @@ class FeedItem extends Model
     public function countLikes()
     {
         return $this->getRelated($this->_userFeedItem);
-    }
-
-    /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
     }
 
     /**
@@ -184,22 +162,6 @@ class FeedItem extends Model
     public function getExtract()
     {
         return $this->extract;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

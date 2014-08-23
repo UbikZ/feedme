@@ -2,15 +2,11 @@
 
 namespace Feedme\Models\Entities;
 
-use Phalcon\Mvc\Model;
-
-class UserFeed extends Model
+class UserFeed extends EntityAbstract
 {
     private $_user = 'Feedme\\Models\\Entities\\User';
     private $_feed = 'Feedme\\Models\\Entities\\Feed';
 
-    /** @var  int */
-    protected $id;
     /** @var  int */
     protected $idUser;
     /** @var  int */
@@ -40,22 +36,6 @@ class UserFeed extends Model
     public function getSubscribe()
     {
         return filter_var($this->subscribe, FILTER_VALIDATE_BOOLEAN);
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

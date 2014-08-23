@@ -2,7 +2,8 @@
 
 namespace Feedme\Models\Entities;
 
-class UserWall extends \Phalcon\Mvc\Model
+class UserWall extends EntityAbstract
+
 {
     private $_user = 'Feedme\\Models\\Entities\\User';
     private $_userWall = 'Feedme\\Models\\Entitiers\\UserWallMessage';
@@ -11,29 +12,11 @@ class UserWall extends \Phalcon\Mvc\Model
     protected $idUser;
     /** @var  int */
     protected $idMessage;
-    /** @var  boolean */
-    protected $active;
 
     public function initialize()
     {
         $this->belongsTo('idUser', $this->_user, 'id');
         $this->belongsTo('idMessage', $this->_userWall, 'id');
-    }
-
-    /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
     }
 
     /**

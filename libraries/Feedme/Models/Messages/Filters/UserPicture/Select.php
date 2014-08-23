@@ -2,14 +2,12 @@
 
 namespace Feedme\Models\Messages\Filters\UserPicture;
 
-class Select
+use Feedme\Models\Messages\Filters\Base;
+
+class Select extends Base
 {
-    /** @var  int */
-    public $id;
     /** @var  string */
     public $path;
     /** @var  string */
     public $description;
-    /** @var  boolean */
-    public $active;
 }

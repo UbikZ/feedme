@@ -2,9 +2,7 @@
 
 namespace Feedme\Models\Entities;
 
-use Phalcon\Mvc\Model;
-
-class UserFeedItem extends Model
+class UserFeedItem extends EntityAbstract
 {
     private $_user = 'Feedme\\Models\\Entities\\User';
     private $_feedItem = 'Feedme\\Models\\Entities\\FeedItem';

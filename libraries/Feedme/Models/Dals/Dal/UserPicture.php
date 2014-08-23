@@ -5,7 +5,7 @@ namespace Feedme\Models\Dals\Dal;
 use Feedme\Models\Messages\Filters\UserPicture\Select;
 use Feedme\Models\Entities\UserPicture as EntityUserPicture;
 
-class UserPicture
+class UserPicture extends BaseAbstract
 {
     /**
      * @param  Select              $query
@@ -16,19 +16,18 @@ class UserPicture
         return EntityUserPicture::find($this->_parseFilter($query));
     }
 
-    private function _parseFilter(Select $query)
+    /**
+     * @param  Select $query
+     * @return string
+     */
+    public function _parseQuery($query)
     {
-        $whereClause = array();
-        if (!is_null($id = $query->id)) {
-            $whereClause[] = 'id=\'' . intval($id) . '\'';
-        }
+        $whereClause = parent::_parseQuery($query);
+
         if (!is_null($path = $query->path)) {
             $whereClause[] = 'path=\'' . $path . '\'';
         }
-        if (!is_null($active = $query->active)) {
-            $whereClause[] = 'active=\'' . intval($active) . '\'';
-        }
 
-        return implode(' AND ', $whereClause);
+        return $whereClause;
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Feedme\Models\Messages\Filters\UserWallMessage;
 
-class Select
+use Feedme\Models\Messages\Filters\Base;
+
+class Select extends Base
 {
-    /** @var  int */
-    public $id;
     /** @var  int */
     public $idMessageSrc;
     /** @var  int */

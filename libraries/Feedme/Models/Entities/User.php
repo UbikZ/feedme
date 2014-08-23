@@ -4,52 +4,35 @@ namespace Feedme\Models\Entities;
 
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
-class User extends \Phalcon\Mvc\Model
+class User extends EntityAbstract
 {
     // Foreign key
     private $_userPictureFK = 'Feedme\\Models\\Entities\\UserPicture';
     private $_userWallFK = 'Feedme\\Models\\Entities\\UserWall';
     private $_userWallMessageFK = 'Feedme\\Models\\Entities\\UserWallMessage';
 
-    /** @var  int */
-    protected $id;
-
     /** @var  string */
     protected $firstname;
-
     /** @var  string */
     protected $lastname;
-
     /** @var  string */
     protected $username;
-
     /** @var  string */
     protected $email;
-
     /** @var  string */
     protected $password;
-
     /** @var  string */
     protected $society;
-
     /** @var  string */
     protected $address;
-
     /** @var  string */
     protected $about;
-
     /** @var  string */
     protected $profilePicture;
-
     /** @var  \DateTime */
     protected $datetime;
-
     /** @var  boolean */
     protected $admin;
-
-    /** @var  boolean */
-    protected $active;
-
     /** @var  int */
     protected $picture;
 
@@ -178,22 +161,6 @@ class User extends \Phalcon\Mvc\Model
     }
 
     /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
-
-    /**
      * @param boolean $isAdmin
      */
     public function setAdmin($admin)
@@ -255,22 +222,6 @@ class User extends \Phalcon\Mvc\Model
     public function getFirstname()
     {
         return $this->firstname;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

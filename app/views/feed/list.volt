@@ -40,11 +40,11 @@
                             <strong class="pull-right">Order/Sort subscriptions</strong>
 
                             <div>
-                                <a href="#" class="checkspan" data-order="asc">
+                                <a href="#" class="checkspan" data-ordersub="asc">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-sort-amount-asc"></i>
                                 </a>
-                                <a href="#" class="checkspan enabled" data-order="desc">
+                                <a href="#" class="checkspan enabled" data-ordersub="desc">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-sort-amount-desc"></i>
                                 </a>
@@ -54,11 +54,11 @@
                             <strong class="pull-right">Order/Sort likes</strong>
 
                             <div>
-                                <a href="#" class="checkspan" data-order="asc">
+                                <a href="#" class="checkspan" data-orderlike="asc">
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-sort-amount-asc"></i>
                                 </a>
-                                <a href="#" class="checkspan enabled" data-order="desc">
+                                <a href="#" class="checkspan enabled" data-orderlike="desc">
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-sort-amount-desc"></i>
                                 </a>
@@ -84,10 +84,10 @@
                             {% for feed in listFeeds %}
                             <li class="feed"
                                 data-id="{{feed.getId()}}"
-                                data-keysearch="{{feed.getLabel()}} {{feed.getCreator().getUsername()}}"
-                                data-owner="{{feed.getCreator().getId()}}"
+                                data-keysearch="{{feed.getLabel()|lower}} {{feed.getCreator().getUsername()|lower}}"
                                 data-validate="{{feed.getValidate()}}"
-                                data-type="{{feed.getType()}}">
+                                data-countsub="{% if feed.getValidate() != 2 %}{{feed.countSubscribes()}}{% else %}0{% endif %}"
+                                data-countlike="{% if feed.getValidate() != 2 %}{{feed.countLikes()}}{% else %}0{% endif %}">
                                 {% set valid = true %}
                                 {% if feed.getValidate() == 2 %}
                                 <span class="label label-info"><i class="fa fa-check"></i></span>

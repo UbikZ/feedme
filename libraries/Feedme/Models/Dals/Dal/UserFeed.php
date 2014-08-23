@@ -7,7 +7,7 @@ use Feedme\Models\Messages\Filters\UserFeed\Select;
 use Feedme\Models\Entities\UserFeed as EntityUserFeed;
 use Feedme\Models\Messages\Requests\UserFeed\Insert;
 
-class UserFeed
+class UserFeed extends BaseAbstract
 {
     /**
      * @param  Select                                $query
@@ -15,7 +15,7 @@ class UserFeed
      */
     public function find(Select $query)
     {
-        return EntityUserFeed::find($this->_parseQuery($query));
+        return EntityUserFeed::find($this->_parseFilter($query));
     }
 
     /**
@@ -49,11 +49,14 @@ class UserFeed
     }
 
     /**
-     * @param EntityUserFeed $uf
-     * @param Insert         $request
+     * @param  EntityUserFeed $uf
+     * @param  Insert         $request
+     * @return mixed|void
      */
-    private function _parseRequest(EntityUserFeed &$uf, Insert $request)
+    public function _parseRequest(&$uf, $request)
     {
+        parent::_parseRequest($uf, $request);
+
         if (!is_null($request->idFeed)) {
             $uf->setIdFeed(intval($request->idFeed));
         }
@@ -69,15 +72,13 @@ class UserFeed
     }
 
     /**
-     * @param  Select $query
-     * @return string
+     * @param  Select       $query
+     * @return mixed|string
      */
-    private function _parseQuery(Select $query)
+    public function _parseQuery($query)
     {
-        $whereClause = array();
-        if (!is_null($id = $query->id)) {
-            $whereClause[] = 'id=\'' . intval(id) . '\'';
-        }
+        $whereClause = parent::_parseQuery($query);
+
         if (!is_null($idUser = $query->idUser)) {
             $whereClause[] = 'idUser=\'' . intval($idUser) . '\'';
         }
@@ -91,6 +92,6 @@ class UserFeed
             $whereClause[] = 'subscribe=\'' . intval($subscribe) . '\'';
         }
 
-        return implode(' AND ', $whereClause);
+        return $whereClause;
     }
 }

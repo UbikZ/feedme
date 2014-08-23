@@ -2,12 +2,12 @@
 
 namespace Feedme\Models\Messages\Filters\UserWall;
 
-class Select
+use Feedme\Models\Messages\Filters\Base;
+
+class Select extends Base
 {
     /** @var  int */
     public $idUser;
     /** @var  int */
     public $idMessage;
-    /** @var  boolean */
-    public $active;
 }

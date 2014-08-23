@@ -2,7 +2,9 @@
 
 namespace Feedme\Models\Messages\Requests\UserWallMessage;
 
-class Insert
+use Feedme\Models\Messages\Requests\Base;
+
+class Insert extends Base
 {
     /** @var  int */
     public $idMessageSrc;

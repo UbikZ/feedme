@@ -2,16 +2,14 @@
 
 namespace Feedme\Models\Messages\Filters\User;
 
-class Select
+use Feedme\Models\Messages\Filters\Base;
+
+class Select extends Base
 {
-    /** @var  int */
-    public $id;
     /** @var  string */
     public $email;
     /** @var  string */
     public $password;
-    /** @var  boolean */
-    public $active;
     /** @var  boolean */
     public $admin;
 }
