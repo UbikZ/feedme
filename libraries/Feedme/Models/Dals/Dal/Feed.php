@@ -32,7 +32,9 @@ class Feed extends BaseAbstract
      */
     public function find(Select $query)
     {
-        return EntityFeed::find($this->_parseFilter($query));
+        $result = EntityFeed::find($this->_parseFilter($query));
+
+        return $result;
     }
 
     /**

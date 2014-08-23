@@ -90,7 +90,10 @@ class FeedController extends AbstractController
             $select->direction = $request->getPost('direction');
             $select->order = $request->getPost('order');
             $select->limit = $request->getPost('limit');
-            $select->validate = $request->getPost('validate');
+            $validate = $request->getPost('validate');
+            if (!is_null($validate)) {
+                $select->validate = is_array($validate) ? $validate : array($validate);
+            }
             $select->connectedUserId = $this->_currentUser->getId();
 
             /** @var ServiceMessage $findFeeds */

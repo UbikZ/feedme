@@ -19,6 +19,7 @@ class Feed
     public function insert(Insert $request)
     {
         $message = new ServiceMessage();
+        $dalMessage = new DalMessage();
 
         try {
             /** @var DalMessage $dalMessage */
@@ -48,12 +49,12 @@ class Feed
         $message = new ServiceMessage();
 
         try {
-            /** @var \Phalcon\Mvc\Model\Resultset\Simple $users */
+            /** @var \Phalcon\Mvc\Model\Resultset\Simple $feeds */
             if (false === ($feeds = Dal::getRepository('Feed')->find($query))) {
                 throw new ServiceException('Fail to get feeds.');
             }
 
-            $message->setMessage(($feeds->count() > 1) ? $feeds : $feeds->getFirst());
+            $message->setMessage($feeds);
             $message->setSuccess(true);
         } catch (ServiceException $e) {
             $message->setError($e->getMessage());

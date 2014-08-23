@@ -33,9 +33,11 @@ abstract class EntityAbstract extends Model implements EntityInterface
         $result = array();
 
         foreach ($this as $propName => $propValue) {
-            if (in_array($propName, $this->_allowSerializabledFields) &&
-            preg_match('/^_/', $propName) == 0) {
-                $result[$propName] = $propValue;
+            if (is_array($this->_allowSerializabledFields)) {
+                if (in_array($propName, $this->_allowSerializabledFields) &&
+                    preg_match('/^_/', $propName) == 0) {
+                    $result[$propName] = $propValue;
+                }
             }
         }
 

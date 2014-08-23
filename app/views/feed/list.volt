@@ -39,7 +39,7 @@
                                         class="fa fa-spinner"></i></a>
                             </div>
                         </div>
-                        <div class="crit-row order-like checkspan-exclusive form-group m-t-md-m">
+                        <!--<div class="crit-row order-like checkspan-exclusive form-group m-t-md-m">
                             <div>
                                 <strong class="pull-right">Order Subscriptions</strong>
                                 <a href="#" class="checkspan" data-order="subscribe" data-direction="ASC">
@@ -62,7 +62,7 @@
                                     <i class="fa fa-sort-amount-desc"></i>
                                 </a>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="crit-row limit checkspan-exclusive form-group m-t-md-m">
                             <strong class="pull-right">Limitation</strong>
                             <strong>
