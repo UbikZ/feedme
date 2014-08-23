@@ -266,5 +266,6 @@ class Feed extends EntityAbstract
             }
         }
 
+        return $result;
     }
 }

@@ -24,8 +24,8 @@ abstract class EntityAbstract extends Model implements EntityInterface
     }
 
     /**
-     * @param bool $pbBase
-     * @param array $options
+     * @param  bool        $pbBase
+     * @param  array       $options
      * @return array|mixed
      */
     public function getSerializable($pbBase = false, $options = array())
@@ -33,7 +33,8 @@ abstract class EntityAbstract extends Model implements EntityInterface
         $result = array();
 
         foreach ($this as $propName => $propValue) {
-            if (in_array($propName, $this->_allowSerializabledFields)) {
+            if (in_array($propName, $this->_allowSerializabledFields) &&
+            preg_match('/^_/', $propName) == 0) {
                 $result[$propName] = $propValue;
             }
         }

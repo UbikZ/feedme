@@ -3,6 +3,7 @@
     $(document).ready(function () {
         $('.criterias .crit-row').feed();
         $('.feed-list .feed').feed('handleAsynch', '{{url("feed/refresh")}}');
+        $('body').feed('loadList');
     });
 </script>
 <div id="wrapper">
@@ -31,34 +32,32 @@
                             <strong class="pull-right">Validation criteria</strong>
 
                             <div>
-                                <a href="#" class="checkspan enabled" data-validid="2"><i class="fa fa-check"></i></a>
-                                <a href="#" class="checkspan enabled" data-validid="1"><i class="fa fa-warning"></i></a>
-                                <a href="#" class="checkspan enabled" data-validid="0"><i class="fa fa-spinner"></i></a>
-                            </div>
-                        </div>
-                        <div class="crit-row order-subcribe checkspan-exclusive form-group m-t-md-m">
-                            <strong class="pull-right">Order/Sort subscriptions</strong>
-
-                            <div>
-                                <a href="#" class="checkspan" data-ordersub="asc">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-sort-amount-asc"></i>
-                                </a>
-                                <a href="#" class="checkspan enabled" data-ordersub="desc">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-sort-amount-desc"></i>
-                                </a>
+                                <a href="#" class="checkspan enabled" data-validate="2"><i class="fa fa-check"></i></a>
+                                <a href="#" class="checkspan enabled" data-validate="1"><i
+                                        class="fa fa-warning"></i></a>
+                                <a href="#" class="checkspan enabled" data-validate="0"><i
+                                        class="fa fa-spinner"></i></a>
                             </div>
                         </div>
                         <div class="crit-row order-like checkspan-exclusive form-group m-t-md-m">
-                            <strong class="pull-right">Order/Sort likes</strong>
-
                             <div>
-                                <a href="#" class="checkspan" data-orderlike="asc">
+                                <strong class="pull-right">Order Subscriptions</strong>
+                                <a href="#" class="checkspan" data-order="subscribe" data-direction="asc">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-sort-amount-asc"></i>
+                                </a>
+                                <a href="#" class="checkspan enabled" data-order="subscribe" data-direction="desc">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-sort-amount-desc"></i>
+                                </a><br/>
+                            </div>
+                            <div class="m-t-md-m">
+                                <strong class="pull-right">Order likes</strong>
+                                <a href="#" class="checkspan" data-order="like" data-direction="asc">
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-sort-amount-asc"></i>
                                 </a>
-                                <a href="#" class="checkspan enabled" data-orderlike="desc">
+                                <a href="#" class="checkspan" data-order="like" data-direction="desc">
                                     <i class="fa fa-heart"></i>
                                     <i class="fa fa-sort-amount-desc"></i>
                                 </a>
@@ -80,7 +79,7 @@
                     <div class="ibox-content feed-listing">
                         <h2><i class="fa fa-rss"></i> Feeds List</h2>
                         <small>This is an exhaustive list of all public feeds available.</small>
-                        <ul class="feed-list m-t">
+                        <ul class="feed-list m-t" data-url="{{url('feed/load')}}">
                             <script type="text/x-tmpl" id="tmpl-feeds">
                             [% for (var i=0; i<o.feeds.length; i++) { %]
                                 [% var feed = o.feeds[i]; %]
@@ -88,58 +87,61 @@
                                     [% var valid=true; %]
                                     [% if (feed.validate == 2) { %]
                                         <span class="label label-info"><i class="fa fa-check"></i></span>
-                                    [% } elseif (feed.validate == 1) { %]
+                                    [% } else if (feed.validate == 1) { %]
                                         <span class="label label-warning"><i class="fa fa-spin fa-spinner"></i></span>
+                                    [% } else { %]
+                                        <span class="label label-danger"><i class="fa fa-warning"></i></span>
                                     [% } %]
                                     <span class="m-l-xs count">
                                         <strong><a href="[%=feed.url%]">[%= feed.label %]</a></strong>
                                         <small class="text-muted">
                                             [&nbsp;<i class="fa fa-star"></i>&nbsp;
-                                            <span class="subscribes">[%= feed.countSubscribe s%]</span>&nbsp;
+                                            <span class="subscribes">[%= feed.countSubscribes %]</span>&nbsp;
                                             <i class="fa fa-heart"></i>&nbsp;
                                             <span class="likes">[%= feed.countLikes %]</span>
                                             &nbsp;]&nbsp;
                                         </small>
                                     </span>
-                                </li>
-                                [% if (feed.validate == 2) %]
-                                    <div class="pull-right">
-                                        [% var bSubscribed = feed.userFeed.subscribe %]
-                                        [% var bLiked = feed.getUserFeed.like %]
-                                        <i class="[%= feed.feedTypee.class %]"></i>&nbsp;
-                                        <a href="[%= o.baseUri %]feed/post/subscribe"
-                                           class="action [% if (bSubscribed) %]active text-info[% else %]inactive text-danger[% endif %]">
-                                            <i class="fa fa-star"></i>
-                                        </a>
-                                        <a href="[[url('feed/post/like')]]"
-                                           class="action [% if (bLiked) %]active text-info[% else %]inactive text-danger[% endif %]">
-                                            <i class="fa fa-heart"></i>
-                                        </a>
-                                        |&nbsp;
-                                        <small><a href="[%= o.baseUri %]wall/profile/[%=feed.creator.id %]">
-                                            [[feed.getCreator().getUsername()]]</a> .
-                                        </small>
-                                    </div>
-                                [% elseif (feed.validate == 1) %]
-                                    <div class="pull-right">
+                                    [% if (feed.validate == 2) { %]
+                                        <div class="pull-right">
+                                            [% var bSubscribed = feed.userFeed.subscribe; %]
+                                            [% var bLiked = feed.userFeed .like; %]
+                                            <i class="[%= feed.feedType.class %]"></i>&nbsp;
+                                            <a href="[%= o.baseUri %]feed/post/subscribe"
+                                               class="action [% if (bSubscribed) { %]active text-info[% } else { %]inactive text-danger [% } %]">
+                                                <i class="fa fa-star"></i>
+                                            </a>
+                                            <a href="[%= o.baseUri %]feed/post/like"
+                                               class="action [% if (bLiked) { %]active text-info[% } else { %]inactive text-danger [% } %]">
+                                                <i class="fa fa-heart"></i>
+                                            </a>
+                                            |&nbsp;
+                                            <small><a href="[%= o.baseUri %]wall/profile/[%= feed.creator.id %]">
+                                                [%= feed.creator.username %]</a> .
+                                            </small>
+                                        </div>
+                                    [% } else if (feed.validate == 1) { %]
+                                        <div class="pull-right">
+                                            <strong>
+                                                <small class="text-warning">
+                                                    Wait for approval.
+                                                </small>
+                                            </strong>
+                                            |&nbsp;
+                                            <small><a href="[%= o.baseUri %]wall/profile/[%= feed.creator.id %]">
+                                                [%= feed.creator.username %]</a> .
+                                            </small>
+                                        </div>
+                                    [% } else { %]
                                         <strong>
-                                            <small class="text-warning">
-                                                Wait for approval.
+                                            <small class="pull-right text-danger">
+                                                This feed has been moderated.
                                             </small>
                                         </strong>
-                                        |&nbsp;
-                                        <small><a href="[%= o.baseUri %]wall/profile/[%= feed.creator.id %]">
-                                            [%= feed.creator.username %]</a> .
-                                        </small>
-                                    </div>
-                                [% else %]
-                                    <strong>
-                                        <small class="pull-right text-danger">
-                                            This feed has been moderated.
-                                        </small>
-                                    </strong>
-                                [% } %]
+                                    [% } %]
+                                </li>
                             [% } %]
+
                             </script>
                         </ul>
                     </div>

@@ -5,7 +5,7 @@
                 var $this = $(this),
                     pbExclusive = $this.hasClass('checkspan-exclusive'),
                     $checkspans = $this.find('.checkspan');
-                $checkspans.click(function() {
+                $checkspans.click(function () {
                     if (pbExclusive) {
                         $checkspans.removeClass('enabled');
                     }
@@ -16,14 +16,22 @@
         },
 
         loadList: function () {
-            var $checkspansEnabled = $('.checkspan.enabled'),
-                validations = $checkspansEnabled.data('validid'),
-                orderSubscribe = $checkspansEnabled.data('ordersub'),
-                orderLike = $checkspansEnabled.data('orderlike'),
-                limit = $checkspansEnabled.data('limit');
-            $('.feed-list li.feed').each(function() {
+            var $sections = $('.criterias .crit-row');
 
+            var obj = {};
+            $sections.each(function() {
+                obj = $.extend({}, obj, $(this).find('.checkspan.enabled').data());
             });
+            $list = $('ul.feed-list');
+            $.post($list.data('url'), obj).done(
+                function (data) {
+                    var o = JSON.parse(data);
+                    // Render with blueimp (add new syntax to not interfer with volt syntax)
+                    tmpl.regexp = /([\s'\\])(?!(?:[^[]|\[(?!%))*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
+                    $render = tmpl("tmpl-feeds", o);
+                    $list.html($render);
+                }
+            );
         },
 
         handleAsynch: function (urlRefresh) {

@@ -84,18 +84,32 @@ class FeedController extends AbstractController
     {
         $response = new Response();
         $request = $this->request;
-        if ((true === $request->getPost()) && (true === $request->isAjax())) {
-            // todo; continue
+        if ((true === $request->isPost()) && (true === $request->isAjax())) {
             $select = new SelectFeed();
             $select->public = true;
             $select->direction = $request->getPost('direction');
             $select->order = $request->getPost('order');
             $select->limit = $request->getPost('limit');
-            $select->validate = array(0,1);//$request->getPost('validation');
+            $select->validate = $request->getPost('validate');
             $select->connectedUserId = $this->_currentUser->getId();
 
             /** @var ServiceMessage $findFeeds */
             $findFeeds = Service::getService('Feed')->find($select);
+            $feeds = $findFeeds->getMessage();
+
+            $listFeedsSerializabled = array();
+            /** @var Feed[] $feeds */
+            foreach ($feeds as $feed) {
+                $listFeedsSerializabled[] =
+                    $feed->getSerializable(false, array('idUser' => $this->_currentUser->getId()));
+            }
+            $response->setContent(json_encode(
+                array(
+                    'success' => $findFeeds->getSuccess(),
+                    'feeds' => $listFeedsSerializabled,
+                    'baseUri' => $this->url->getBaseUri()
+                )
+            ));
         } else {
             $response->setContent(json_encode(array('success' => false)));
         }

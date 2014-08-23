@@ -57,10 +57,10 @@ class Security extends Plugin
                     'ressources' => array(
                         'index' => array('index'),
                         'admin' => array('index'),
-                        'wall' => array('profile', 'information', 'post', 'delete', 'load'),
+                        'wall' => array('profile', 'information', 'post', 'delete'),
                         'contact' => array('list'),
                         'dashboard' => array('index', 'profile'),
-                        'feed' => array('new', 'list', 'post', 'refresh'),
+                        'feed' => array('new', 'list', 'post', 'refresh', 'load'),
                         'session' => array('logout'),
                         'account' => array('edit')
                     )
