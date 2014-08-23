@@ -36,8 +36,8 @@ class Feed extends BaseAbstract
     }
 
     /**
-     * @param EntityFeed $feed
-     * @param Insert $request
+     * @param  EntityFeed $feed
+     * @param  Insert     $request
      * @return mixed|void
      */
     public function _parseRequest(&$feed, $request)
