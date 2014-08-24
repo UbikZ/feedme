@@ -7,7 +7,6 @@
                 </div>
             </div>
             <ul class="nav navbar-top-links navbar-right">
-                {{dashboard.getAlerts()}}
                 <li>
                     {{dashboard.getHeaderMenu()}}
                 </li>
