@@ -1,7 +1,5 @@
 <?php
 
-use Feedme\Testing;
-
 defined('APPLICATION_ENV')
 || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'testing'));
 define('ROOT_PATH', __DIR__ . '/..');
@@ -15,10 +13,11 @@ define('PUBLIC_PATH', ROOT_PATH . '/public');
 define('VENDOR_PATH', ROOT_PATH . '/vendor');
 
 if (file_exists($path = VENDOR_PATH . '/autoload.php')) {
-    include $path;
+    require $path;
 }
 
 error_reporting(E_ALL);
 
-$testing = new Testing();
+$testing = new \Feedme\Testing();
+$phalcon = new \Phalcon\Loader();
 $testing->run();

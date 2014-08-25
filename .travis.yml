@@ -10,7 +10,7 @@ before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
 
-script: php ./vendor/phpunit/phpunit/phpunit.php --bootstrap ./tests/bootstrap.php ./tests/*
+script: php ./vendor/phpunit/phpunit/phpunit.php --bootstrap ./public/test.php ./tests/Tests/*
 
 
 notifications:
