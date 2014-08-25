@@ -4,14 +4,11 @@ php:
   - 5.3
   - 5.4
   - 5.5
-  - 5.6
 
-install:
- - composer install
+before_script:
+  - ./tests/install-phalcon.sh
+  - composer update --dev
 
-script: php ./vendor/phpunit/phpunit/phpunit.php --bootstrap ./public/test.php ./tests/Tests/*
-
-
-notifications:
-  email:
-    - gabrielmalet@gmail.com
+script:
+  - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 libraries/ app/
+  - php vendor/bin/phpunit --configuration tests/phpunit.xml
