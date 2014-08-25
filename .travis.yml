@@ -6,7 +6,7 @@ php:
   - 5.5
 
 before_script:
-  - sudo ./tests/install-phalcon.sh
+  - sudo bash ./tests/install-phalcon.sh
   - composer update --dev
 
 script:
