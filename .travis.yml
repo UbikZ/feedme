@@ -1,0 +1,18 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+
+before_script:
+  - git clone -q https://github.com/phalcon/cphalcon.git
+  - (cd cphalcon/build; sudo ./install && phpenv config-add ../../tests/phalcon.ini)
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar install
+
+script: php ./vendor/phpunit/phpunit/phpunit.php --bootstrap ./tests/bootstrap.php ./tests/*
+
+
+notifications:
+  email:
+    - gabrielmalet@gmail.com

@@ -7,7 +7,7 @@ class SimpleIO
     const INFO = 0;
     const ERROR = 1;
 
-    static function msg($msg, $type = null, $bExit = false)
+    public static function msg($msg, $type = null, $bExit = false)
     {
         switch ($type) {
             case self::M_INFO:
@@ -26,17 +26,17 @@ class SimpleIO
         }
     }
 
-    static function error($msg, $target = 'Error')
+    public static function error($msg, $target = 'Error')
     {
         self::msg("$target : $msg", self::M_ERROR, true);
     }
 
-    static function info($msg, $target = 'Info')
+    public static function info($msg, $target = 'Info')
     {
         self::msg("$target : $msg", self::M_INFO, false);
     }
 
-    static function dump($msg)
+    public static function dump($msg)
     {
         echo '<pre>' . print_r($msg, true) . '</pre>' . PHP_EOL;
     }

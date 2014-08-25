@@ -20,6 +20,13 @@ abstract class InstanceAbstract
         $this->_registerDirectories();
     }
 
+    protected function _checkApplicationIntegrity()
+    {
+        if (!extension_loaded('phalcon')) {
+            throw new \Phalcon\Exception('Install phalcon extension before.');
+        }
+    }
+
     /**
      * Load global / local configuration and set some php settings
      */

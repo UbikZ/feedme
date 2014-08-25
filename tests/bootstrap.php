@@ -1,5 +1,7 @@
 <?php
 
+use Feedme\Testing;
+
 defined('APPLICATION_ENV')
 || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'testing'));
 define('ROOT_PATH', __DIR__ . '/..');
@@ -17,3 +19,6 @@ if (file_exists($path = VENDOR_PATH . '/autoload.php')) {
 }
 
 error_reporting(E_ALL);
+
+$testing = new Testing();
+$testing->run();
