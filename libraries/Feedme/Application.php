@@ -7,25 +7,22 @@
 namespace Feedme;
 
 // Phalcon
-use Phalcon\Config,
-    Phalcon\Loader,
-    Phalcon\DI\FactoryDefault as DI,
-    Phalcon\Mvc\Dispatcher,
-    Phalcon\Mvc\Url,
-    Phalcon\Mvc\View,
-    Phalcon\Mvc\View\Engine\Volt,
-    Phalcon\Mvc\Model\Metadata\Memory,
-    Phalcon\Session\Adapter\Files,
-    Phalcon\Flash\Session,
-    Phalcon\DI\FactoryDefault,
-    Phalcon\Assets\Manager;
+use Phalcon\Config;
+use Phalcon\Loader;
+use Phalcon\DI\FactoryDefault as DI;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\Url;
+use Phalcon\Mvc\View;
+use Phalcon\Mvc\View\Engine\Volt;
+use Phalcon\Session\Adapter\Files;
+use Phalcon\Flash\Session;
+use Phalcon\DI\FactoryDefault;
+use Phalcon\Assets\Manager;
 
 // Feedme
-use Feedme\Plugins\Security,
-    Feedme\Db\Factory as DbFactory,
-    Feedme\Logger\Factory as LoggerFactory,
-    Feedme\Components\Dashboard,
-    Feedme\Assets\Builder;
+use Feedme\Plugins\Security;
+use Feedme\Logger\Factory as LoggerFactory;
+use Feedme\Components\Dashboard;
 
 class Application extends InstanceAbstract
 {

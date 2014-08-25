@@ -3,8 +3,9 @@
 namespace Feedme\Components;
 
 use Feedme\Com\Notification\Alert;
+use Phalcon\Mvc\User\Component;
 
-class Dashboard extends \Phalcon\Mvc\User\Component
+class Dashboard extends Component
 {
     /**
      *

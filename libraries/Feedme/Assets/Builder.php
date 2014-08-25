@@ -2,6 +2,8 @@
 
 namespace Feedme\Assets;
 
+use Phalcon\Assets\Filters\Cssmin;
+use Phalcon\Assets\Filters\Jsmin;
 use \Phalcon\Assets\Manager;
 
 class Builder
@@ -49,7 +51,8 @@ class Builder
     }
 
     /**
-     * @param array $conf
+     * @param $conf
+     * @throws \Exception
      */
     public function setConf($conf)
     {
@@ -88,8 +91,9 @@ class Builder
                         ->setTargetUri('cache/' . $namespace . '.js')
                         ->join($this->getBMinify())
                         ->addFilter($this->_getFilter($type));
-                    foreach ($elements as $element)
+                    foreach ($elements as $element) {
                         $this->_add($this->_assetManager, $type, $element);
+                    }
                 }
             }
         }
@@ -103,25 +107,26 @@ class Builder
     private function _add(Manager &$am, $type, $el)
     {
         if ($el) {
-            if (self::JS === $type)
+            if (self::JS === $type) {
                 $am->addJs($el);
-            else if (self::CSS === $type)
+            } else if (self::CSS === $type) {
                 $am->addCss($el);
-
+            }
         }
     }
 
     /**
-     * @param Manager $am
      * @param $type
+     * @return null|Cssmin|Jsmin
      */
     private function _getFilter($type)
     {
         $filter = null;
-        if (self::JS === $type)
-            $filter = new \Phalcon\Assets\Filters\Jsmin();
-        else if (self::CSS === $type)
-            $filter = new \Phalcon\Assets\Filters\Cssmin();
+        if (self::JS === $type) {
+            $filter = new Jsmin();
+        } else if (self::CSS === $type) {
+            $filter = new Cssmin();
+        }
 
         return $filter;
     }

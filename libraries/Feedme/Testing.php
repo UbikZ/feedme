@@ -16,10 +16,10 @@ class Testing extends InstanceAbstract
             $this->_registerDirectories();
 
         } catch (\Phalcon\Exception $e) {
-            echo $e->getMessage();
+            echo "Phalcon Exception : " . $e->getMessage();
             exit(255);
         } catch (\PDOException $e) {
-            echo $e->getMessage();
+            echo "PHP Exception : " . $e->getMessage();
             exit(255);
         }
     }
