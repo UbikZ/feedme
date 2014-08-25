@@ -6,6 +6,7 @@ php:
   - 5.5
 
 before_script:
+  - sudo apt-get install php5-dev
   - sudo bash ./tests/install-phalcon.sh
   - composer update --dev
 
