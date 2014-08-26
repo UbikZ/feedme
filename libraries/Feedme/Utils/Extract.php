@@ -11,7 +11,8 @@ class Extract
             while (false !== ($file = readdir($handle))) {
                 if ($file != "." && $file != "..") {
                     if (is_dir($directory . "/" . $file) && $recursive) {
-                        $array_items = array_merge($array_items, directoryToArray($directory . "/" . $file, $recursive));
+                        $array_items =
+                            array_merge($array_items, directoryToArray($directory . "/" . $file, $recursive));
                     } else {
                         $item = preg_replace("/\/\//si", "/", $directory . "/" . $file);
                         if ($public) {

@@ -20,9 +20,9 @@ class UserPicture extends BaseAbstract
      * @param  Select $query
      * @return string
      */
-    public function _parseQuery($query)
+    public function parseQuery($query)
     {
-        $whereClause = parent::_parseQuery($query);
+        $whereClause = parent::parseQuery($query);
 
         if (!is_null($path = $query->path)) {
             $whereClause[] = 'path=\'' . $path . '\'';

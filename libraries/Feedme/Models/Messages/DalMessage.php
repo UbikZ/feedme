@@ -7,16 +7,16 @@ use Phalcon\Mvc\Model\MessageInterface;
 class DalMessage
 {
     /** @var bool */
-    protected $_success = false;
+    protected $success = false;
     /** @var MessageInterface[]  */
-    protected $_errorMessages = array();
+    protected $errorMessages = array();
 
     /**
      * @param MessageInterface $errorMessage
      */
     public function setErrorMessage($errorMessage)
     {
-        $this->_errorMessages[] = $errorMessage;
+        $this->errorMessages[] = $errorMessage;
     }
 
     /**
@@ -24,7 +24,7 @@ class DalMessage
      */
     public function setErrorMessages($errorMessages)
     {
-        $this->_errorMessages = $errorMessages;
+        $this->errorMessages = $errorMessages;
     }
 
     /**
@@ -32,7 +32,7 @@ class DalMessage
      */
     public function getErrorMessages()
     {
-        return $this->_errorMessages;
+        return $this->errorMessages;
     }
 
     /**
@@ -40,7 +40,7 @@ class DalMessage
      */
     public function setSuccess($success)
     {
-        $this->_success = $success;
+        $this->success = $success;
     }
 
     /**
@@ -48,7 +48,7 @@ class DalMessage
      */
     public function getSuccess()
     {
-        return $this->_success;
+        return $this->success;
     }
 
     public function __toString()

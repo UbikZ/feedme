@@ -13,15 +13,16 @@ abstract class InstanceAbstract
 {
     protected $_conf;
 
-    abstract protected function _registerNamespaces();
+    abstract protected function registerNamespaces();
 
     public function __construct()
     {
-        $this->_loadConfigurations();
-        $this->_registerNamespaces();
+        $this->checkApplicationIntegrity();
+        $this->loadConfigurations();
+        $this->registerNamespaces();
     }
 
-    protected function _checkApplicationIntegrity()
+    protected function checkApplicationIntegrity()
     {
         if (!extension_loaded('phalcon')) {
             throw new Exception('Install phalcon extension before.');
@@ -31,7 +32,7 @@ abstract class InstanceAbstract
     /**
      * Load global / local configuration and set some php settings
      */
-    protected function _loadConfigurations()
+    protected function loadConfigurations()
     {
         $config = new Config(require_once(APP_PATH . '/config/configs/global.php'));
         if (file_exists($localConfPath = sprintf(APP_PATH . '/config/configs/%s.php', APPLICATION_ENV))) {
@@ -56,7 +57,7 @@ abstract class InstanceAbstract
      * Register database connection with specific adapter
      * @param DiInterface $di
      */
-    protected function _registerDatabase(DiInterface &$di)
+    protected function registerDatabase(DiInterface &$di)
     {
         $dbConf = array(
             "adapter" => $this->getConf()->database->adapter,
@@ -79,11 +80,11 @@ abstract class InstanceAbstract
 
     public function getConf()
     {
-        return $this->_conf;
+        return $this->conf;
     }
 
     public function setConf($conf)
     {
-        $this->_conf = $conf;
+        $this->conf = $conf;
     }
 }

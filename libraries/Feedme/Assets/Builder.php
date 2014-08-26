@@ -12,18 +12,18 @@ class Builder
     const CSS = 'css';
 
     /** @var  array */
-    protected $_conf = array();
+    protected $conf = array();
     /** @var  boolean */
-    protected $_bMinify = false;
+    protected $bMinify = false;
     /** @var  Manager */
-    protected $_assetManager;
+    protected $assetManager;
 
     /**
      * @param \Phalcon\Assets\Manager $assetManager
      */
     public function setAssetManager($assetManager)
     {
-        $this->_assetManager = $assetManager;
+        $this->assetManager = $assetManager;
     }
 
     /**
@@ -31,7 +31,7 @@ class Builder
      */
     public function getAssetManager()
     {
-        return $this->_assetManager;
+        return $this->assetManager;
     }
 
     /**
@@ -39,7 +39,7 @@ class Builder
      */
     public function setBMinify($bMinify)
     {
-        $this->_bMinify = $bMinify;
+        $this->bMinify = $bMinify;
     }
 
     /**
@@ -47,7 +47,7 @@ class Builder
      */
     public function getBMinify()
     {
-        return $this->_bMinify;
+        return $this->bMinify;
     }
 
     /**
@@ -59,7 +59,7 @@ class Builder
         if (!is_array($conf)) {
             throw new \Exception('Wrong type parameter in `' . __CLASS__ . '`');
         }
-        $this->_conf = $conf;
+        $this->conf = $conf;
     }
 
     /**
@@ -67,10 +67,10 @@ class Builder
      */
     public function getConf()
     {
-        return $this->_conf;
+        return $this->conf;
     }
 
-    public function __construct(array $conf, $bMinify = false)
+    public function _construct(array $conf, $bMinify = false)
     {
         $this->setConf($conf);
         $this->setBMinify($bMinify);
@@ -90,9 +90,9 @@ class Builder
                         ->setTargetPath('cache/' . $namespace . '.js')
                         ->setTargetUri('cache/' . $namespace . '.js')
                         ->join($this->getBMinify())
-                        ->addFilter($this->_getFilter($type));
+                        ->addFilter($this->getFilter($type));
                     foreach ($elements as $element) {
-                        $this->_add($this->_assetManager, $type, $element);
+                        $this->add($this->assetManager, $type, $element);
                     }
                 }
             }
@@ -104,7 +104,7 @@ class Builder
      * @param $type
      * @param $el
      */
-    private function _add(Manager &$am, $type, $el)
+    private function add(Manager &$am, $type, $el)
     {
         if ($el) {
             if (self::JS === $type) {
@@ -119,7 +119,7 @@ class Builder
      * @param $type
      * @return null|Cssmin|Jsmin
      */
-    private function _getFilter($type)
+    private function getFilter($type)
     {
         $filter = null;
         if (self::JS === $type) {

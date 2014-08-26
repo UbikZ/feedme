@@ -13,7 +13,7 @@ class Testing extends InstanceAbstract
     public function run()
     {
         try {
-            $this->_registerNamespaces();
+            $this->registerNamespaces();
 
         } catch (\Phalcon\Exception $e) {
             echo "Phalcon Exception : " . $e->getMessage();
@@ -27,7 +27,7 @@ class Testing extends InstanceAbstract
     /**
      * Register application namespaces
      */
-    protected function _registerNamespaces()
+    protected function registerNamespaces()
     {
         $loader = new Loader();
         $loader->registerNamespaces(

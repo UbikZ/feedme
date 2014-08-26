@@ -9,18 +9,18 @@ class Alert
     const LV_ERROR = 3;
 
     /** @var  int */
-    protected $_level;
+    protected $level;
     /** @var  string */
-    protected $_message;
+    protected $message;
     /** @var  \DateTime */
-    protected $_datetime;
+    protected $datetime;
 
     /**
      * @param \DateTime $datetime
      */
     public function setDatetime($datetime)
     {
-        $this->_datetime = $datetime;
+        $this->datetime = $datetime;
     }
 
     /**
@@ -28,7 +28,7 @@ class Alert
      */
     public function getDatetime()
     {
-        return $this->_datetime;
+        return $this->datetime;
     }
 
     /**
@@ -36,7 +36,7 @@ class Alert
      */
     public function setLevel($level)
     {
-        $this->_level = $level;
+        $this->level = $level;
     }
 
     /**
@@ -44,7 +44,7 @@ class Alert
      */
     public function getLevel()
     {
-        return $this->_level;
+        return $this->level;
     }
 
     /**
@@ -52,7 +52,7 @@ class Alert
      */
     public function setMessage($message)
     {
-        $this->_message = $message;
+        $this->message = $message;
     }
 
     /**
@@ -60,7 +60,7 @@ class Alert
      */
     public function getMessage()
     {
-        return $this->_message;
+        return $this->message;
     }
 
     public function __construct($message, $level = self::LV_INFO)

@@ -2,13 +2,13 @@
 
 namespace Feedme\Plugins;
 
-use Feedme\Com\Notification\Alert,
-    Feedme\Session\Handler as HandlerSession;
+use Feedme\Com\Notification\Alert;
+use Feedme\Session\Handler as HandlerSession;
 
-use \Phalcon\Events\Event,
-    \Phalcon\Mvc\User\Plugin,
-    \Phalcon\Mvc\Dispatcher,
-    \Phalcon\Acl;
+use \Phalcon\Events\Event;
+use \Phalcon\Mvc\User\Plugin;
+use \Phalcon\Mvc\Dispatcher;
+use \Phalcon\Acl;
 
 class Security extends Plugin
 {

@@ -7,7 +7,7 @@ use Phalcon\Mvc\Model;
 abstract class EntityAbstract extends Model implements EntityInterface
 {
     /** @var  array */
-    protected $_allowSerializabledFields;
+    protected $allowSerializabledFields;
 
     /** @var  int */
     protected $id;
@@ -17,8 +17,8 @@ abstract class EntityAbstract extends Model implements EntityInterface
     public function initialize()
     {
         foreach ($this as $propName => $propValue) {
-            if ($propName != '_allowSerializabledFields') {
-                $this->_allowSerializabledFields[] = $propName;
+            if ($propName != 'allowSerializabledFields') {
+                $this->allowSerializabledFields[] = $propName;
             }
         }
     }
@@ -33,8 +33,8 @@ abstract class EntityAbstract extends Model implements EntityInterface
         $result = array();
 
         foreach ($this as $propName => $propValue) {
-            if (is_array($this->_allowSerializabledFields)) {
-                if (in_array($propName, $this->_allowSerializabledFields) &&
+            if (is_array($this->allowSerializabledFields)) {
+                if (in_array($propName, $this->allowSerializabledFields) &&
                     preg_match('/^_/', $propName) == 0) {
                     $result[$propName] = $propValue;
                 }

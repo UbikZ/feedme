@@ -8,8 +8,8 @@ class Handler
 {
     /** @var  array */
     public static $conf;
-    /** @var  AdapterInterface|null $_instance */
-    private static $_instance = null;
+    /** @var  AdapterInterface|null $instance */
+    private static $instance = null;
 
     // Singleton <=> disable instanciation/cloning
     protected function __construct() {}
@@ -17,10 +17,10 @@ class Handler
 
     public static function get()
     {
-        if (null == self::$_instance) {
-            self::$_instance = Factory::getDriver(self::$conf);
+        if (null == self::$instance) {
+            self::$instance = Factory::getDriver(self::$conf);
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 }

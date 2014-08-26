@@ -25,7 +25,7 @@ class UserFeed extends BaseAbstract
     public function insert(Insert $request)
     {
         $userFeed = new EntityUserFeed();
-        $this->_parseRequest($userFeed, $request);
+        $this->parseRequest($userFeed, $request);
         $return = new DalMessage();
         $return->setSuccess($userFeed->save());
         $return->setErrorMessages($userFeed->getMessages());
@@ -40,7 +40,7 @@ class UserFeed extends BaseAbstract
      */
     public function update(EntityUserFeed $userFeed, Insert $request)
     {
-        $this->_parseRequest($userFeed, $request);
+        $this->parseRequest($userFeed, $request);
         $return = new DalMessage();
         $return->setSuccess($userFeed->update());
         $return->setErrorMessages($userFeed->getMessages());
@@ -53,9 +53,9 @@ class UserFeed extends BaseAbstract
      * @param  Insert         $request
      * @return mixed|void
      */
-    public function _parseRequest(&$uf, $request)
+    public function parseRequest(&$uf, $request)
     {
-        parent::_parseRequest($uf, $request);
+        parent::parseRequest($uf, $request);
 
         if (!is_null($request->idFeed)) {
             $uf->setIdFeed(intval($request->idFeed));
@@ -75,9 +75,9 @@ class UserFeed extends BaseAbstract
      * @param  Select       $query
      * @return mixed|string
      */
-    public function _parseQuery($query)
+    public function parseQuery($query)
     {
-        $whereClause = parent::_parseQuery($query);
+        $whereClause = parent::parseQuery($query);
 
         if (!is_null($idUser = $query->idUser)) {
             $whereClause[] = 'idUser=\'' . intval($idUser) . '\'';

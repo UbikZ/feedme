@@ -10,18 +10,18 @@ interface BaseInterface
      * @param $filter
      * @return mixed
      */
-    public function _parseQuery($filter);
+    public function parseQuery($filter);
 
     /**
      * @param $filter
      * @return mixed
      */
-    public function _parseFilterOptions($filter);
+    public function parseFilterOptions($filter);
 
     /**
      * @param  EntityAbstract $entity
      * @param $request
      * @return mixed
      */
-    public function _parseRequest(&$entity, $request);
+    public function parseRequest(&$entity, $request);
 }

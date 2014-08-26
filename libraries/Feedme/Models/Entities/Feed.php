@@ -8,10 +8,10 @@ use Phalcon\Mvc\Model\Validator\Url;
 class Feed extends EntityAbstract
 {
     // Foreign keys
-    private $_userFK = 'Feedme\\Models\\Entities\\User';
-    private $_userFeedFK = 'Feedme\\Models\\Entities\\UserFeed';
-    private $_feedItemFK = 'Feedme\\Models\\Entities\\FeedItem';
-    private $_feedTypeFK = 'Feedme\\Models\\Entities\\FeedType';
+    private $userFK = 'Feedme\\Models\\Entities\\User';
+    private $userFeedFK = 'Feedme\\Models\\Entities\\UserFeed';
+    private $feedItemFK = 'Feedme\\Models\\Entities\\FeedItem';
+    private $feedTypeFK = 'Feedme\\Models\\Entities\\FeedType';
 
     /** @var  int */
     protected $idCreator;
@@ -34,10 +34,10 @@ class Feed extends EntityAbstract
     {
         parent::initialize();
 
-        $this->hasOne('type', $this->_feedTypeFK, 'id');
-        $this->hasOne('idCreator', $this->_userFK, 'id');
-        $this->hasMany('id', $this->_feedItemFK, 'idFeed');
-        $this->hasMany('id', $this->_userFeedFK, 'idFeed');
+        $this->hasOne('type', $this->feedTypeFK, 'id');
+        $this->hasOne('idCreator', $this->userFK, 'id');
+        $this->hasMany('id', $this->feedItemFK, 'idFeed');
+        $this->hasMany('id', $this->userFeedFK, 'idFeed');
     }
 
     /**
@@ -45,7 +45,7 @@ class Feed extends EntityAbstract
      */
     public function getFeedType()
     {
-        return $this->getRelated($this->_feedTypeFK);
+        return $this->getRelated($this->feedTypeFK);
     }
 
     /**
@@ -53,7 +53,7 @@ class Feed extends EntityAbstract
      */
     public function getCreator()
     {
-        return $this->getRelated($this->_userFK);
+        return $this->getRelated($this->userFK);
     }
 
     /**
@@ -62,7 +62,7 @@ class Feed extends EntityAbstract
      */
     public function getFeedItems()
     {
-        return $this->getRelated($this->_feedItemFK);
+        return $this->getRelated($this->feedItemFK);
     }
 
     /**
@@ -76,7 +76,7 @@ class Feed extends EntityAbstract
         $result->setLike('0');
         if (is_numeric($idUser)) {
             /** @var UserFeed $result */
-            $return = $this->getRelated($this->_userFeedFK, "[idUser]=" . intval($idUser))->getFirst();
+            $return = $this->getRelated($this->userFeedFK, "[idUser]=" . intval($idUser))->getFirst();
             if ($return) {
                 $result = $return;
             }
@@ -91,7 +91,7 @@ class Feed extends EntityAbstract
     public function countLikes()
     {
         /** @var Resultset\Simple $userFeed */
-        $userFeed = $this->getRelated($this->_userFeedFK, "[like]='1'");
+        $userFeed = $this->getRelated($this->userFeedFK, "[like]='1'");
 
         return $userFeed->count();
     }
@@ -102,7 +102,7 @@ class Feed extends EntityAbstract
     public function countSubscribes()
     {
         /** @var UserFeed $userFeed */
-        $userFeed = $this->getRelated($this->_userFeedFK, "[subscribe]='1'");
+        $userFeed = $this->getRelated($this->userFeedFK, "[subscribe]='1'");
 
         return $userFeed->count();
     }

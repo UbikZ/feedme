@@ -16,7 +16,7 @@ class User extends BaseAbstract
      */
     public function update(EntityUser $user, Update $request)
     {
-        $this->_parseRequest($user, $request);
+        $this->parseRequest($user, $request);
 
         $return = new DalMessage();
         $return->setSuccess($user->update());
@@ -39,9 +39,9 @@ class User extends BaseAbstract
      * @param  Update     $request
      * @return mixed|void
      */
-    public function _parseRequest(&$user, $request)
+    public function parseRequest(&$user, $request)
     {
-        parent::_parseRequest($user, $request);
+        parent::parseRequest($user, $request);
 
         $user->setFirstname($request->firstname);
         $user->setLastname($request->lastname);
@@ -74,9 +74,9 @@ class User extends BaseAbstract
      * @param  Select       $query
      * @return mixed|string
      */
-    public function _parseQuery($query)
+    public function parseQuery($query)
     {
-        $whereClause = parent::_parseQuery($query);
+        $whereClause = parent::parseQuery($query);
 
         if (!is_null($email = $query->email)) {
             $whereClause[] = 'email=\'' . $email . '\'';

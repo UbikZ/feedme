@@ -32,14 +32,14 @@ class Application extends InstanceAbstract
         try {
             $di = new FactoryDefault();
 
-            $this->_registerDispatcher($di);
-            $this->_registerUrl($di);
-            $this->_registerView($di);
-            $this->_registerDatabase($di);
-            //$this->_registerMetadata($di);
+            $this->registerDispatcher($di);
+            $this->registerUrl($di);
+            $this->registerView($di);
+            $this->registerDatabase($di);
+            //$this->registerMetadata($di);
             $this->registerSession($di);
-            $this->_registerFlash($di);
-            $this->_registerComponents($di);
+            $this->registerFlash($di);
+            $this->registerComponents($di);
 
             $application = new \Phalcon\Mvc\Application();
             $application->setDI($di);
@@ -57,7 +57,7 @@ class Application extends InstanceAbstract
     /**
      * Register application namespaces
      */
-    protected function _registerNamespaces()
+    protected function registerNamespaces()
     {
         $loader = new Loader();
         $loader->registerNamespaces(
@@ -72,7 +72,7 @@ class Application extends InstanceAbstract
      * - We added some Security plugin to provide ACL
      * @param DI $di
      */
-    private function _registerDispatcher(DI &$di)
+    private function registerDispatcher(DI &$di)
     {
         $di->set('dispatcher', function () use ($di) {
             $eventsManager = $di->getShared('eventsManager');
@@ -108,7 +108,7 @@ class Application extends InstanceAbstract
      * Register the URL component (provide generation)
      * @param DI $di
      */
-    private function _registerUrl(DI &$di)
+    private function registerUrl(DI &$di)
     {
         $di->set('url', function () {
             $url = new Url();
@@ -124,7 +124,7 @@ class Application extends InstanceAbstract
      * Register several custom components
      * @param DI $di
      */
-    private function _registerComponents(DI &$di)
+    private function registerComponents(DI &$di)
     {
         $di->set('dashboard', function () {
             return new Dashboard();
@@ -237,7 +237,7 @@ class Application extends InstanceAbstract
      * Register template engine (volt here)
      * @param DI $di
      */
-    private function _registerView(DI &$di)
+    private function registerView(DI &$di)
     {
         $di->set('view', function () {
             $view = new View();
@@ -265,7 +265,7 @@ class Application extends InstanceAbstract
      * Register metadata adapter (todo: improve this in factory mode)
      * @param DI $di
      */
-    private function _registerMetadata(DI &$di)
+    private function registerMetadata(DI &$di)
     {
         $di->set('modelsMetadata', function () {
             if (isset($this->getConf()->metadata)) {
@@ -296,7 +296,7 @@ class Application extends InstanceAbstract
      * Register flash message with specific css classes
      * @param DI $di
      */
-    private function _registerFlash(DI &$di)
+    private function registerFlash(DI &$di)
     {
         $di->set('flash', function () {
             return new Session(array(

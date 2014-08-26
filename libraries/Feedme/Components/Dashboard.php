@@ -3,7 +3,9 @@
 namespace Feedme\Components;
 
 use Feedme\Com\Notification\Alert;
+use Phalcon\Exception;
 use Phalcon\Mvc\User\Component;
+use Phalcon\Tag;
 
 class Dashboard extends Component
 {
@@ -13,12 +15,12 @@ class Dashboard extends Component
     public function getUserMenu()
     {
         $items = array();
-        $this->_addItem($items, 'Profile', array(), 'account', 'edit', array($this->session->get('auth')['id']));
-        $this->_addItem($items, 'Wall', array(), 'wall', 'profile');
-        $this->_addItem($items, '', array('divider'));
-        $this->_addItem($items, 'Logout', array(), 'session', 'logout');
+        $this->addItem($items, 'Profile', array(), 'account', 'edit', array($this->session->get('auth')['id']));
+        $this->addItem($items, 'Wall', array(), 'wall', 'profile');
+        $this->addItem($items, '', array('divider'));
+        $this->addItem($items, 'Logout', array(), 'session', 'logout');
 
-        $this->_renderLinksMenu($items);
+        $this->renderLinksMenu($items);
     }
 
     /**
@@ -27,9 +29,9 @@ class Dashboard extends Component
     public function getHeaderMenu()
     {
         $items = array();
-        $this->_addItem($items, 'Logout', array(), 'session', 'logout', array(), 'fa fa-sign-out');
+        $this->addItem($items, 'Logout', array(), 'session', 'logout', array(), 'fa fa-sign-out');
 
-        $this->_renderLinksMenu($items);
+        $this->renderLinksMenu($items);
     }
 
     /**
@@ -42,36 +44,36 @@ class Dashboard extends Component
 
         // Fill items
         $itemsAccount = array();
-        $this->_addItem($itemsAccount, 'Manage', array(), 'account', 'edit', array($auth['id']));
-        $this->_addItem($itemsAccount, 'Wall', array(), 'wall', 'profile');
-        $this->_addItem($itemsAccount, 'Contacts', array(), 'contact', 'list');
-        $this->_addCat($itemsCats, 'Account', $itemsAccount, 'fa fa-user');
+        $this->addItem($itemsAccount, 'Manage', array(), 'account', 'edit', array($auth['id']));
+        $this->addItem($itemsAccount, 'Wall', array(), 'wall', 'profile');
+        $this->addItem($itemsAccount, 'Contacts', array(), 'contact', 'list');
+        $this->addCat($itemsCats, 'Account', $itemsAccount, 'fa fa-user');
 
         $itemsFeeds = array();
-        $this->_addItem($itemsFeeds, 'New', array(), 'feed', 'new');
-        $this->_addItem($itemsFeeds, 'List', array(), 'feed', 'list');
-        $this->_addCat($itemsCats, 'Feeds', $itemsFeeds, 'fa fa-rss-square');
+        $this->addItem($itemsFeeds, 'New', array(), 'feed', 'new');
+        $this->addItem($itemsFeeds, 'List', array(), 'feed', 'list');
+        $this->addCat($itemsCats, 'Feeds', $itemsFeeds, 'fa fa-rss-square');
 
         if ($auth['bAdmin']) {
             $itemsAdmin = array();
-            $this->_addItem($itemsAdmin, 'Users');
-            $this->_addItem($itemsAdmin, 'Feeds');
-            $this->_addItem($itemsAdmin, 'Statitics');
-            $this->_addCat($itemsCats, 'Admin', $itemsAdmin, 'fa fa-gear');
+            $this->addItem($itemsAdmin, 'Users');
+            $this->addItem($itemsAdmin, 'Feeds');
+            $this->addItem($itemsAdmin, 'Statitics');
+            $this->addCat($itemsCats, 'Admin', $itemsAdmin, 'fa fa-gear');
         }
 
-        $this->_renderCategoriesMenu($itemsCats);
+        $this->renderCategoriesMenu($itemsCats);
     }
 
     /**
      * @param $cats
      */
-    private function _renderCategoriesMenu($cats)
+    private function renderCategoriesMenu($cats)
     {
         $render = '';
         if (is_array($cats)) {
             foreach ($cats as $cat) {
-                $render .= '<li class="' . ($this->_isActive($cat) ? 'active' : '') . '">';
+                $render .= '<li class="' . ($this->isActive($cat) ? 'active' : '') . '">';
                 $render .= '<a href="#">';
                 if (isset($cat['img']))
                     $render .= '<i class="' . $cat['img'] . '"></i>';
@@ -79,7 +81,7 @@ class Dashboard extends Component
                 $render .= '<span class="fa arrow"></span>';
                 $render .= '</a>';
                 $render .= '<ul class="nav nav-second-level">';
-                $render .= $this->_renderLinksMenu($cat['items'], false);
+                $render .= $this->renderLinksMenu($cat['items'], false);
                 $render .= '</ul>';
                 $render .= '</li>';
             }
@@ -92,7 +94,7 @@ class Dashboard extends Component
      * @param  array $category
      * @return bool
      */
-    private function _isActive(array $category)
+    private function isActive(array $category)
     {
         $controllers = array();
         foreach ($category['items'] as $item) {
@@ -107,7 +109,7 @@ class Dashboard extends Component
      * @param  bool   $bDisplay
      * @return string
      */
-    private function _renderLinksMenu($items, $bDisplay = true)
+    private function renderLinksMenu($items, $bDisplay = true)
     {
         $render = '';
         if (is_array($items)) {
@@ -119,7 +121,7 @@ class Dashboard extends Component
                     $caption = is_null($item['img'])
                         ? $item['label']
                         : '<i class="' . $item['img'] . '"></i>' . $item['label'];
-                    $content = \Phalcon\Tag::linkTo($link, $caption);
+                    $content = Tag::linkTo($link, $caption);
                 }
                 $render .= '<li class="' . implode(' ', $item['classes']) . '">' . $content . '</li>';
             }
@@ -183,14 +185,14 @@ class Dashboard extends Component
     /**
      * @param $conf
      * @param $label
-     * @param  array              $items
-     * @param  null               $img
-     * @throws \Phalcon\Exception
+     * @param  array     $items
+     * @param  null      $img
+     * @throws Exception
      */
-    private function _addCat(&$conf, $label, $items = array(), $img = null)
+    private function addCat(&$conf, $label, $items = array(), $img = null)
     {
         if (!is_array($conf)) {
-            throw new \Phalcon\Exception(__CLASS__ . ' component issue: wrong type of parameters in ' . __FUNCTION__);
+            throw new Exception(__CLASS__ . ' component issue: wrong type of parameters in ' . __FUNCTION__);
         }
         $conf[] = array(
             'label' => $label,
@@ -202,14 +204,14 @@ class Dashboard extends Component
     /**
      * @param $conf
      * @param $label
-     * @param  array              $classes
-     * @param  null               $controller
-     * @param  null               $action
-     * @param  array              $params
-     * @param  null               $img
-     * @throws \Phalcon\Exception
+     * @param  array     $classes
+     * @param  null      $controller
+     * @param  null      $action
+     * @param  array     $params
+     * @param  null      $img
+     * @throws Exception
      */
-    private function _addItem(
+    private function addItem(
         &$conf,
         $label,
         $classes = array(),
@@ -220,7 +222,7 @@ class Dashboard extends Component
     )
     {
         if (!is_array($conf)) {
-            throw new \Phalcon\Exception(__CLASS__ . ' component issue: wrong type of parameters in ' . __FUNCTION__);
+            throw new Exception(__CLASS__ . ' component issue: wrong type of parameters in ' . __FUNCTION__);
         }
         $conf[] = array(
             'label' => $label,

@@ -5,19 +5,19 @@ namespace Feedme\Models\Entities;
 class File
 {
     /** @var  string */
-    protected $_name;
+    protected $name;
     /** @var  string */
-    protected $_extension;
+    protected $extension;
     /** @var  string */
-    protected $_mime;
+    protected $mime;
     /** @var  string */
-    protected $_publicPath;
+    protected $publicPath;
     /** @var  string */
-    protected $_serverPath;
+    protected $serverPath;
     /** @var  float */
-    protected $_size;
+    protected $size;
     /** @var  \DateTime */
-    protected $_addDate;
+    protected $addDate;
 
     public function __construct($psPath, $pbStatic = true)
     {
@@ -43,7 +43,7 @@ class File
      */
     public function setAddDate($addDate)
     {
-        $this->_addDate = $addDate;
+        $this->addDate = $addDate;
     }
 
     /**
@@ -51,7 +51,7 @@ class File
      */
     public function getAddDate()
     {
-        return $this->_addDate;
+        return $this->addDate;
     }
 
     /**
@@ -59,7 +59,7 @@ class File
      */
     public function setExtension($extension)
     {
-        $this->_extension = $extension;
+        $this->extension = $extension;
     }
 
     /**
@@ -67,7 +67,7 @@ class File
      */
     public function getExtension()
     {
-        return $this->_extension;
+        return $this->extension;
     }
 
     /**
@@ -75,7 +75,7 @@ class File
      */
     public function setMime($mime)
     {
-        $this->_mime = $mime;
+        $this->mime = $mime;
     }
 
     /**
@@ -83,7 +83,7 @@ class File
      */
     public function getMime()
     {
-        return $this->_mime;
+        return $this->mime;
     }
 
     /**
@@ -91,7 +91,7 @@ class File
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
     }
 
     /**
@@ -99,7 +99,7 @@ class File
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -107,7 +107,7 @@ class File
      */
     public function setPublicPath($publicPath)
     {
-        $this->_publicPath = $publicPath;
+        $this->publicPath = $publicPath;
     }
 
     /**
@@ -115,7 +115,7 @@ class File
      */
     public function getPublicPath()
     {
-        return $this->_publicPath;
+        return $this->publicPath;
     }
 
     /**
@@ -123,7 +123,7 @@ class File
      */
     public function setServerPath($serverPath)
     {
-        $this->_serverPath = $serverPath;
+        $this->serverPath = $serverPath;
     }
 
     /**
@@ -131,7 +131,7 @@ class File
      */
     public function getServerPath()
     {
-        return $this->_serverPath;
+        return $this->serverPath;
     }
 
     /**
@@ -139,7 +139,7 @@ class File
      */
     public function setSize($size)
     {
-        $this->_size = $size;
+        $this->size = $size;
     }
 
     /**
@@ -147,6 +147,6 @@ class File
      */
     public function getSize()
     {
-        return $this->_size;
+        return $this->size;
     }
 }

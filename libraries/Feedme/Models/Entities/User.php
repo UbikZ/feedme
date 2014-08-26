@@ -7,9 +7,9 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
 class User extends EntityAbstract
 {
     // Foreign key
-    private $_userPictureFK = 'Feedme\\Models\\Entities\\UserPicture';
-    private $_userWallFK = 'Feedme\\Models\\Entities\\UserWall';
-    private $_userWallMessageFK = 'Feedme\\Models\\Entities\\UserWallMessage';
+    private $userPictureFK = 'Feedme\\Models\\Entities\\UserPicture';
+    private $userWallFK = 'Feedme\\Models\\Entities\\UserWall';
+    private $userWallMessageFK = 'Feedme\\Models\\Entities\\UserWallMessage';
 
     /** @var  string */
     protected $firstname;
@@ -43,14 +43,14 @@ class User extends EntityAbstract
     {
         parent::initialize();
 
-        $this->hasOne('picture', $this->_userPictureFK, 'id');
-        $this->hasMany('id', $this->_userWallMessageFK, 'idUserSrc');
+        $this->hasOne('picture', $this->userPictureFK, 'id');
+        $this->hasMany('id', $this->userWallMessageFK, 'idUserSrc');
         $this->hasManyToMany(
             'id',
-            $this->_userWallFK,
+            $this->userWallFK,
             'idUser',
             'idMessage',
-            $this->_userWallMessageFK,
+            $this->userWallMessageFK,
             'id',
             array('alias' => 'messages')
         );
@@ -62,7 +62,7 @@ class User extends EntityAbstract
      */
     public function getUserPicture($parameters = null)
     {
-        return $this->getRelated($this->_userPictureFK, $parameters);
+        return $this->getRelated($this->userPictureFK, $parameters);
     }
 
     /**
@@ -71,7 +71,7 @@ class User extends EntityAbstract
      */
     public function getAllMessages($parameters = null)
     {
-        return $this->getRelated($this->_userWallMessageFK, $parameters);
+        return $this->getRelated($this->userWallMessageFK, $parameters);
     }
 
     /**

@@ -5,11 +5,11 @@ namespace Feedme\Models\Messages;
 class ServiceMessage
 {
     /** @var bool  */
-    protected $_success = false;
+    protected $success = false;
     /** @var array  */
     protected $errors = array();
     /** @var null|mixed  */
-    protected $_message = null;
+    protected $message = null;
 
     /**
      * @param $error
@@ -48,7 +48,7 @@ class ServiceMessage
      */
     public function setMessage($message)
     {
-        $this->_message = $message;
+        $this->message = $message;
     }
 
     /**
@@ -56,7 +56,7 @@ class ServiceMessage
      */
     public function getMessage()
     {
-        return $this->_message;
+        return $this->message;
     }
 
     /**
@@ -64,7 +64,7 @@ class ServiceMessage
      */
     public function setSuccess($success)
     {
-        $this->_success = $success;
+        $this->success = $success;
     }
 
     /**
@@ -72,6 +72,6 @@ class ServiceMessage
      */
     public function getSuccess()
     {
-        return $this->_success;
+        return $this->success;
     }
 }

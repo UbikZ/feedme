@@ -4,8 +4,8 @@ namespace Feedme\Models\Entities;
 
 class UserFeed extends EntityAbstract
 {
-    private $_user = 'Feedme\\Models\\Entities\\User';
-    private $_feed = 'Feedme\\Models\\Entities\\Feed';
+    private $user = 'Feedme\\Models\\Entities\\User';
+    private $feed = 'Feedme\\Models\\Entities\\Feed';
 
     /** @var  int */
     protected $idUser;
@@ -20,8 +20,8 @@ class UserFeed extends EntityAbstract
     {
         parent::initialize();
 
-        $this->belongsTo('idUser', $this->_user, 'id');
-        $this->belongsTo('idFeed', $this->_feed, 'id');
+        $this->belongsTo('idUser', $this->user, 'id');
+        $this->belongsTo('idFeed', $this->feed, 'id');
     }
 
     /**

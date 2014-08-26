@@ -20,9 +20,9 @@ class UserWall extends BaseAbstract
      * @param  Select       $query
      * @return mixed|string
      */
-    public function _parseQuery($query)
+    public function parseQuery($query)
     {
-        $whereClause = parent::_parseQuery($query);
+        $whereClause = parent::parseQuery($query);
 
         if (!is_null($idMessage = $query->idMessage)) {
             $whereClause[] = 'idMessage=\'' . intval($idMessage) . '\'';

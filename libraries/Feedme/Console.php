@@ -26,9 +26,9 @@ class Console extends InstanceAbstract
             $console->setDI($di);
 
             $arguments = array();
-            $this->_handleArguments($arguments, $argv);
-            $this->_enableTasksChain($di, $console);
-            $this->_registerDatabase($di);
+            $this->handleArguments($arguments, $argv);
+            $this->enableTasksChain($di, $console);
+            $this->registerDatabase($di);
 
             $console->handle($arguments);
 
@@ -44,7 +44,7 @@ class Console extends InstanceAbstract
     /**
      * Register application namespaces
      */
-    protected function _registerNamespaces()
+    protected function registerNamespaces()
     {
         $loader = new Loader();
         $loader->registerNamespaces(
@@ -58,7 +58,7 @@ class Console extends InstanceAbstract
      * @param CliDI      $di
      * @param ConsoleApp $console
      */
-    private function _enableTasksChain(CliDI &$di, ConsoleApp $console)
+    private function enableTasksChain(CliDI &$di, ConsoleApp $console)
     {
         $di->setShared('console', $console);
     }
@@ -68,7 +68,7 @@ class Console extends InstanceAbstract
      * @param array $args
      * @param array $argv
      */
-    private function _handleArguments(array &$args, array $argv)
+    private function handleArguments(array &$args, array $argv)
     {
         foreach ($argv as $k => $arg) {
             if ($k == 1) {

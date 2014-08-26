@@ -13,7 +13,7 @@ abstract class BaseAbstract implements BaseInterface
      * @param  BaseFilter $filter
      * @return mixed
      */
-    public function _parseQuery($filter)
+    public function parseQuery($filter)
     {
         $whereClause = array();
 
@@ -31,7 +31,7 @@ abstract class BaseAbstract implements BaseInterface
      * @param  BaseFilter  $filter
      * @return array|mixed
      */
-    public function _parseFilterOptions($filter)
+    public function parseFilterOptions($filter)
     {
         $options = array();
         $_directionsAllowed = array('DESC', 'ASC');
@@ -52,7 +52,7 @@ abstract class BaseAbstract implements BaseInterface
      * @param  BaseRequest    $request
      * @return mixed|void
      */
-    public function _parseRequest(&$entity, $request)
+    public function parseRequest(&$entity, $request)
     {
         if (!is_null($request->id)) {
             $entity->setId(intval($request->id));
@@ -69,8 +69,8 @@ abstract class BaseAbstract implements BaseInterface
     final public function _parseFilter($filter)
     {
         return array_merge(
-            array(implode(' AND ', $this->_parseQuery($filter))),
-            $this->_parseFilterOptions($filter)
+            array(implode(' AND ', $this->parseQuery($filter))),
+            $this->parseFilterOptions($filter)
         );
     }
 }

@@ -5,8 +5,8 @@ namespace Feedme\Models\Entities;
 class UserWall extends EntityAbstract
 
 {
-    private $_user = 'Feedme\\Models\\Entities\\User';
-    private $_userWall = 'Feedme\\Models\\Entitiers\\UserWallMessage';
+    private $user = 'Feedme\\Models\\Entities\\User';
+    private $userWall = 'Feedme\\Models\\Entitiers\\UserWallMessage';
 
     /** @var  int */
     protected $idUser;
@@ -17,8 +17,8 @@ class UserWall extends EntityAbstract
     {
         parent::initialize();
 
-        $this->belongsTo('idUser', $this->_user, 'id');
-        $this->belongsTo('idMessage', $this->_userWall, 'id');
+        $this->belongsTo('idUser', $this->user, 'id');
+        $this->belongsTo('idMessage', $this->userWall, 'id');
     }
 
     /**

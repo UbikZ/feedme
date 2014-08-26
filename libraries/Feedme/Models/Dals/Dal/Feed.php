@@ -17,7 +17,7 @@ class Feed extends BaseAbstract
     {
         $feed = new EntityFeed();
 
-        $this->_parseRequest($feed, $request);
+        $this->parseRequest($feed, $request);
 
         $return = new DalMessage();
         $return->setSuccess($feed->save());
@@ -42,9 +42,9 @@ class Feed extends BaseAbstract
      * @param  Insert     $request
      * @return mixed|void
      */
-    public function _parseRequest(&$feed, $request)
+    public function parseRequest(&$feed, $request)
     {
-        parent::_parseRequest($feed, $request);
+        parent::parseRequest($feed, $request);
 
         if (!is_null($request->idCreator)) {
             $feed->setIdCreator($request->idCreator);
@@ -72,9 +72,9 @@ class Feed extends BaseAbstract
      * @param  Select       $query
      * @return mixed|string
      */
-    public function _parseQuery($query)
+    public function parseQuery($query)
     {
-        $whereClause = parent::_parseQuery($query);
+        $whereClause = parent::parseQuery($query);
 
         if (!is_null($idCreator = $query->idCreator)) {
             $whereClause[] = 'idCreator=\'' . intval($idCreator) . '\'';
