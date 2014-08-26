@@ -9,7 +9,7 @@ before_script:
   - sudo apt-get install php5-dev php5-xdebug
   - git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b master
   - (cd cphalcon/ext; export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall"; phpize && ./configure --enable-phalcon && make -j4 && sudo make install && phpenv config-add ../unit-tests/ci/phalcon.ini)
-  - composer update --dev
+  - composer install --dev --no-interaction --prefer-source
 
 script:
   - mkdir -p build/logs
