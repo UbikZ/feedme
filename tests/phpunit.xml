@@ -10,4 +10,7 @@
     <testsuite name="Feedme Test Suite">
         <directory sufix="Test.php">./Tests/Models/Dal/</directory>
     </testsuite>
+    <logging>
+        <log type="coverage-php" target="build/cov/coverage.cov"/>
+    </logging>
 </phpunit>

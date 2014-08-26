@@ -6,11 +6,19 @@ php:
   - 5.5
 
 before_script:
-  - sudo apt-get install php5-dev
+  - sudo apt-get install php5-dev php5-xdebug
   - git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b master
   - (cd cphalcon/ext; export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall"; phpize && ./configure --enable-phalcon && make -j4 && sudo make install && phpenv config-add ../unit-tests/ci/phalcon.ini)
   - composer update --dev
 
 script:
-  - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 libraries/ app/
-  - php vendor/bin/phpunit --configuration tests/phpunit.xml
+  - mkdir -p build/logs
+  - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 libraries/ app/ public/
+  - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml --configuration tests/phpunit.xml
+  - php vendor/bin/phpcov.php --merge --clover build/logs/clover.xml --whitelist ./ build/cov
+  - php vendor/bin/phpmd libraries/,app/,public/ text codesize,unusedcode,naming
+  - php vendor/bin/phpdcd -n libraries/ app/ public/
+  - php vendor/bin/phpcpd -n --progress libraries/ app public
+
+after_script:
+    - php vendor/bin/coveralls -v
