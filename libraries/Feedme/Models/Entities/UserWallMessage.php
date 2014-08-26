@@ -120,7 +120,7 @@ class UserWallMessage extends EntityAbstract
     {
         $result = parent::getSerializable($pbBase, $options);
 
-        $result['addate'] =  (new \DateTime($this->getAdddate() ))->format('H\hi Y-m-d');
+        $result['addate'] = (new \DateTime($this->getAdddate()))->format('H\hi Y-m-d');
         $result['user'] = $this->getUserSrc()->getSerializable(true);
         $result['answers'] = array();
         if (!$pbBase) {

@@ -13,7 +13,7 @@ class UserPicture extends BaseAbstract
      */
     public function find(Select $query)
     {
-        return EntityUserPicture::find($this->_parseFilter($query));
+        return EntityUserPicture::find($this->parseFilter($query));
     }
 
     /**

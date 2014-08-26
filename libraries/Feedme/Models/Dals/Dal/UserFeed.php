@@ -15,7 +15,7 @@ class UserFeed extends BaseAbstract
      */
     public function find(Select $query)
     {
-        return EntityUserFeed::find($this->_parseFilter($query));
+        return EntityUserFeed::find($this->parseFilter($query));
     }
 
     /**

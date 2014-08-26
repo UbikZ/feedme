@@ -31,7 +31,7 @@ class User extends BaseAbstract
      */
     public function find(Select $query)
     {
-        return EntityUser::find($this->_parseFilter($query));
+        return EntityUser::find($this->parseFilter($query));
     }
 
     /**

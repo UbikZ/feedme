@@ -69,5 +69,4 @@ class Alert
         $this->setMessage($message);
         $this->setDatetime(new \DateTime());
     }
-
 }

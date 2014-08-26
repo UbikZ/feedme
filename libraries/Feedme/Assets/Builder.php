@@ -70,7 +70,7 @@ class Builder
         return $this->conf;
     }
 
-    public function _construct(array $conf, $bMinify = false)
+    public function __construct(array $conf, $bMinify = false)
     {
         $this->setConf($conf);
         $this->setBMinify($bMinify);

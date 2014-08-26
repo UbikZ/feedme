@@ -13,7 +13,7 @@ class FeedType extends BaseAbstract
      */
     public function find(Select $query)
     {
-        return EntityFeedType::find($this->_parseFilter($query));
+        return EntityFeedType::find($this->parseFilter($query));
     }
 
     /**

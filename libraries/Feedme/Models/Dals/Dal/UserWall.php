@@ -13,7 +13,7 @@ class UserWall extends BaseAbstract
      */
     public function count(Select $query)
     {
-        return EntityUserWall::count($this->_parseFilter($query));
+        return EntityUserWall::count($this->parseFilter($query));
     }
 
     /**

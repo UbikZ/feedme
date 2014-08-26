@@ -2,8 +2,8 @@
 
 namespace Feedme\Db;
 
-use Feedme\Db\Exceptions\DriverException,
-    Feedme\Db\Exceptions\ParametersException;
+use Feedme\Db\Exceptions\DriverException;
+use Feedme\Db\Exceptions\ParametersException;
 
 class Factory
 {

@@ -75,8 +75,9 @@ class Dashboard extends Component
             foreach ($cats as $cat) {
                 $render .= '<li class="' . ($this->isActive($cat) ? 'active' : '') . '">';
                 $render .= '<a href="#">';
-                if (isset($cat['img']))
+                if (isset($cat['img'])) {
                     $render .= '<i class="' . $cat['img'] . '"></i>';
+                }
                 $render .= '<span class="nav-label">' . $cat['label'] . '</span>';
                 $render .= '<span class="fa arrow"></span>';
                 $render .= '</a>';
@@ -117,7 +118,7 @@ class Dashboard extends Component
                 $content = '<a href="#">' . $item['label'] . '</a>';
                 if (!is_null($ctrl = $item['controller']) && !is_null($act = $item['action'])) {
                     $params = (count($item['params']) > 0) ? '/' . implode('/', $item['params']) : '';
-                    $link = $ctrl .'/'. $act . $params;
+                    $link = $ctrl . '/' . $act . $params;
                     $caption = is_null($item['img'])
                         ? $item['label']
                         : '<i class="' . $item['img'] . '"></i>' . $item['label'];
@@ -126,10 +127,11 @@ class Dashboard extends Component
                 $render .= '<li class="' . implode(' ', $item['classes']) . '">' . $content . '</li>';
             }
         }
-        if ($bDisplay)
+        if ($bDisplay) {
             echo $render;
-        else
+        } else {
             return $render;
+        }
     }
 
     public function getAlerts()
@@ -168,8 +170,10 @@ class Dashboard extends Component
                 $render .= '<li><div class="dropdown-messages-box">';
                 $render .= '<div class="media-body">';
                 $render .= '<i class="' . $fa . '"></i>&nbsp;.&nbsp;<small>' . $label . '</small><br/>';
-                $render .= '<strong class="' . $color . '">'. $alert->getMessage() . '</strong><br/>';
-                $render .= '<small class="text-muted pull-right">' . $alert->getDatetime()->format('H:i - d.m.Y') . '</small>';
+                $render .= '<strong class="' . $color . '">' . $alert->getMessage() . '</strong><br/>';
+                $render .= '<small class="text-muted pull-right">';
+                $render .= $alert->getDatetime()->format('H:i - d.m.Y');
+                $render .= '</small>';
                 $render .= '</div></li>';
                 if (($key + 1) != $count) {
                     $render .= '<li class="divider"></li>';
@@ -219,8 +223,7 @@ class Dashboard extends Component
         $action = null,
         $params = array(),
         $img = null
-    )
-    {
+    ) {
         if (!is_array($conf)) {
             throw new Exception(__CLASS__ . ' component issue: wrong type of parameters in ' . __FUNCTION__);
         }

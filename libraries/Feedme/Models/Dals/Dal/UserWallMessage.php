@@ -48,7 +48,7 @@ class UserWallMessage extends BaseAbstract
      */
     public function find(Select $query)
     {
-        return EntityUserWallMessage::find($this->_parseFilter($query));
+        return EntityUserWallMessage::find($this->parseFilter($query));
     }
 
     /**
@@ -57,7 +57,7 @@ class UserWallMessage extends BaseAbstract
      */
     public function count(Select $query)
     {
-        return EntityUserWallMessage::count($this->_parseFilter($query));
+        return EntityUserWallMessage::count($this->parseFilter($query));
     }
 
     /**

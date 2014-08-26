@@ -12,8 +12,15 @@ class Handler
     private static $instance = null;
 
     // Singleton <=> disable instanciation/cloning
-    protected function __construct() {}
-    protected function __clone() {}
+    protected function __construct()
+    {
+
+    }
+
+    protected function __clone()
+    {
+
+    }
 
     public static function get()
     {

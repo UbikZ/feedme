@@ -3,7 +3,6 @@
 namespace Feedme\Models\Entities;
 
 class UserWall extends EntityAbstract
-
 {
     private $user = 'Feedme\\Models\\Entities\\User';
     private $userWall = 'Feedme\\Models\\Entitiers\\UserWallMessage';

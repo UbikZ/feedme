@@ -11,7 +11,7 @@ use Phalcon\Exception;
 
 abstract class InstanceAbstract
 {
-    protected $_conf;
+    protected $conf;
 
     abstract protected function registerNamespaces();
 
@@ -38,7 +38,7 @@ abstract class InstanceAbstract
         if (file_exists($localConfPath = sprintf(APP_PATH . '/config/configs/%s.php', APPLICATION_ENV))) {
             $localConf = require_once($localConfPath);
             if (is_array($localConf)) {
-                $config->merge($localConf);
+                $config->merge(new Config($localConf));
             }
         }
 
