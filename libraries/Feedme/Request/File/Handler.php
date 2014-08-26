@@ -8,12 +8,11 @@ class Handler
 {
     /**
      * @param  RequestInterface $reqFile
-     * @param $request
      * @param  string           $dirPath
      * @param  array            $options
      * @return null|string
      */
-    public static function moveTo(RequestInterface $reqFile, &$request, $dirPath = 'uploads', $options = array())
+    public static function moveTo(RequestInterface $reqFile, $dirPath = 'uploads', $options = array())
     {
         $result = null;
 

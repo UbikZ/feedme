@@ -22,7 +22,7 @@ class AbstractController extends Controller
         $this->view->setVar('errors', $this->getIdentity());
         if ($this->hasIdentity()) {
             $query = new Select();
-            $query->id =  $this->getIdentity()['id'];
+            $query->identity =  $this->getIdentity()['id'];
             /** @var ServiceMessage $findUserMsg */
             $findUserMsg = Service::getService('User')->find($query);
 

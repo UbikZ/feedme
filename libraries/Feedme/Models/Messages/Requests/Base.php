@@ -5,7 +5,7 @@ namespace Feedme\Models\Messages\Requests;
 abstract class Base
 {
     /** @var  int */
-    public $id;
+    public $identity;
     /** @var  boolean */
     public $active;
 }

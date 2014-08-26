@@ -5,7 +5,7 @@ namespace Feedme\Models\Messages\Filters;
 abstract class Base
 {
     /** @var  int */
-    public $id;
+    public $identity;
     /** @var  boolean */
     public $active;
     /** @var  int */

@@ -14,7 +14,7 @@ class Builder
     /** @var  array */
     protected $conf = array();
     /** @var  boolean */
-    protected $bMinify = false;
+    protected $isMinify = false;
     /** @var  Manager */
     protected $assetManager;
 
@@ -35,19 +35,19 @@ class Builder
     }
 
     /**
-     * @param boolean $bMinify
+     * @param boolean $isMinify
      */
-    public function setBMinify($bMinify)
+    public function setIsMinify($isMinify)
     {
-        $this->bMinify = $bMinify;
+        $this->isMinify = $isMinify;
     }
 
     /**
      * @return boolean
      */
-    public function getBMinify()
+    public function getIsMinify()
     {
-        return $this->bMinify;
+        return $this->isMinify;
     }
 
     /**
@@ -70,10 +70,10 @@ class Builder
         return $this->conf;
     }
 
-    public function __construct(array $conf, $bMinify = false)
+    public function __construct(array $conf, $isMinify = false)
     {
         $this->setConf($conf);
-        $this->setBMinify($bMinify);
+        $this->setIsMinify($isMinify);
         $this->setAssetManager(new Manager());
     }
 
@@ -89,7 +89,7 @@ class Builder
                         ->collection($namespace . '-' . $type)
                         ->setTargetPath('cache/' . $namespace . '.js')
                         ->setTargetUri('cache/' . $namespace . '.js')
-                        ->join($this->getBMinify())
+                        ->join($this->getIsMinify())
                         ->addFilter($this->getFilter($type));
                     foreach ($elements as $element) {
                         $this->add($this->assetManager, $type, $element);
@@ -100,17 +100,17 @@ class Builder
     }
 
     /**
-     * @param Manager $am
+     * @param Manager $assetManager
      * @param $type
-     * @param $el
+     * @param $element
      */
-    private function add(Manager &$am, $type, $el)
+    private function add(Manager &$assetManager, $type, $element)
     {
-        if ($el) {
+        if ($element) {
             if (self::JS === $type) {
-                $am->addJs($el);
+                $assetManager->addJs($element);
             } elseif (self::CSS === $type) {
-                $am->addCss($el);
+                $assetManager->addCss($element);
             }
         }
     }

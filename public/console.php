@@ -18,4 +18,4 @@ if (file_exists($path = VENDOR_PATH . '/autoload.php')) {
 error_reporting(E_ALL);
 
 $console = new \Feedme\Console();
-$console->run($argc, $argv);
+$console->run($argv);

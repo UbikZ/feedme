@@ -74,7 +74,7 @@ class UserWallMessage
         $message = new ServiceMessage();
 
         try {
-            if (!is_numeric($query->id)) {
+            if (!is_numeric($query->identity)) {
                 throw new  ServiceException('Wrong parameter given');
             }
             if (false === ($result = Dal::getRepository('UserWallMessage')->delete($query))) {

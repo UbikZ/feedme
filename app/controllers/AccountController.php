@@ -25,17 +25,16 @@ class AccountController extends AbstractController
 
     public function indexAction()
     {
-
         $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 
-    public function editAction($id = null)
+    public function editAction($idUser = null)
     {
-        if (!$id && ($id != $this->getIdentity()['id']) && !$this->isAdmin()) {
+        if (!$idUser && ($idUser != $this->getIdentity()['id']) && !$this->isAdmin()) {
             $this->notFound();
         } else {
             $query = new SelectUser();
-            $query->id = $id;
+            $query->identity = $idUser;
 
             /** @var ServiceMessage $findUserMsg */
             $findUserMsg = Service::getService('User')->find($query);
@@ -48,7 +47,7 @@ class AccountController extends AbstractController
                 if ($this->request->isPost()) {
                     // Build update request object
                     $request = new Update();
-                    $request->id = $id;
+                    $request->identity = $idUser;
                     $request->firstname = $this->request->getPost('firstname');
                     $request->lastname = $this->request->getPost('lastname');
                     $request->username = $this->request->getPost('username');
@@ -57,12 +56,8 @@ class AccountController extends AbstractController
                     $request->society = $this->request->getPost('society');
                     $request->address = $this->request->getPost('address');
                     $request->about = $this->request->getPost('about');
-                    $request->wallPicture = FileHandler::moveTo(
-                        $this->request,
-                        $request,
-                        'uploads',
-                        array('idUser' => $user->getId())
-                    );
+                    $request->wallPicture =
+                        FileHandler::moveTo($this->request, 'uploads', array('idUser' => $user->getId()));
 
                     /** @var ServiceMessage $updateUserMsg */
                     $updateUserMsg = Service::getService('User')->update($request);

@@ -49,25 +49,25 @@ class UserFeed extends BaseAbstract
     }
 
     /**
-     * @param  EntityUserFeed $uf
+     * @param  EntityUserFeed $userFeed
      * @param  Insert         $request
      * @return mixed|void
      */
-    public function parseRequest(&$uf, $request)
+    public function parseRequest(&$userFeed, $request)
     {
-        parent::parseRequest($uf, $request);
+        parent::parseRequest($userFeed, $request);
 
         if (!is_null($request->idFeed)) {
-            $uf->setIdFeed(intval($request->idFeed));
+            $userFeed->setIdFeed(intval($request->idFeed));
         }
         if (!is_null($request->idUser)) {
-            $uf->setIdUser(intval($request->idUser));
+            $userFeed->setIdUser(intval($request->idUser));
         }
         if (!is_null($request->like)) {
-            $uf->setLike(intval($request->like));
+            $userFeed->setLike(intval($request->like));
         }
         if (!is_null($request->subscribe)) {
-            $uf->setSubscribe(intval($request->subscribe));
+            $userFeed->setSubscribe(intval($request->subscribe));
         }
     }
 

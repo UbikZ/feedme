@@ -14,21 +14,20 @@ use Phalcon\Loader;
 class Console extends InstanceAbstract
 {
     /**
-     * @param $argc
      * @param array $argv
      */
-    public function run($argc, $argv = array())
+    public function run($argv = array())
     {
         try {
-            $di = new CliDI();
+            $depInjection = new CliDI();
 
             $console = new ConsoleApp();
-            $console->setDI($di);
+            $console->setDI($depInjection);
 
             $arguments = array();
             $this->handleArguments($arguments, $argv);
-            $this->enableTasksChain($di, $console);
-            $this->registerDatabase($di);
+            $this->enableTasksChain($depInjection, $console);
+            $this->registerDatabase($depInjection);
 
             $console->handle($arguments);
 
@@ -55,12 +54,12 @@ class Console extends InstanceAbstract
     }
 
     /**
-     * @param CliDI      $di
+     * @param CliDI      $depInjection
      * @param ConsoleApp $console
      */
-    private function enableTasksChain(CliDI &$di, ConsoleApp $console)
+    private function enableTasksChain(CliDI &$depInjection, ConsoleApp $console)
     {
-        $di->setShared('console', $console);
+        $depInjection->setShared('console', $console);
     }
 
     /**

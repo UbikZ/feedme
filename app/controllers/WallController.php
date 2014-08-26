@@ -22,14 +22,14 @@ class WallController extends AbstractController
         $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 
-    public function profileAction($id = null)
+    public function profileAction($identity = null)
     {
-        if (is_null($id)) {
-            $id = $this->currentUser->getId();
+        if (is_null($identity)) {
+            $identity = $this->currentUser->getId();
         }
 
         $select = new SelectUser();
-        $select->id = $id;
+        $select->identity = $identity;
         /** @var ServiceMessage $findUserMsg */
         $findUserMsg = Service::getService('User')->find($select);
 
@@ -41,16 +41,16 @@ class WallController extends AbstractController
         $this->view->setVar("name", array("main" => "Profile", "sub" => "Wall"));
     }
 
-    public function informationAction($id = null)
+    public function informationAction($identity = null)
     {
         $response = new Response();
 
         $this->view->disable();
         $request = $this->request;
-        if ((true === $request->isAjax()) && !is_null($id)) {
+        if ((true === $request->isAjax()) && !is_null($identity)) {
             // Get user wall
             $queryUser = new SelectUser();
-            $queryUser->id = $id;
+            $queryUser->identity = $identity;
             /** @var ServiceMessage $userMsg */
             $userMsg = Service::getService('User')->find($queryUser);
             /** @var User $user */
@@ -85,17 +85,17 @@ class WallController extends AbstractController
         }
     }
 
-    public function postAction($id = null)
+    public function postAction($idUserDest = null)
     {
         $response = new Response();
 
         $this->view->disable();
         $request = $this->request;
-        if ((true === $request->isPost()) && (true === $request->isAjax()) && !is_null($id)) {
+        if ((true === $request->isPost()) && (true === $request->isAjax()) && !is_null($idUserDest)) {
             $insert = new Insert();
             $insert->idMessageSrc = $request->getPost('idMessageSrc');
             $insert->idUserSrc = $this->currentUser->getId();
-            $insert->idUserDest = $id;
+            $insert->idUserDest = $idUserDest;
             $insert->message = $request->getPost('message');
 
             /** @var ServiceMessage $insertMessage */
@@ -109,15 +109,15 @@ class WallController extends AbstractController
         return $response;
     }
 
-    public function deleteAction($id = null)
+    public function deleteAction($idMessage = null)
     {
         $response = new Response();
 
         $this->view->disable();
         $request = $this->request;
-        if ((true === $request->isAjax()) && !is_null($id)) {
+        if ((true === $request->isAjax()) && !is_null($idMessage)) {
             $delete = new Select();
-            $delete->id = $id;
+            $delete->identity = $idMessage;
             $delete->idUserSrc = $this->currentUser->getId();
 
             /** @var ServiceMessage $deleteMessage */

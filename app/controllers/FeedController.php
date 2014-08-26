@@ -101,16 +101,16 @@ class FeedController extends AbstractController
             $findFeeds = Service::getService('Feed')->find($select);
             $feeds = $findFeeds->getMessage();
 
-            $listFeedsSerializabled = array();
+            $feedsSerializabled = array();
             /** @var Feed[] $feeds */
             foreach ($feeds as $feed) {
-                $listFeedsSerializabled[] =
+                $feedsSerializabled[] =
                     $feed->getSerializable(false, array('idUser' => $this->currentUser->getId()));
             }
             $response->setContent(json_encode(
                 array(
                     'success' => $findFeeds->getSuccess(),
-                    'feeds' => $listFeedsSerializabled,
+                    'feeds' => $feedsSerializabled,
                     'baseUri' => $this->url->getBaseUri()
                 )
             ));
@@ -122,13 +122,13 @@ class FeedController extends AbstractController
 
     }
 
-    public function refreshAction($id = null)
+    public function refreshAction($idFeed = null)
     {
         $response = new Response();
         $request = $this->request;
-        if (!is_null($id) && is_numeric($id) && true === $request->isAjax()) {
+        if (!is_null($idFeed) && is_numeric($idFeed) && true === $request->isAjax()) {
             $select = new SelectFeed();
-            $select->id = $id;
+            $select->identity = $idFeed;
             /** @var ServiceMessage $findFeeds */
             $findFeeds = Service::getService('Feed')->find($select);
             /** @var Feed $feed */
@@ -158,11 +158,8 @@ class FeedController extends AbstractController
             $req->idFeed = $request->getPost('idfeed');
 
             $value = filter_var($request->getPost('value'), FILTER_VALIDATE_BOOLEAN);
-            if ($scope == "subscribe") {
-                $req->subscribe = $value;
-            } else {
-                $req->like = $value;
-            }
+            $req->subscribe = ($scope == "subscribe") ? $value : null;
+            $req->like = ($scope == "like") ? $value : null;
 
             /** @var ServiceMessage $msgInsert */
             $msgInsert = Service::getService('UserFeed')->insert($req);

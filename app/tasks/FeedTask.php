@@ -7,7 +7,7 @@ use Feedme\Db\Handler as DbHandler;
 
 class FeedTask extends AbstractTask
 {
-    public function exportAction(array $params)
+    public function exportAction(array $params = array())
     {
         // Just validated feeds
         $sql = "SELECT * FROM feed WHERE validate='2'";

@@ -21,14 +21,14 @@ class User
         $message = new ServiceMessage();
 
         try {
-            if (is_null($request->id)) {
+            if (is_null($request->identity)) {
                 throw new \Exception('Invalid parameter given.');
             }
             $query = new Select();
-            $query->id = $request->id;
+            $query->identity = $request->identity;
             /** @var \Phalcon\Mvc\Model\Resultset\Simple $users */
             if (false === ($users = Dal::getRepository('User')->find($query))) {
-                throw new \Exception('Can\'t load user `' . $query->id . '`.');
+                throw new \Exception('Can\'t load user `' . $query->identity . '`.');
             }
 
             /** @var DalMessage $daMessage */

@@ -55,9 +55,9 @@ abstract class InstanceAbstract
 
     /**
      * Register database connection with specific adapter
-     * @param DiInterface $di
+     * @param DiInterface $depInjection
      */
-    protected function registerDatabase(DiInterface &$di)
+    protected function registerDatabase(DiInterface &$depInjection)
     {
         $dbConf = array(
             "adapter" => $this->getConf()->database->adapter,
@@ -71,7 +71,7 @@ abstract class InstanceAbstract
         // ORM-less setup
         DbHandler::$conf = $dbConf;
         // ORM setup
-        $di->set('db', function () use ($dbConf) {
+        $depInjection->set('db', function () use ($dbConf) {
             return DbFactory::getDriver($dbConf);
         });
     }

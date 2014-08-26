@@ -7,6 +7,7 @@
 namespace Feedme;
 
 // Phalcon
+use Phalcon\Acl\Adapter\Memory;
 use Phalcon\Config;
 use Phalcon\Loader;
 use Phalcon\DI\FactoryDefault as DI;
@@ -30,19 +31,19 @@ class Application extends InstanceAbstract
     public function run()
     {
         try {
-            $di = new FactoryDefault();
+            $depInjection = new FactoryDefault();
 
-            $this->registerDispatcher($di);
-            $this->registerUrl($di);
-            $this->registerView($di);
-            $this->registerDatabase($di);
-            //$this->registerMetadata($di);
-            $this->registerSession($di);
-            $this->registerFlash($di);
-            $this->registerComponents($di);
+            $this->registerDispatcher($depInjection);
+            $this->registerUrl($depInjection);
+            $this->registerView($depInjection);
+            $this->registerDatabase($depInjection);
+            //$this->registerMetadata($depInjection);
+            $this->registerSession($depInjection);
+            $this->registerFlash($depInjection);
+            $this->registerComponents($depInjection);
 
             $application = new \Phalcon\Mvc\Application();
-            $application->setDI($di);
+            $application->setDI($depInjection);
             echo $application->handle()->getContent();
 
         } catch (\Phalcon\Exception $e) {
@@ -70,18 +71,18 @@ class Application extends InstanceAbstract
     /**
      * Register the dispatcher
      * - We added some Security plugin to provide ACL
-     * @param DI $di
+     * @param DI $depInjection
      */
-    private function registerDispatcher(DI &$di)
+    private function registerDispatcher(DI &$depInjection)
     {
-        $di->set('dispatcher', function () use ($di) {
-            $eventsManager = $di->getShared('eventsManager');
-            $security = new Security($di);
+        $depInjection->set('dispatcher', function () use ($depInjection) {
+            $eventsManager = $depInjection->getShared('eventsManager');
+            $security = new Security($depInjection);
             $eventsManager->attach('dispatch', $security);
-            $eventsManager->attach("dispatch:beforeException", function ($event, $dispatcher, $exception) {
+            $eventsManager->attach("dispatch:beforeException", function ($event, $depInjectionspatcher, $exception) {
 
                 if ($exception instanceof \Phalcon\Mvc\Dispatcher\Exception) {
-                    $dispatcher->forward(array(
+                    $depInjectionspatcher->forward(array(
                         'controller' => 'index',
                         'action' => 'notFound'
                     ));
@@ -89,28 +90,28 @@ class Application extends InstanceAbstract
                     return false;
                 }
 
-                $dispatcher->forward(array(
+                $depInjectionspatcher->forward(array(
                     'controller' => 'index',
                     'action' => 'internalError'
                 ));
 
                 return false;
             });
-            $dispatcher = new Dispatcher();
-            $dispatcher->setDefaultNamespace('controllers');
-            $dispatcher->setEventsManager($eventsManager);
+            $depInjectionspatcher = new Dispatcher();
+            $depInjectionspatcher->setDefaultNamespace('controllers');
+            $depInjectionspatcher->setEventsManager($eventsManager);
 
-            return $dispatcher;
+            return $depInjectionspatcher;
         });
     }
 
     /**
      * Register the URL component (provide generation)
-     * @param DI $di
+     * @param DI $depInjection
      */
-    private function registerUrl(DI &$di)
+    private function registerUrl(DI &$depInjection)
     {
-        $di->set('url', function () {
+        $depInjection->set('url', function () {
             $url = new Url();
             $url->setBaseUri($this->getConf()->application->baseUri);
 
@@ -122,15 +123,15 @@ class Application extends InstanceAbstract
      * todo : externalize this in `Feedme\Manager\Assets` namespace
      * -> almost done, but still an issues
      * Register several custom components
-     * @param DI $di
+     * @param DI $depInjection
      */
-    private function registerComponents(DI &$di)
+    private function registerComponents(DI &$depInjection)
     {
-        $di->set('dashboard', function () {
+        $depInjection->set('dashboard', function () {
             return new Dashboard();
         });
 
-        $di->set('assets', function () {
+        $depInjection->set('assets', function () {
             $prefixPath = 'libraries';
             $assetManager = new Manager();
             $bMinify = $this->getConf()->application->minify;
@@ -235,11 +236,11 @@ class Application extends InstanceAbstract
 
     /**
      * Register template engine (volt here)
-     * @param DI $di
+     * @param DI $depInjection
      */
-    private function registerView(DI &$di)
+    private function registerView(DI &$depInjection)
     {
-        $di->set('view', function () {
+        $depInjection->set('view', function () {
             $view = new View();
             $view->setViewsDir(ROOT_PATH . $this->getConf()->application->viewsDir);
             $view->registerEngines(array(
@@ -250,8 +251,8 @@ class Application extends InstanceAbstract
             return $view;
         });
 
-        $di->set('volt', function ($view, $di) {
-            $volt = new Volt($view, $di);
+        $depInjection->set('volt', function ($view, $depInjection) {
+            $volt = new Volt($view, $depInjection);
             $volt->setOptions(array(
                 "compiledPath" => CACHE_PATH . "/volt/",
                 "compileAlways" => $this->getConf()->application->volt->compile
@@ -263,11 +264,11 @@ class Application extends InstanceAbstract
 
     /**
      * Register metadata adapter (todo: improve this in factory mode)
-     * @param DI $di
+     * @param DI $depInjection
      */
-    private function registerMetadata(DI &$di)
+    private function registerMetadata(DI &$depInjection)
     {
-        $di->set('modelsMetadata', function () {
+        $depInjection->set('modelsMetadata', function () {
             if (isset($this->getConf()->metadata)) {
                 $metadataAdapter = 'Phalcon\Mvc\Model\Metadata\\' . $this->getConf()->metadata->adapter;
 
@@ -280,11 +281,11 @@ class Application extends InstanceAbstract
 
     /**
      * Register session
-     * @param DI $di
+     * @param DI $depInjection
      */
-    private function registerSession(DI &$di)
+    private function registerSession(DI &$depInjection)
     {
-        $di->set('session', function () {
+        $depInjection->set('session', function () {
             $session = new Files();
             $session->start();
 
@@ -294,11 +295,11 @@ class Application extends InstanceAbstract
 
     /**
      * Register flash message with specific css classes
-     * @param DI $di
+     * @param DI $depInjection
      */
-    private function registerFlash(DI &$di)
+    private function registerFlash(DI &$depInjection)
     {
-        $di->set('flash', function () {
+        $depInjection->set('flash', function () {
             return new Session(array(
                 'error' => 'alert alert-danger',
                 'success' => 'alert alert-success',

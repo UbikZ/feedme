@@ -17,8 +17,8 @@ abstract class BaseAbstract implements BaseInterface
     {
         $whereClause = array();
 
-        if (!is_null($id = $filter->id)) {
-            $whereClause[] = 'id=\'' . intval($id) . '\'';
+        if (!is_null($identity = $filter->identity)) {
+            $whereClause[] = 'id=\'' . intval($identity) . '\'';
         }
         if (!is_null($active = $filter->active)) {
             $whereClause[] = 'active=\'' . intval($active) . '\'';
@@ -34,7 +34,7 @@ abstract class BaseAbstract implements BaseInterface
     public function parseFilterOptions($filter)
     {
         $options = array();
-        $_directionsAllowed = array('DESC', 'ASC');
+        //$_directionsAllowed = array('DESC', 'ASC');
         if (!is_null($limit = $filter->limit)) {
             $options['limit'] = intval($limit);
         }
@@ -54,8 +54,8 @@ abstract class BaseAbstract implements BaseInterface
      */
     public function parseRequest(&$entity, $request)
     {
-        if (!is_null($request->id)) {
-            $entity->setId(intval($request->id));
+        if (!is_null($request->identity)) {
+            $entity->setId(intval($request->identity));
         }
         if (!is_null($request->active)) {
             $entity->setActive($request->active);

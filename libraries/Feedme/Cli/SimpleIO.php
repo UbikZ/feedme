@@ -7,33 +7,33 @@ class SimpleIO
     const INFO = 0;
     const ERROR = 1;
 
-    public static function msg($msg, $type = null, $bExit = false)
+    public static function msg($msg, $type = null, $isExit = false)
     {
         switch ($type) {
-            case self::M_INFO:
-                $m = '[INFO] ';
+            case self::INFO:
+                $prefix = '[INFO] ';
                 break;
-            case self::M_ERROR:
-                $m = '[ERROR] ';
+            case self::ERROR:
+                $prefix = '[ERROR] ';
                 break;
             default:
-                $m = '';
+                $prefix = '';
                 break;
         }
-        echo $m . $msg . PHP_EOL;
-        if ($bExit) {
+        echo $prefix . $msg . PHP_EOL;
+        if ($isExit) {
             exit();
         }
     }
 
     public static function error($msg, $target = 'Error')
     {
-        self::msg("$target : $msg", self::M_ERROR, true);
+        self::msg("$target : $msg", self::ERROR, true);
     }
 
     public static function info($msg, $target = 'Info')
     {
-        self::msg("$target : $msg", self::M_INFO, false);
+        self::msg("$target : $msg", self::INFO, false);
     }
 
     public static function dump($msg)
