@@ -10,6 +10,7 @@ use Feedme\Models\Messages\Requests\User\Update;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Feedme\Session\Handler as HandlerSession;
+use Feedme\Request\File\Handler as FileHandler;
 use Phalcon\Mvc\View;
 use Phalcon\Tag;
 
@@ -56,17 +57,12 @@ class AccountController extends AbstractController
                     $request->society = $this->request->getPost('society');
                     $request->address = $this->request->getPost('address');
                     $request->about = $this->request->getPost('about');
-
-                    // todo: ugly => put this in File service asap
-                    if (true == ($this->request->hasFiles())) {
-                        $files = $this->request->getUploadedFiles();
-                        if (is_array($files) && isset($files[0])) {
-                            $file = $files[0];
-                            $filename = 'uploads/' . $user->getId() . '-' . $file->getName();
-                            $file->moveTo(PUBLIC_PATH . '/' . $filename);
-                            $request->wallPicture = $filename;
-                        }
-                    }
+                    $request->wallPicture = FileHandler::moveTo(
+                        $this->request,
+                        $request,
+                        'uploads',
+                        array('idUser' => $user->getId())
+                    );
 
                     /** @var ServiceMessage $updateUserMsg */
                     $updateUserMsg = Service::getService('User')->update($request);
