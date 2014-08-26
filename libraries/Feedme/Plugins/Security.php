@@ -37,7 +37,8 @@ class Security extends Plugin
                     'role' => new \Phalcon\Acl\Role(self::GUESTS),
                     'ressources' => array(
                         'index' => array('index'),
-                        'session' => array('index', 'register', 'login', 'logout')
+                        'session' => array('index', 'register', 'login', 'logout'),
+                        'error' => array('notfound', 'internalerror')
                     )
                 ),
                 self::USERS => array(
@@ -49,7 +50,8 @@ class Security extends Plugin
                         'contact' => array('list'),
                         'feed' => array('new', 'list', 'post', 'refresh', 'load'),
                         'session' => array('logout'),
-                        'account' => array('edit')
+                        'account' => array('edit'),
+                        'error' => array('notfound', 'internalerror')
                     )
                 ),
                 self::ADMINS => array(
@@ -62,7 +64,8 @@ class Security extends Plugin
                         'dashboard' => array('index', 'profile'),
                         'feed' => array('new', 'list', 'post', 'refresh', 'load'),
                         'session' => array('logout'),
-                        'account' => array('edit')
+                        'account' => array('edit'),
+                        'error' => array('notfound', 'internalerror')
                     )
                 )
             );

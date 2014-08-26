@@ -30,7 +30,7 @@ class ContactController extends AbstractController
             $this->view->setVar('users', $users);
             $this->view->setVar("name", array("main" => "Contacts", "sub" => "List"));
         } else {
-            $this->internalErrorAction();
+            $this->internalError();
         }
     }
 }

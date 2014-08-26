@@ -62,7 +62,7 @@ class FeedController extends AbstractController
             $this->view->setVar('feedTypes', $findTypesMsg->getMessage());
             $this->view->setVar("name", array("main" => "Feed", "sub" => "Manage"));
         } else {
-            $this->internalErrorAction();
+            $this->internalError();
         }
     }
 
@@ -79,7 +79,7 @@ class FeedController extends AbstractController
             $this->view->setVar('listFeeds', $findFeeds->getMessage());
             $this->view->setVar("name", array("main" => "Feed", "sub" => "List"));
         } else {
-            $this->internalErrorAction();
+            $this->internalError();
         }
     }
 

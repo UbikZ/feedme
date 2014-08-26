@@ -33,7 +33,7 @@ class AbstractController extends Controller
         }
     }
 
-    public function afterExecuteRoute($dispatcher)
+    public function afterExecuteRoute()
     {
         $this->view->setVar('errors', $this->errors);
     }
@@ -50,20 +50,14 @@ class AbstractController extends Controller
         );
     }
 
-    public function notFoundAction()
+    public function notFound()
     {
-        $this->view->setTemplateAfter('authentication');
-        Tag::setTitle('404 Error');
-        $this->response->setStatusCode(404, 'Not Found');
-        $this->view->pick('error/not-found');
+        $this->response->redirect('error/notfound');
     }
 
-    public function internalErrorAction()
+    public function internalError()
     {
-        $this->view->setTemplateAfter('authentication');
-        Tag::setTitle('500 Error');
-        $this->response->setStatusCode(500, 'Internal Error');
-        $this->view->pick('error/internal-error');
+        $this->response->redirect('error/internalerror');
     }
 
     protected function isAdmin()

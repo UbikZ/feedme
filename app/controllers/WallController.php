@@ -36,7 +36,7 @@ class WallController extends AbstractController
         if ($findUserMsg->getSuccess()) {
             $this->view->setVar('user', $findUserMsg->getMessage());
         } else {
-            $this->internalErrorAction();
+            $this->internalError();
         }
         $this->view->setVar("name", array("main" => "Profile", "sub" => "Wall"));
     }
@@ -81,7 +81,7 @@ class WallController extends AbstractController
             $this->view->setVar('users', $findUserMsg->getMessage());
             $this->view->setVar("name", array("main" => "Contacts", "sub" => "List"));
         } else {
-            $this->internalErrorAction();
+            $this->internalError();
         }
     }
 

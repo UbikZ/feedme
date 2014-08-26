@@ -92,8 +92,7 @@ function WinMove() {
                     if (dragmap.length > 0 || dropmap.length > 0) {
                         dragmap.resize();
                         dropmap.resize();
-                    }
-                    else {
+                    } else {
                         draggable.resize();
                         droppable.resize();
                     }
