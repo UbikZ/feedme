@@ -15,7 +15,8 @@ script:
   - mkdir -p build/logs
   - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 libraries app
   - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml --configuration tests/phpunit.xml
-  - php vendor/bin/phpmd libraries,app,public text codesize,unusedcode,naming
+  # We disable mess detector for now
+  #- php vendor/bin/phpmd libraries,app,public text codesize,unusedcode,naming
   - php vendor/bin/phpdcd -n libraries app public
   - php vendor/bin/phpcpd -n --progress libraries app public
 
