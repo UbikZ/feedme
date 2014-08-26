@@ -16,7 +16,7 @@ class SessionController extends AbstractController
      *
      * @param User $user
      */
-    private function _registerSession(User $user)
+    private function registerSession(User $user)
     {
         HandlerSession::push($this->session, 'auth', array(
             "id" => $user->getId(),
@@ -41,7 +41,7 @@ class SessionController extends AbstractController
             if ($message->getSuccess()) {
                 /** @var User $user */
                 $user = $message->getMessage();
-                $this->_registerSession($user);
+                $this->registerSession($user);
 
                 // Clean alerts session and add new ones
                 $this->session->remove('alerts');

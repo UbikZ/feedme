@@ -11,7 +11,7 @@ class IndexController extends AbstractController
         $this->view->setTemplateAfter('authentication');
         Tag::setTitle('Authentication');
         parent::initialize();
-        if ($this->_hasIdentity()) {
+        if ($this->hasIdentity()) {
             $this->response->redirect('dashboard/index');
         }
     }

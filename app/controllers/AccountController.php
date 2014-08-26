@@ -30,7 +30,7 @@ class AccountController extends AbstractController
 
     public function editAction($id = null)
     {
-        if (!$id && ($id != $this->_getIdentity()['id']) && !$this->_isAdmin()) {
+        if (!$id && ($id != $this->getIdentity()['id']) && !$this->isAdmin()) {
             $this->notFoundAction();
         }
 

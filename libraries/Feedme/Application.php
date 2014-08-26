@@ -37,7 +37,7 @@ class Application extends InstanceAbstract
             $this->_registerView($di);
             $this->_registerDatabase($di);
             //$this->_registerMetadata($di);
-            $this->_registerSession($di);
+            $this->registerSession($di);
             $this->_registerFlash($di);
             $this->_registerComponents($di);
 
@@ -282,7 +282,7 @@ class Application extends InstanceAbstract
      * Register session
      * @param DI $di
      */
-    private function _registerSession(DI &$di)
+    private function registerSession(DI &$di)
     {
         $di->set('session', function () {
             $session = new Files();

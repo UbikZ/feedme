@@ -19,10 +19,10 @@ class AbstractController extends Controller
     protected function initialize()
     {
         Tag::prependTitle('Feedme | ');
-        $this->view->setVar('errors', $this->_getIdentity());
-        if ($this->_hasIdentity()) {
+        $this->view->setVar('errors', $this->getIdentity());
+        if ($this->hasIdentity()) {
             $query = new Select();
-            $query->id =  $this->_getIdentity()['id'];
+            $query->id =  $this->getIdentity()['id'];
             /** @var ServiceMessage $findUserMsg */
             $findUserMsg = Service::getService('User')->find($query);
 
@@ -66,17 +66,17 @@ class AbstractController extends Controller
         $this->view->pick('error/internal-error');
     }
 
-    protected function _isAdmin()
+    protected function isAdmin()
     {
-        return (bool) $this->_getIdentity()['bAdmin'];
+        return (bool) $this->getIdentity()['bAdmin'];
     }
 
-    protected function _hasIdentity()
+    protected function hasIdentity()
     {
-        return !is_null($this->_getIdentity());
+        return !is_null($this->getIdentity());
     }
 
-    protected function _getIdentity()
+    protected function getIdentity()
     {
         return $this->session->get('auth');
     }
