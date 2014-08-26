@@ -1,20 +1,24 @@
 <?php
 
+namespace controllers;
+
 use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\User\Select;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
+use Phalcon\Mvc\Controller;
+use Phalcon\Tag;
 
-class AbstractController extends Phalcon\Mvc\Controller
+class AbstractController extends Controller
 {
     /** @var User */
-    protected $_currentUser = null;
+    protected $currentUser = null;
     /** @var array  */
-    protected $_errors = array();
+    protected $errors = array();
 
     protected function initialize()
     {
-        Phalcon\Tag::prependTitle('Feedme | ');
+        Tag::prependTitle('Feedme | ');
         $this->view->setVar('errors', $this->_getIdentity());
         if ($this->_hasIdentity()) {
             $query = new Select();
@@ -23,15 +27,15 @@ class AbstractController extends Phalcon\Mvc\Controller
             $findUserMsg = Service::getService('User')->find($query);
 
             if ($findUserMsg->getSuccess()) {
-                $this->_currentUser = $findUserMsg->getMessage();
-                $this->view->setVar('currentUser', $this->_currentUser);
+                $this->currentUser = $findUserMsg->getMessage();
+                $this->view->setVar('currentUser', $this->currentUser);
             }
         }
     }
 
     public function afterExecuteRoute($dispatcher)
     {
-        $this->view->setVar('errors', $this->_errors);
+        $this->view->setVar('errors', $this->errors);
     }
 
     protected function forward($uri)
@@ -49,7 +53,7 @@ class AbstractController extends Phalcon\Mvc\Controller
     public function notFoundAction()
     {
         $this->view->setTemplateAfter('authentication');
-        Phalcon\Tag::setTitle('404 Error');
+        Tag::setTitle('404 Error');
         $this->response->setStatusCode(404, 'Not Found');
         $this->view->pick('error/not-found');
     }
@@ -57,7 +61,7 @@ class AbstractController extends Phalcon\Mvc\Controller
     public function internalErrorAction()
     {
         $this->view->setTemplateAfter('authentication');
-        Phalcon\Tag::setTitle('500 Error');
+        Tag::setTitle('500 Error');
         $this->response->setStatusCode(500, 'Internal Error');
         $this->view->pick('error/internal-error');
     }
@@ -76,5 +80,4 @@ class AbstractController extends Phalcon\Mvc\Controller
     {
         return $this->session->get('auth');
     }
-
 }

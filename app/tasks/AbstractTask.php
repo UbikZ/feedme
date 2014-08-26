@@ -1,5 +1,7 @@
 <?php
 
+namespace tasks;
+
 use Phalcon\CLI\Task;
 
 abstract class AbstractTask extends Task

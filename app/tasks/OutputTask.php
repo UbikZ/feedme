@@ -1,5 +1,7 @@
 <?php
 
+namespace tasks;
+
 class OutputTask extends AbstractTask
 {
     public function usageAction()

@@ -1,5 +1,7 @@
 <?php
 
+namespace controllers;
+
 use Feedme\Com\Notification\Alert;
 use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\User\Select as SelectUser;
@@ -9,13 +11,14 @@ use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Feedme\Session\Handler as HandlerSession;
 use Phalcon\Mvc\View;
+use Phalcon\Tag;
 
 class AccountController extends AbstractController
 {
     public function initialize()
     {
         $this->view->setTemplateAfter('dashboard');
-        Phalcon\Tag::setTitle('Dashboard');
+        Tag::setTitle('Dashboard');
         parent::initialize();
     }
 

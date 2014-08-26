@@ -1,5 +1,7 @@
 <?php
 
+namespace controllers;
+
 use Feedme\Com\Notification\Alert;
 use Feedme\Models\Entities\Feed;
 use Feedme\Models\Entities\UserFeed;
@@ -13,6 +15,7 @@ use Feedme\Models\Services\Service;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
 use Feedme\Session\Handler as HandlerSession;
+use Phalcon\Tag;
 
 class FeedController extends AbstractController
 {
@@ -20,7 +23,7 @@ class FeedController extends AbstractController
     {
         parent::initialize();
         $this->view->setTemplateAfter('feed');
-        Phalcon\Tag::setTitle('Dashboard');
+        Tag::setTitle('Dashboard');
         $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 
@@ -33,7 +36,7 @@ class FeedController extends AbstractController
             $insert->public = $request->getPost('public');
             $insert->description = $request->getPost('description');
             $insert->url = $request->getPost('url');
-            $insert->idCreator = $this->_currentUser->getId();
+            $insert->idCreator = $this->currentUser->getId();
             $insert->label = $request->getPost('label');
             $insert->active = true;
 
@@ -47,7 +50,7 @@ class FeedController extends AbstractController
                 ));
                 $this->response->redirect('feed/list');
             } else {
-                $this->_errors = $insertFeedMsg->getErrorsArray();
+                $this->errors = $insertFeedMsg->getErrorsArray();
             }
         }
 
@@ -67,7 +70,7 @@ class FeedController extends AbstractController
     {
         $select = new SelectFeed();
         $select->public = true;
-        $select->connectedUserId = $this->_currentUser->getId();
+        $select->connectedUserId = $this->currentUser->getId();
 
         /** @var ServiceMessage $findFeeds */
         $findFeeds = Service::getService('Feed')->find($select);
@@ -92,7 +95,7 @@ class FeedController extends AbstractController
             $select->limit = $request->getPost('limit');
             $select->needle = $request->getPost('needle');
             $select->validate = $request->getPost('validate');
-            $select->connectedUserId = $this->_currentUser->getId();
+            $select->connectedUserId = $this->currentUser->getId();
 
             /** @var ServiceMessage $findFeeds */
             $findFeeds = Service::getService('Feed')->find($select);
@@ -102,7 +105,7 @@ class FeedController extends AbstractController
             /** @var Feed[] $feeds */
             foreach ($feeds as $feed) {
                 $listFeedsSerializabled[] =
-                    $feed->getSerializable(false, array('idUser' => $this->_currentUser->getId()));
+                    $feed->getSerializable(false, array('idUser' => $this->currentUser->getId()));
             }
             $response->setContent(json_encode(
                 array(
@@ -151,7 +154,7 @@ class FeedController extends AbstractController
         $request = $this->request;
         if (true === $request->isPost() && true === $request->isAjax() && in_array($scope, $_allowedScope)) {
             $req = new InsertUserFeed();
-            $req->idUser = $this->_currentUser->getId();
+            $req->idUser = $this->currentUser->getId();
             $req->idFeed = $request->getPost('idfeed');
 
             $value = filter_var($request->getPost('value'), FILTER_VALIDATE_BOOLEAN);
@@ -168,7 +171,7 @@ class FeedController extends AbstractController
             } else {
                 $quer = new SelectUserFeed();
                 $quer->idFeed = $request->getPost('idfeed');
-                $quer->idUser = $this->_currentUser->getId();
+                $quer->idUser = $this->currentUser->getId();
                 /** @var ServiceMessage $msgFind */
                 $msgFind = Service::getService('UserFeed')->find($quer);
                 /** @var UserFeed $userFeed */

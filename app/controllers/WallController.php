@@ -1,5 +1,7 @@
 <?php
 
+namespace controllers;
+
 use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\UserWallMessage\Select;
 use Feedme\Models\Messages\Filters\User\Select as SelectUser;
@@ -8,6 +10,7 @@ use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
+use Phalcon\Tag;
 
 class WallController extends AbstractController
 {
@@ -15,18 +18,19 @@ class WallController extends AbstractController
     {
         parent::initialize();
         $this->view->setTemplateAfter('wall');
-        Phalcon\Tag::setTitle('Dashboard');
+        Tag::setTitle('Dashboard');
         $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 
     public function profileAction($id = null)
     {
         if (is_null($id)) {
-            $id = $this->_currentUser->getId();
+            $id = $this->currentUser->getId();
         }
 
         $select = new SelectUser();
         $select->id = $id;
+        /** @var ServiceMessage $findUserMsg */
         $findUserMsg = Service::getService('User')->find($select);
 
         if ($findUserMsg->getSuccess()) {
@@ -54,8 +58,8 @@ class WallController extends AbstractController
             $response->setContent(json_encode(
                 array(
                     'success' => $userMsg->getSuccess(),
-                    'allowDelete' => ($this->_currentUser->getId() == $user->getId())
-                        || $this->_currentUser->getAdmin(),
+                    'allowDelete' => ($this->currentUser->getId() == $user->getId())
+                        || $this->currentUser->getAdmin(),
                     'countPosts' => $user->getAllMessages()->count(),
                     'messages' => $user->getSerializable()['messages'],
                     'baseUri' => $this->url->getBaseUri()
@@ -90,7 +94,7 @@ class WallController extends AbstractController
         if ((true === $request->isPost()) && (true === $request->isAjax()) && !is_null($id)) {
             $insert = new Insert();
             $insert->idMessageSrc = $request->getPost('idMessageSrc');
-            $insert->idUserSrc = $this->_currentUser->getId();
+            $insert->idUserSrc = $this->currentUser->getId();
             $insert->idUserDest = $id;
             $insert->message = $request->getPost('message');
 
@@ -114,7 +118,7 @@ class WallController extends AbstractController
         if ((true === $request->isAjax()) && !is_null($id)) {
             $delete = new Select();
             $delete->id = $id;
-            $delete->idUserSrc = $this->_currentUser->getId();
+            $delete->idUserSrc = $this->currentUser->getId();
 
             /** @var ServiceMessage $deleteMessage */
             $deleteMessage = Service::getService('UserWallMessage')->delete($delete);

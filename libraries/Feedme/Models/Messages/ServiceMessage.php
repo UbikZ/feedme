@@ -7,7 +7,7 @@ class ServiceMessage
     /** @var bool  */
     protected $_success = false;
     /** @var array  */
-    protected $_errors = array();
+    protected $errors = array();
     /** @var null|mixed  */
     protected $_message = null;
 
@@ -16,7 +16,7 @@ class ServiceMessage
      */
     public function setError($error)
     {
-        $this->_errors[] = $error;
+        $this->errors[] = $error;
     }
 
     /**
@@ -24,7 +24,7 @@ class ServiceMessage
      */
     public function setErrors($errors)
     {
-        $this->_errors = $errors;
+        $this->errors = $errors;
     }
 
     /**
@@ -32,7 +32,7 @@ class ServiceMessage
      */
     public function getErrors()
     {
-        return implode(PHP_EOL, $this->_errors);
+        return implode(PHP_EOL, $this->errors);
     }
 
     /**
@@ -40,7 +40,7 @@ class ServiceMessage
      */
     public function getErrorsArray()
     {
-        return $this->_errors;
+        return $this->errors;
     }
 
     /**

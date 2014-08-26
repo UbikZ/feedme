@@ -1,5 +1,7 @@
 <?php
 
+namespace tasks;
+
 use Feedme\Cli\SimpleIO;
 use Feedme\Db\Handler as DbHandler;
 

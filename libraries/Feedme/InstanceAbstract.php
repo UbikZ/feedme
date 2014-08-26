@@ -7,23 +7,24 @@ use Feedme\Db\Handler as DbHandler;
 
 use Phalcon\Config;
 use Phalcon\DiInterface;
+use Phalcon\Exception;
 
 abstract class InstanceAbstract
 {
     protected $_conf;
 
-    abstract protected function _registerDirectories();
+    abstract protected function _registerNamespaces();
 
     public function __construct()
     {
         $this->_loadConfigurations();
-        $this->_registerDirectories();
+        $this->_registerNamespaces();
     }
 
     protected function _checkApplicationIntegrity()
     {
         if (!extension_loaded('phalcon')) {
-            throw new \Phalcon\Exception('Install phalcon extension before.');
+            throw new Exception('Install phalcon extension before.');
         }
     }
 

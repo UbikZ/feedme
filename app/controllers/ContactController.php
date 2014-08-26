@@ -1,11 +1,14 @@
 <?php
 
+namespace controllers;
+
 use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\User\Select;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Phalcon\Mvc\Model\Resultset\Simple;
 use Phalcon\Mvc\View;
+use Phalcon\Tag;
 
 class ContactController extends AbstractController
 {
@@ -13,7 +16,7 @@ class ContactController extends AbstractController
     {
         parent::initialize();
         $this->view->setTemplateAfter('contact');
-        Phalcon\Tag::setTitle('Dashboard');
+        Tag::setTitle('Dashboard');
         $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
 

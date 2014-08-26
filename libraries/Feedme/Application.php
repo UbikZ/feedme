@@ -55,14 +55,14 @@ class Application extends InstanceAbstract
     }
 
     /**
-     * Register application directories
+     * Register application namespaces
      */
-    protected function _registerDirectories()
+    protected function _registerNamespaces()
     {
         $loader = new Loader();
-        $loader->registerDirs(
+        $loader->registerNamespaces(
             array(
-                ROOT_PATH . $this->getConf()->application->controllersDir,
+                'controllers' => ROOT_PATH . $this->getConf()->application->controllersDir,
             )
         )->register();
     }
@@ -97,6 +97,7 @@ class Application extends InstanceAbstract
                 return false;
             });
             $dispatcher = new Dispatcher();
+            $dispatcher->setDefaultNamespace('controllers');
             $dispatcher->setEventsManager($eventsManager);
 
             return $dispatcher;

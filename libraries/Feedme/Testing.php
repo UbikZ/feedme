@@ -13,7 +13,7 @@ class Testing extends InstanceAbstract
     public function run()
     {
         try {
-            $this->_registerDirectories();
+            $this->_registerNamespaces();
 
         } catch (\Phalcon\Exception $e) {
             echo "Phalcon Exception : " . $e->getMessage();
@@ -25,14 +25,14 @@ class Testing extends InstanceAbstract
     }
 
     /**
-     * Register application directories
+     * Register application namespaces
      */
-    protected function _registerDirectories()
+    protected function _registerNamespaces()
     {
         $loader = new Loader();
-        $loader->registerDirs(
+        $loader->registerNamespaces(
             array(
-                ROOT_PATH . $this->getConf()->application->controllersDir,
+                'controllers' => ROOT_PATH . $this->getConf()->application->controllersDir,
             )
         )->register();
     }

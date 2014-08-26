@@ -1,5 +1,7 @@
 <?php
 
+namespace tasks;
+
 class MainTask extends AbstractTask
 {
     public function mainAction()

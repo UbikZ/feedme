@@ -1,5 +1,7 @@
 <?php
 
+namespace controllers;
+
 use Feedme\Com\Notification\Alert;
 use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\User\Select;

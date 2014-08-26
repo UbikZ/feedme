@@ -8,6 +8,7 @@ namespace Feedme;
 
 use Phalcon\DI\FactoryDefault\CLI as CliDI;
 use Phalcon\CLI\Console as ConsoleApp;
+use Phalcon\Exception;
 use Phalcon\Loader;
 
 class Console extends InstanceAbstract
@@ -31,7 +32,7 @@ class Console extends InstanceAbstract
 
             $console->handle($arguments);
 
-        } catch (\Phalcon\Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
             exit(255);
         } catch (\PDOException $e) {
@@ -41,14 +42,14 @@ class Console extends InstanceAbstract
     }
 
     /**
-     * Register application directories
+     * Register application namespaces
      */
-    protected function _registerDirectories()
+    protected function _registerNamespaces()
     {
         $loader = new Loader();
-        $loader->registerDirs(
+        $loader->registerNamespaces(
             array(
-                ROOT_PATH . $this->getConf()->application->tasksDir,
+                'tasks' => ROOT_PATH . $this->getConf()->application->tasksDir,
             )
         )->register();
     }

@@ -109,7 +109,7 @@ class Builder
         if ($el) {
             if (self::JS === $type) {
                 $am->addJs($el);
-            } else if (self::CSS === $type) {
+            } elseif (self::CSS === $type) {
                 $am->addCss($el);
             }
         }
@@ -124,7 +124,7 @@ class Builder
         $filter = null;
         if (self::JS === $type) {
             $filter = new Jsmin();
-        } else if (self::CSS === $type) {
+        } elseif (self::CSS === $type) {
             $filter = new Cssmin();
         }
 
