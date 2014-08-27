@@ -66,7 +66,7 @@ abstract class BaseAbstract implements BaseInterface
      * @param $filter
      * @return array
      */
-    final public function parseFilter($filter)
+    public function parseFilter($filter)
     {
         return array_merge(
             array(implode(' AND ', $this->parseQuery($filter))),
