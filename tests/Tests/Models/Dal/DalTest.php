@@ -8,10 +8,8 @@ class DalTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetRepositoryKO()
     {
-        $this->assertInstanceOf(
-            'Feedme\\Models\\Dals\\Exceptions\\InvalidRepositoryException',
-            Dal::getRepository('TestFail')
-        );
+        $this->setExpectedException('Feedme\\Models\\Dals\\Exceptions\\InvalidRepositoryException');
+        Dal::getRepository('TestFail');
     }
 
     public function testGetRepositoryFeed()
