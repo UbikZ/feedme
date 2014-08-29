@@ -20,15 +20,14 @@ class Console extends InstanceAbstract
     {
         try {
             $depInjection = new CliDI();
-
             $console = new ConsoleApp();
-            $console->setDI($depInjection);
-
             $arguments = array();
+
             $this->handleArguments($arguments, $argv);
             $this->enableTasksChain($depInjection, $console);
             $this->registerDatabase($depInjection);
 
+            $console->setDI($depInjection);
             $console->handle($arguments);
 
         } catch (Exception $e) {
@@ -67,9 +66,10 @@ class Console extends InstanceAbstract
      */
     private function handleArguments(array &$args, array $argv)
     {
+        $nsPrefix = 'tasks\\';
         foreach ($argv as $k => $arg) {
             if ($k == 1) {
-                $args['task'] = $arg;
+                $args['task'] = $nsPrefix . $arg;
             } elseif ($k == 2) {
                 $args['action'] = $arg;
             } elseif ($k >= 3) {

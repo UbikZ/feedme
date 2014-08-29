@@ -15,7 +15,7 @@ return array(
     ),
     "application" => array(
         "controllersDir" => "/app/controllers/",
-        "tasksDir" => "/app/tasks",
+        "tasksDir" => "/app/tasks/",
         "viewsDir" => "/app/views/",
         "baseUri" => "/",
         "minify" => true,
