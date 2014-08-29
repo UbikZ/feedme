@@ -14,10 +14,10 @@ script:
   - mkdir -p build/logs
   - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 libraries app
   - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml --configuration tests/phpunit.xml
-  # We disable mess detector for now
+  # We disable mess , dead code, copy/pase detector => provide by codeclimate for now
   #- php vendor/bin/phpmd libraries,app,public text codesize,unusedcode,naming
-  - php vendor/bin/phpdcd -n libraries app public
-  - php vendor/bin/phpcpd -n --progress libraries app public
+  #- php vendor/bin/phpdcd -n libraries app public
+  #- php vendor/bin/phpcpd -n --progress libraries app public
 
 after_script:
     - php vendor/bin/coveralls -v
