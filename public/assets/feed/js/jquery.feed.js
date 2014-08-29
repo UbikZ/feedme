@@ -87,7 +87,6 @@
                                 $this.feed('handleRefresh', urlRefresh);
                                 $.notify(o.message.content, o.message.success, {style: 'feedme'});
                             } else {
-                                // todo : create notifs for this
                                 console.error("Fail when post");
                             }
                         }
@@ -103,7 +102,6 @@
                 $.get(urlRefresh, function (data) {
                     var o = JSON.parse(data);
                     if (!o.success) {
-                        // todo : create notifs for this
                         console.error('Fail to load wall');
                     } else {
                         $this.find('span.subscribes').text(o.countSubscribes);

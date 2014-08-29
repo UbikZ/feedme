@@ -57,7 +57,6 @@ class Feed extends EntityAbstract
     }
 
     /**
-     * todo : get only active feeds
      * @return FeedItem
      */
     public function getFeedItems()

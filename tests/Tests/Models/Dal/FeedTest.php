@@ -3,7 +3,6 @@
 namespace Tests\Models\Dal;
 
 use Feedme\Models\Messages\Filters\UserFeed\Select;
-use Feedme\Models\Messages\Requests\Feed\Insert;
 
 class FeedTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +11,6 @@ class FeedTest extends \PHPUnit_Framework_TestCase
 
     public function testInsert()
     {
-        // todo
     }
 
     public function testFind()

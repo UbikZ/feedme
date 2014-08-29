@@ -34,7 +34,6 @@ class BaseAbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testParseRequest()
     {
-        // todo : implement this
     }
 
     public function testParseFilter()

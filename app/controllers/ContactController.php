@@ -2,7 +2,6 @@
 
 namespace controllers;
 
-use Feedme\Models\Entities\User;
 use Feedme\Models\Messages\Filters\User\Select;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;

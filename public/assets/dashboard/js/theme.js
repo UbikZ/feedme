@@ -22,7 +22,6 @@ $(document).ready(function() {
         content.remove();
     });
 
-    // small todo handler
     $('.check-link').click( function(){
         var button = $(this).find('i');
         var label = $(this).next('span');

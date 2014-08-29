@@ -12,7 +12,6 @@ use Phalcon\Mvc\Model;
 class UserWallMessage extends BaseAbstract
 {
     /**
-     * todo: create a parseRequest for that
      * @param  Insert     $request
      * @return DalMessage
      */

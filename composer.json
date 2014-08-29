@@ -1,4 +1,7 @@
 {
+    "name": "ubikz/feedme",
+    "description": "Feed manager interface",
+    "license": "MIT",
     "require": {
         "php": ">=5.4.0"
     },

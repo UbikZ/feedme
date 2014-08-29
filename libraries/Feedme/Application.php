@@ -7,8 +7,6 @@
 namespace Feedme;
 
 // Phalcon
-use Phalcon\Acl\Adapter\Memory;
-use Phalcon\Config;
 use Phalcon\Loader;
 use Phalcon\DI\FactoryDefault as DI;
 use Phalcon\Mvc\Dispatcher;
@@ -37,7 +35,6 @@ class Application extends InstanceAbstract
             $this->registerUrl($depInjection);
             $this->registerView($depInjection);
             $this->registerDatabase($depInjection);
-            //$this->registerMetadata($depInjection);
             $this->registerSession($depInjection);
             $this->registerFlash($depInjection);
             $this->registerComponents($depInjection);
@@ -81,7 +78,7 @@ class Application extends InstanceAbstract
             $eventsManager->attach('dispatch', $security);
             $eventsManager->attach("dispatch:beforeException", function ($event, $depInjectionspatcher, $exception) {
 
-                if ($exception instanceof \Phalcon\Mvc\Dispatcher\Exception) {
+                if ($exception instanceof Dispatcher\Exception) {
                     $depInjectionspatcher->forward(array(
                         'controller' => 'index',
                         'action' => 'notFound'
@@ -120,8 +117,6 @@ class Application extends InstanceAbstract
     }
 
     /**
-     * todo : externalize this in `Feedme\Manager\Assets` namespace
-     * -> almost done, but still an issues
      * Register several custom components
      * @param DI $depInjection
      */
@@ -134,15 +129,7 @@ class Application extends InstanceAbstract
         $depInjection->set('assets', function () {
             $prefixPath = 'libraries';
             $assetManager = new Manager();
-            $bMinify = $this->getConf()->application->minify;
-
-            /*$builder = new Builder(
-                require_once(APP_PATH . '/config/assets.php'),
-                $this->getConf()->application->minify
-            );
-            $builder->load();
-
-            return $builder->getAssetManager();*/
+            $isMinify = $this->getConf()->application->minify;
 
             // Global javascript (with minify)
             $assetManager
@@ -154,7 +141,7 @@ class Application extends InstanceAbstract
                 ->addJs($prefixPath . '/notifyjs/dist/notify.js')
                 ->addJs($prefixPath . '/notifyjs/dist/styles/bootstrap/notify-bootstrap.js')
                 ->addJs($prefixPath . '/blueimp-tmpl/js/tmpl.js')
-                ->join($bMinify)
+                ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
             // Global css (with minify)
@@ -170,7 +157,7 @@ class Application extends InstanceAbstract
                 ->addCss('assets/common/css/notify.css')
                 ->addCss('assets/common/css/theme.css')
                 ->addCss('assets/common/css/style.css')
-                ->join($bMinify)
+                ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
             // Local css (authentication)
@@ -179,7 +166,7 @@ class Application extends InstanceAbstract
                 ->setTargetPath('cache/auth.min.css')
                 ->setTargetUri('cache/auth.min.css')
                 ->addCss('assets/authentication/css/style.css')
-                ->join($bMinify)
+                ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
             // Local css (dashboard)
@@ -189,7 +176,7 @@ class Application extends InstanceAbstract
                 ->setTargetUri('cache/dash.min.css')
                 ->addCss('assets/dashboard/css/style.css')
                 ->addCss($prefixPath . '/pace/themes/pace-theme-minimal.css')
-                ->join($bMinify)
+                ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
             // Local js (dashboard)
@@ -200,7 +187,7 @@ class Application extends InstanceAbstract
                 ->addJs('assets/dashboard/js/jquery.menu.js')
                 ->addJs('assets/dashboard/js/theme.js')
                 ->addJs($prefixPath . '/pace/pace.js')
-                ->join($bMinify)
+                ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
             // Local js (wall)
@@ -209,7 +196,7 @@ class Application extends InstanceAbstract
                 ->setTargetPath('cache/wall.min.js')
                 ->setTargetUri('cache/wall.min.js')
                 ->addJs('assets/wall/js/jquery.wall.js')
-                ->join($bMinify)
+                ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
             // Local js (contact)
@@ -218,7 +205,7 @@ class Application extends InstanceAbstract
                 ->setTargetPath('cache/contact.min.js')
                 ->setTargetUri('cache/contact.min.js')
                 ->addJs('assets/contact/js/jquery.contact.js')
-                ->join($bMinify)
+                ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
             // Local js (contact)
@@ -227,7 +214,7 @@ class Application extends InstanceAbstract
                 ->setTargetPath('cache/feed.min.js')
                 ->setTargetUri('cache/feed.min.js')
                 ->addJs('assets/feed/js/jquery.feed.js')
-                ->join($bMinify)
+                ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
             return $assetManager;
@@ -260,23 +247,6 @@ class Application extends InstanceAbstract
 
             return $volt;
         }, true);
-    }
-
-    /**
-     * Register metadata adapter (todo: improve this in factory mode)
-     * @param DI $depInjection
-     */
-    private function registerMetadata(DI &$depInjection)
-    {
-        $depInjection->set('modelsMetadata', function () {
-            if (isset($this->getConf()->metadata)) {
-                $metadataAdapter = 'Phalcon\Mvc\Model\Metadata\\' . $this->getConf()->metadata->adapter;
-
-                return new $metadataAdapter();
-            }
-
-            return new Memory();
-        });
     }
 
     /**

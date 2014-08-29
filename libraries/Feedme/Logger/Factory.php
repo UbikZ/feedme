@@ -15,7 +15,6 @@ class Factory
     {
         /*
          * We setup a default adapter for now
-         * todo: improve logger with other adapters
          */
         $adapter = "File";
         $prefixAdapter = "Feedme\\Logger\\Adapters\\";

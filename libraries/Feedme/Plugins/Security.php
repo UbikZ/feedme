@@ -22,7 +22,6 @@ class Security extends Plugin
         $this->_dependencyInjector = $dependencyInjector;
     }
 
-    // todo : merge some resourcs
     public function getAcl()
     {
         if (!isset($this->persistent->acl)) {

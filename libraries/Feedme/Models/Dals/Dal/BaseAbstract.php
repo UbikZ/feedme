@@ -38,11 +38,6 @@ abstract class BaseAbstract implements BaseInterface
         if (!is_null($limit = $filter->limit)) {
             $options['limit'] = intval($limit);
         }
-        /*if (!is_null($order = $filter->order) &&
-            !is_null($direction = $filter->direction) &&
-            in_array($direction, $_directionsAllowed)) {
-            $options['order'] = $order . " " . $direction;
-        }*/
 
         return $options;
     }

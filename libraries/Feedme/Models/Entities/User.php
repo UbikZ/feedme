@@ -304,7 +304,6 @@ class User extends EntityAbstract
             foreach ($this->messages as $message) {
                 $result['messages'][] = $message->getSerializable();
             }
-            // todo: clean dat dirty thing
             usort($result['messages'], function ($var1, $var2) {
                 $tsA = date_create_from_format('H\hi Y-m-d', $var1['adddate'])->getTimestamp();
                 $tsB = date_create_from_format('H\hi Y-m-d', $var2['adddate'])->getTimestamp();

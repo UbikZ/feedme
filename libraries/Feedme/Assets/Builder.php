@@ -37,7 +37,7 @@ class Builder
     /**
      * @param boolean $isMinify
      */
-    public function setIsMinify($isMinify)
+    public function setMinify($isMinify)
     {
         $this->isMinify = $isMinify;
     }
@@ -45,7 +45,7 @@ class Builder
     /**
      * @return boolean
      */
-    public function getIsMinify()
+    public function getMinify()
     {
         return $this->isMinify;
     }

@@ -1,4 +1,3 @@
-<!-- todo: improve this to add javascript on load with PHALCON TAG -->
 <script type="text/javascript">
     $(document).ready(function () {
         $('.picturebox').each(function () {
