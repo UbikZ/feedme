@@ -12,7 +12,6 @@
                 $.get(urlGet, function (data) {
                     var o = JSON.parse(data);
                     if (!o.success) {
-                        // todo : create notifs for this
                         console.error('Fail to load wall');
                     } else {
                         $('#count_post').text(o.countPosts);
@@ -51,7 +50,6 @@
                     $.get($(this).attr('href'), function(data) {
                         var o = JSON.parse(data);
                         if (!o.success) {
-                            // todo : create notifs for this
                             console.error('Fail to delete message');
                         } else {
                             $('.feed-activity-list').wall('load', urlGet, urlPost);

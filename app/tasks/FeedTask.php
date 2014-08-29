@@ -16,10 +16,6 @@ class FeedTask extends AbstractTask
             if (count($feeds) == 0) {
                 SimpleIO::error('There is not feed');
             }
-            foreach ($feeds as $feed) {
-                $url = $feed['url'];
-            }
-            SimpleIO::dump($feed);
         }
     }
 }

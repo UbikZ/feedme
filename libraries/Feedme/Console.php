@@ -33,10 +33,8 @@ class Console extends InstanceAbstract
 
         } catch (Exception $e) {
             echo $e->getMessage();
-            exit(255);
         } catch (\PDOException $e) {
             echo $e->getMessage();
-            exit(255);
         }
     }
 

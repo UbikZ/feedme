@@ -17,10 +17,8 @@ class Testing extends InstanceAbstract
 
         } catch (\Phalcon\Exception $e) {
             echo "Phalcon Exception : " . $e->getMessage();
-            exit(255);
         } catch (\PDOException $e) {
             echo "PHP Exception : " . $e->getMessage();
-            exit(255);
         }
     }
 

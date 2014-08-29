@@ -20,9 +20,11 @@ class SimpleIO
                 $prefix = '';
                 break;
         }
-        echo $prefix . $msg . PHP_EOL;
+        $str =  $prefix . $msg . PHP_EOL;
         if ($isExit) {
-            exit();
+            exit($str);
+        } else {
+            echo $str;
         }
     }
 

@@ -34,7 +34,6 @@ abstract class BaseAbstract implements BaseInterface
     public function parseFilterOptions($filter)
     {
         $options = array();
-        //$_directionsAllowed = array('DESC', 'ASC');
         if (!is_null($limit = $filter->limit)) {
             $options['limit'] = intval($limit);
         }

@@ -76,10 +76,10 @@ class Application extends InstanceAbstract
             $eventsManager = $depInjection->getShared('eventsManager');
             $security = new Security($depInjection);
             $eventsManager->attach('dispatch', $security);
-            $eventsManager->attach("dispatch:beforeException", function ($event, $depInjectionspatcher, $exception) {
+            $eventsManager->attach("dispatch:beforeException", function ($event, Dispatcher $dispatcher, $exception) {
 
                 if ($exception instanceof Dispatcher\Exception) {
-                    $depInjectionspatcher->forward(array(
+                    $dispatcher->forward(array(
                         'controller' => 'index',
                         'action' => 'notFound'
                     ));
@@ -87,7 +87,7 @@ class Application extends InstanceAbstract
                     return false;
                 }
 
-                $depInjectionspatcher->forward(array(
+                $dispatcher->forward(array(
                     'controller' => 'index',
                     'action' => 'internalError'
                 ));
