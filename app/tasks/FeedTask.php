@@ -4,6 +4,7 @@ namespace tasks;
 
 use Feedme\Cli\SimpleIO;
 use Feedme\Db\Handler as DbHandler;
+use Feedme\Parsers\Feed;
 
 class FeedTask extends AbstractTask
 {
@@ -15,6 +16,9 @@ class FeedTask extends AbstractTask
         if (is_array($feeds)) {
             if (count($feeds) == 0) {
                 SimpleIO::error('There is not feed');
+            }
+            foreach ($feeds as $feed) {
+                Feed::extractFeed($feed);
             }
         }
     }

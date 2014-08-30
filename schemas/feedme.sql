@@ -181,6 +181,7 @@ DROP TABLE IF EXISTS `feed_item`;
 CREATE TABLE IF NOT EXISTS `feed_item` (
   `id`         INT(11)        NOT NULL AUTO_INCREMENT,
   `idFeed`     INT(11)        NOT NULL,
+  `idHashed`   VARCHAR(255)   NOT NULL,
   `title`      VARCHAR(255)   NOT NULL,
   `categories` VARCHAR(255) DEFAULT NULL,
   `authorName` VARCHAR(255) DEFAULT NULL,
