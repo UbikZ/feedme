@@ -26,6 +26,7 @@ class UserFeed extends BaseAbstract
     {
         $userFeed = new EntityUserFeed();
         $this->parseRequest($userFeed, $request);
+
         $return = new DalMessage();
         $return->setSuccess($userFeed->save());
         $return->setErrorMessages($userFeed->getMessages());

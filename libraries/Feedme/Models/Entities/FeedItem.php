@@ -10,6 +10,8 @@ class FeedItem extends EntityAbstract
     /** @var  int */
     protected $idFeed;
     /** @var  string */
+    protected $idHashed;
+    /** @var  string */
     protected $title;
     /** @var  string */
     protected $categories;
@@ -68,6 +70,22 @@ class FeedItem extends EntityAbstract
     public function getAdddate()
     {
         return $this->adddate;
+    }
+
+    /**
+     * @param string $idHashed
+     */
+    public function setIdHashed($idHashed)
+    {
+        $this->idHashed = $idHashed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdHashed()
+    {
+        return $this->idHashed;
     }
 
     /**

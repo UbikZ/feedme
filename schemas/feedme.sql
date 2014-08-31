@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `feed_item` (
   `extract`    TEXT DEFAULT NULL,
   `active`     ENUM('0', '1') NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX (`active`),
+  INDEX (`active`, `idHashed`, `categories`, `authorName`, `adddate`),
   CONSTRAINT FOREIGN KEY (`idFeed`) REFERENCES `feed` (`id`)
     ON DELETE CASCADE
 )
