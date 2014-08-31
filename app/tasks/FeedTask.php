@@ -2,7 +2,6 @@
 
 namespace tasks;
 
-use Feedme\Cli\SimpleIO;
 use Feedme\Models\Entities\Feed;
 use Feedme\Models\Messages\Filters\Feed\Select as SelectFeed;
 use Feedme\Models\Messages\Requests\FeedItem\Insert as InsertFeedItem;
