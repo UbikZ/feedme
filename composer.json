@@ -14,9 +14,9 @@
         "sebastian/phpdcd": "1.0.2",
         "squizlabs/php_codesniffer": "1.*",
         "satooshi/php-coveralls": "dev-master",
-        "zendframework/zend-feed":"2.2",
-        "zendframework/zend-http":"2.2",
-        "zendframework/zend-servicemanager":"2.2"
+        "zendframework/zend-feed": "2.2",
+        "zendframework/zend-http": "2.2",
+        "zendframework/zend-servicemanager": "2.2"
     },
     "autoload": {
         "psr-0": {

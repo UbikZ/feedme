@@ -38,7 +38,7 @@ class FeedTask extends AbstractTask
                 $insertFeedItem->description = $entry->getDescription();
                 $insertFeedItem->adddate = $entry->getDateCreated();
                 $insertFeedItem->changedate = $entry->getDateModified();
-                $insertFeedItem->extract = FeedParser::parseDescription(
+                $insertFeedItem->extract['image'] = FeedParser::parseDescription(
                     $entry->getDescription(),
                     FeedParser::guessTypeForLink($entry->getLink())
                 );

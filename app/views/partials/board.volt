@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="wrapper wrapper-content">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="ibox float-e-margins" style="position: relative;">
                         <div class="ibox-title">
                             <h5>Information box</h5> <span class="label label-primary">Feed 1</span>

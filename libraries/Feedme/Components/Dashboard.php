@@ -52,6 +52,7 @@ class Dashboard extends Component
         $itemsFeeds = array();
         $this->addItem($itemsFeeds, 'New', array(), 'feed', 'new');
         $this->addItem($itemsFeeds, 'List', array(), 'feed', 'list');
+        $this->addItem($itemsFeeds, 'Items', array(), 'feed', 'items');
         $this->addCat($itemsCats, 'Feeds', $itemsFeeds, 'fa fa-rss-square');
 
         if ($auth['bAdmin']) {

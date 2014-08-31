@@ -83,6 +83,15 @@ class FeedController extends AbstractController
         }
     }
 
+    public function itemsAction()
+    {
+        $this->view->setVar("name", array("main" => "Feed", "sub" => "Items"));
+    }
+
+    /**
+     * ASYNCH
+     * @return Response
+     */
     public function loadAction()
     {
         $response = new Response();
@@ -122,6 +131,11 @@ class FeedController extends AbstractController
 
     }
 
+    /**
+     * ASYNCH
+     * @param null $idFeed
+     * @return Response
+     */
     public function refreshAction($idFeed = null)
     {
         $response = new Response();
@@ -147,6 +161,11 @@ class FeedController extends AbstractController
         return $response;
     }
 
+    /**
+     * ASYNCH
+     * @param null $scope
+     * @return Response
+     */
     public function postAction($scope = null)
     {
         $_allowedScope = array('subscribe', 'like');
