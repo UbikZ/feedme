@@ -49,7 +49,11 @@ class FeedItem extends BaseAbstract
             $whereClause[] = 'authorName LIKE \'%' . $authorName . '%\'';
         }
         if (!is_null($idFeed = $query->idFeed)) {
-            $whereClause[] = 'idFeed=\'' . intval($idFeed) . '\'';
+            $where = 'idFeed=\'' . intval($idFeed) . '\'';
+            if (is_array($idFeed)) {
+                $where = 'idFeed IN (\'' . implode('\',\'', $idFeed) . '\')';
+            }
+            $whereClause[] = $where;
         }
 
         return $whereClause;

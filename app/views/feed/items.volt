@@ -1,4 +1,12 @@
 <script type="text/javascript">
+    $(function() {
+        Galleria.loadTheme('galleria.classic.js');
+        Galleria.configure({
+            lightbox: true,
+            transition: 'fade'
+        });
+        Galleria.run('#pictures');
+    });
 </script>
 <div id="wrapper">
     {% include "partials/menu.volt" %}
@@ -17,7 +25,17 @@
                     <div class="ibox-content feed-listing">
                         <h2><i class="fa fa-rss"></i> Feed items</h2>
                         <small>This is a random list of your subscribe feeds list</small>
-
+                        <div id="pictures" class="m-t-md-m">
+                            {% for item in feedItems %}
+                            <a href="{{item.getExtract().image}}">
+                                <img src="{{item.getExtract().image}}"
+                                data-big="{{item.getExtract().image}}"
+                                data-title=""
+                                data-description=""
+                                >
+                            </a>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>

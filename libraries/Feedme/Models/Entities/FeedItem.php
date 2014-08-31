@@ -181,7 +181,7 @@ class FeedItem extends EntityAbstract
      */
     public function getExtract()
     {
-        return $this->extract;
+        return json_decode($this->extract);
     }
 
     /**

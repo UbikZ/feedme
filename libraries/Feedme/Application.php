@@ -141,6 +141,8 @@ class Application extends InstanceAbstract
                 ->addJs($prefixPath . '/notifyjs/dist/notify.js')
                 ->addJs($prefixPath . '/notifyjs/dist/styles/bootstrap/notify-bootstrap.js')
                 ->addJs($prefixPath . '/blueimp-tmpl/js/tmpl.js')
+                ->addJs($prefixPath . '/galleria/src/galleria.js')
+                ->addJs($prefixPath . '/galleria/src/themes/classic/galleria.classic.js')
                 ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
@@ -152,7 +154,7 @@ class Application extends InstanceAbstract
                 ->addCss($prefixPath . '/bootstrap/dist/css/bootstrap.css')
                 ->addCss($prefixPath . '/animate.css/animate.css')
                 ->addCss($prefixPath . '/font-awesome/css/font-awesome.css')
-                ->addCss($prefixPath . '/jquery.gritter/css/jquery.gritter.css')
+                ->addCss($prefixPath . '/galleria/src/themes/galleria.classic.css')
                 ->addCss('assets/common/css/kill-bootstrap.css')
                 ->addCss('assets/common/css/notify.css')
                 ->addCss('assets/common/css/theme.css')

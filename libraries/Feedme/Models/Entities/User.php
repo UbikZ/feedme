@@ -8,6 +8,7 @@ class User extends EntityAbstract
 {
     // Foreign key
     private $userPictureFK = 'Feedme\\Models\\Entities\\UserPicture';
+    private $userFeedFK = 'Feedme\\Models\\Entities\\UserFeed';
     private $userWallFK = 'Feedme\\Models\\Entities\\UserWall';
     private $userWallMessageFK = 'Feedme\\Models\\Entities\\UserWallMessage';
 
@@ -45,6 +46,7 @@ class User extends EntityAbstract
 
         $this->hasOne('picture', $this->userPictureFK, 'id');
         $this->hasMany('id', $this->userWallMessageFK, 'idUserSrc');
+        $this->hasMany('id', $this->userFeedFK, 'idUser');
         $this->hasManyToMany(
             'id',
             $this->userWallFK,
@@ -72,6 +74,21 @@ class User extends EntityAbstract
     public function getAllMessages($parameters = null)
     {
         return $this->getRelated($this->userWallMessageFK, $parameters);
+    }
+
+    public function getSubscribedFeeds()
+    {
+        $return = array();
+
+        $result = $this->getRelated($this->userFeedFK, 'subscribe = \'1\'');
+        if (false != $result) {
+            /** @var UserFeed $element */
+            foreach ($result as $element) {
+                $return[] = $element->getIdFeed();
+            }
+        }
+
+        return $return;
     }
 
     /**

@@ -7,6 +7,7 @@ use Feedme\Models\Entities\Feed;
 use Feedme\Models\Entities\UserFeed;
 use Feedme\Models\Messages\Filters\FeedType\Select as SelectFeedType;
 use Feedme\Models\Messages\Filters\Feed\Select as SelectFeed;
+use Feedme\Models\Messages\Filters\FeedItem\Select as SelectFeedItem;
 use Feedme\Models\Messages\Requests\Feed\Insert;
 use Feedme\Models\Messages\Requests\UserFeed\Insert as InsertUserFeed;
 use Feedme\Models\Messages\Filters\UserFeed\Select as SelectUserFeed;
@@ -85,7 +86,17 @@ class FeedController extends AbstractController
 
     public function itemsAction()
     {
-        $this->view->setVar("name", array("main" => "Feed", "sub" => "Items"));
+        $select = new SelectFeedItem;
+        $select->idFeed = $this->currentUser->getSubscribedFeeds();
+
+        $findFeedItems = Service::getService('FeedItem')->find($select);
+
+        if ($findFeedItems->getSuccess()) {
+            $this->view->setVar('feedItems', $findFeedItems->getMessage());
+            $this->view->setVar("name", array("main" => "Feed", "sub" => "Items"));
+        } else {
+            $this->internalError();
+        }
     }
 
     /**

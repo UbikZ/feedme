@@ -144,6 +144,10 @@ h2 small {
     opacity: 0.9;
 }
 
+#pictures {
+    height:600px;
+}
+
 .m-t-md-m {
     margin-top: 25px;
 }
