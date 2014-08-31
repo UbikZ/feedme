@@ -7,7 +7,7 @@ class SimpleIO
     const INFO = 0;
     const ERROR = 1;
 
-    public static function msg($msg, $type = null, $isExit = false)
+    public static function msg($msg, $type = null)
     {
         switch ($type) {
             case self::INFO:
@@ -21,21 +21,18 @@ class SimpleIO
                 break;
         }
         $str =  $prefix . $msg . PHP_EOL;
-        if ($isExit) {
-            exit($str);
-        } else {
-            echo $str;
-        }
+
+        echo $str;
     }
 
     public static function error($msg, $target = 'Error')
     {
-        self::msg("$target : $msg", self::ERROR, true);
+        self::msg("$target : $msg", self::ERROR);
     }
 
     public static function info($msg, $target = 'Info')
     {
-        self::msg("$target : $msg", self::INFO, false);
+        self::msg("$target : $msg", self::INFO);
     }
 
     public static function dump($msg)

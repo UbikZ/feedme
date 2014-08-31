@@ -2,8 +2,8 @@
 
 namespace tasks;
 
+use Feedme\Cli\SimpleIO;
 use Feedme\Models\Entities\Feed;
-use Feedme\Models\Entities\FeedItem;
 use Feedme\Models\Messages\Filters\Feed\Select as SelectFeed;
 use Feedme\Models\Messages\Requests\FeedItem\Insert as InsertFeedItem;
 use Feedme\Models\Messages\ServiceMessage;
@@ -43,7 +43,11 @@ class FeedTask extends AbstractTask
                     $entry->getDescription(),
                     FeedParser::guessTypeForLink($entry->getLink())
                 );
-                $result = Service::getService('FeedItem')->insert($insertFeedItem);
+                /** @var ServiceMessage $resultMsg */
+                $resultMsg = Service::getService('FeedItem')->insert($insertFeedItem);
+                if (false == $resultMsg->getSuccess()) {
+                    throw new \Exception($resultMsg->getMessage());
+                }
             }
         }
     }
