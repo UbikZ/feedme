@@ -148,6 +148,11 @@ h2 small {
     height:600px;
 }
 
+#pictures .galleria-image {
+    text-align: center;
+    padding-top: 10px;
+}
+
 .m-t-md-m {
     margin-top: 25px;
 }

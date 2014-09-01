@@ -38,10 +38,11 @@ class FeedTask extends AbstractTask
                 $insertFeedItem->description = $entry->getDescription();
                 $insertFeedItem->adddate = $entry->getDateCreated();
                 $insertFeedItem->changedate = $entry->getDateModified();
-                $insertFeedItem->extract['image'] = FeedParser::parseDescription(
+                $insertFeedItem->extract = FeedParser::parseDescription(
                     $entry->getDescription(),
                     FeedParser::guessTypeForLink($entry->getLink())
                 );
+
                 /** @var ServiceMessage $resultMsg */
                 $resultMsg = Service::getService('FeedItem')->insert($insertFeedItem);
                 if (false == $resultMsg->getSuccess()) {

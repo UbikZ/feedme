@@ -14,6 +14,7 @@ class Feed
     const TYPE_REDDIT = 'reddit';
     const TYPE_COMMON = 'common';
     const URL_PATTERN = 'http:\/\/[0-9a-zA-Z\-_\./]+';
+    const EXT_PATTERN = '/\.(jpg|png|jpeg|gif|png)$/i';
 
     private static function getPatterns($type = self::TYPE_COMMON)
     {
@@ -31,7 +32,17 @@ class Feed
         preg_match_all($pattern, $description, $matches);
         preg_match('#' . self::URL_PATTERN . '#', isset($matches[0][0]) ? $matches[0][0] : '', $descLink);
 
-        return isset($descLink[0]) ? $descLink[0] : '';
+        $resultMatch = isset($descLink[0]) ? $descLink[0] : null;
+        $return = null;
+        if (!is_null($resultMatch)) {
+            if (preg_match(self::EXT_PATTERN, $resultMatch) == 0) {
+                $return['imgNotViewable'] = $resultMatch;
+            } else {
+                $return['imgViewable'] = $resultMatch;
+            }
+        }
+
+        return $return;
     }
 
     public static function guessTypeForLink($link)

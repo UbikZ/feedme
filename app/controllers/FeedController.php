@@ -144,7 +144,7 @@ class FeedController extends AbstractController
 
     /**
      * ASYNCH
-     * @param null $idFeed
+     * @param  null     $idFeed
      * @return Response
      */
     public function refreshAction($idFeed = null)
@@ -174,7 +174,7 @@ class FeedController extends AbstractController
 
     /**
      * ASYNCH
-     * @param null $scope
+     * @param  null     $scope
      * @return Response
      */
     public function postAction($scope = null)
