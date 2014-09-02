@@ -204,10 +204,12 @@ CREATE TABLE IF NOT EXISTS `feed_item` (
 DROP TABLE IF EXISTS `user_feed_item`;
 
 CREATE TABLE IF NOT EXISTS `user_feed_item` (
+  `id`        INT(11) NOT NULL AUTO_INCREMENT,
   `idUser`     INT(11) NOT NULL,
   `idFeedItem` INT(11) NOT NULL,
   `seen`       ENUM('0', '1') DEFAULT '0',
   `like`       ENUM('0', '1') DEFAULT '0',
+  PRIMARY KEY (`id`),
   INDEX (`seen`, `like`),
   CONSTRAINT FOREIGN KEY (`idUser`) REFERENCES `user` (`id`)
     ON DELETE CASCADE,
@@ -217,5 +219,16 @@ CREATE TABLE IF NOT EXISTS `user_feed_item` (
   ENGINE =InnoDB
   DEFAULT CHARSET =latin1
   AUTO_INCREMENT =9;
+
+DROP TRIGGER IF EXISTS `trigger_insert_user_feed_item`;
+
+CREATE TRIGGER `trigger_insert_user_feed_item` AFTER INSERT ON `feed_item`
+FOR EACH ROW INSERT INTO `user_feed_item` (`idUser`, `idFeedItem`, `seen`, `like`)
+  SELECT
+    `id`,
+    NEW.`id`,
+    '0',
+    '0'
+  FROM `user`;
 
 SET FOREIGN_KEY_CHECKS = 1;

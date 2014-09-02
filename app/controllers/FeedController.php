@@ -89,14 +89,8 @@ class FeedController extends AbstractController
         $select = new SelectFeedItem;
         $select->idFeed = $this->currentUser->getSubscribedFeeds();
 
-        $findFeedItems = Service::getService('FeedItem')->find($select);
-
-        if ($findFeedItems->getSuccess()) {
-            $this->view->setVar('feedItems', $findFeedItems->getMessage());
-            $this->view->setVar("name", array("main" => "Feed", "sub" => "Items"));
-        } else {
-            $this->internalError();
-        }
+        $this->view->setVar('feedItems', $this->currentUser->getFeedItems());
+        $this->view->setVar("name", array("main" => "Feed", "sub" => "Items"));
     }
 
     /**

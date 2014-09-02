@@ -9,6 +9,8 @@ class User extends EntityAbstract
     // Foreign key
     private $userPictureFK = 'Feedme\\Models\\Entities\\UserPicture';
     private $userFeedFK = 'Feedme\\Models\\Entities\\UserFeed';
+    private $userFeedItemFk = 'Feedme\\Models\\Entities\\UserFeedItem';
+    private $feedItemFK = 'Feedme\\Models\\Entities\\FeedItem';
     private $userWallFK = 'Feedme\\Models\\Entities\\UserWall';
     private $userWallMessageFK = 'Feedme\\Models\\Entities\\UserWallMessage';
 
@@ -56,6 +58,14 @@ class User extends EntityAbstract
             'id',
             array('alias' => 'messages')
         );
+        $this->hasManyToMany(
+            'id',
+            $this->userFeedItemFk,
+            'idUser',
+            'idFeedItem',
+            $this->feedItemFK,
+            'id'
+        );
     }
 
     /**
@@ -76,11 +86,17 @@ class User extends EntityAbstract
         return $this->getRelated($this->userWallMessageFK, $parameters);
     }
 
+    /**
+     * @return array
+     */
     public function getSubscribedFeeds()
     {
         $return = array();
 
-        $result = $this->getRelated($this->userFeedFK, 'subscribe = \'1\'');
+        $result = $this->getRelated(
+            $this->userFeedFK,
+            'subscribe = \'1\''
+        );
         if (false != $result) {
             /** @var UserFeed $element */
             foreach ($result as $element) {
@@ -89,6 +105,14 @@ class User extends EntityAbstract
         }
 
         return $return;
+    }
+
+    /**
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getFeedItems()
+    {
+        return $this->getRelated($this->feedItemFK, 'seen = \'0\'');
     }
 
     /**
