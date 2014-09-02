@@ -17,6 +17,7 @@ use Phalcon\Session\Adapter\Files;
 use Phalcon\Flash\Session;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Assets\Manager;
+use Phalcon\Events\Manager as EventsManager;
 
 // Feedme
 use Feedme\Plugins\Security;
@@ -73,11 +74,11 @@ class Application extends InstanceAbstract
     private function registerDispatcher(DI &$depInjection)
     {
         $depInjection->set('dispatcher', function () use ($depInjection) {
-            $eventsManager = $depInjection->getShared('eventsManager');
+            $eventsManager = new EventsManager();
             $security = new Security($depInjection);
             $eventsManager->attach('dispatch', $security);
-            $eventsManager->attach("dispatch:beforeException", function ($event, Dispatcher $dispatcher, $exception) {
 
+            $eventsManager->attach("dispatch:beforeException", function ($event, Dispatcher $dispatcher, $exception) {
                 if ($exception instanceof Dispatcher\Exception) {
                     $dispatcher->forward(array(
                         'controller' => 'index',
@@ -94,6 +95,7 @@ class Application extends InstanceAbstract
 
                 return false;
             });
+
             $depInjectionspatcher = new Dispatcher();
             $depInjectionspatcher->setDefaultNamespace('controllers');
             $depInjectionspatcher->setEventsManager($eventsManager);

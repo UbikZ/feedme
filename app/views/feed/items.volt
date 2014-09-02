@@ -1,20 +1,6 @@
 <script type="text/javascript">
     $(function () {
-        Galleria.loadTheme('galleria.classic.js');
-        Galleria.configure({
-            lightbox: true,
-            debug: false,
-            thumbnails: 'numbers',
-            transition: 'fade',
-            dataSort: 'random'
-        });
-        Galleria.ready(function(options) {
-            this.attachKeyboard({
-                left: this.prev,
-                right: this.next
-            });
-        });
-        Galleria.run('#pictures');
+        $("#pictures").feed('loadSlideshow', '{{url("feed/view")}}');
     });
 </script>
 <div id="wrapper">

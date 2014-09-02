@@ -47,7 +47,7 @@ class Security extends Plugin
                         'dashboard' => array('index', 'profile'),
                         'wall' => array('profile', 'information', 'post', 'delete'),
                         'contact' => array('list'),
-                        'feed' => array('new', 'list', 'post', 'refresh', 'load', 'items'),
+                        'feed' => array('new', 'list', 'post', 'refresh', 'load', 'items', 'view'),
                         'session' => array('logout'),
                         'account' => array('edit'),
                         'error' => array('notfound', 'internalerror')
@@ -61,7 +61,7 @@ class Security extends Plugin
                         'wall' => array('profile', 'information', 'post', 'delete'),
                         'contact' => array('list'),
                         'dashboard' => array('index', 'profile'),
-                        'feed' => array('new', 'list', 'post', 'refresh', 'load', 'items'),
+                        'feed' => array('new', 'list', 'post', 'refresh', 'load', 'items', 'view'),
                         'session' => array('logout'),
                         'account' => array('edit'),
                         'error' => array('notfound', 'internalerror')
@@ -114,13 +114,6 @@ class Security extends Plugin
                 "You don't have access to this module",
                 Alert::LV_ERROR
             ));
-
-            $dispatcher->forward(
-                array(
-                    'controller' => 'index',
-                    'action' => 'index'
-                )
-            );
 
             return false;
         }

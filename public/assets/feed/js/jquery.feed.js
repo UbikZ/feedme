@@ -109,6 +109,45 @@
                     }
                 });
             });
+        },
+
+        loadSlideshow: function (urlPost) {
+            return this.each(function () {
+                var viewed = [];
+                Galleria.loadTheme('galleria.classic.js');
+                Galleria.configure({
+                    lightbox: true,
+                    debug: false,
+                    thumbnails: 'numbers',
+                    transition: 'fade',
+                    dataSort: 'random'
+                });
+                Galleria.ready(function (options) {
+                    this.attachKeyboard({
+                        left: this.prev,
+                        right: this.next
+                    });
+
+                    this.bind('image', function (e) {
+                        bindViewEvent(e.galleriaData.original.dataset.id);
+                    });
+                    this.bind('lightbox_image', function (e) {
+                        var indexActive = e.scope._lightbox.active;
+                        var id = e.scope._data[indexActive].original.dataset.id;
+                        bindViewEvent(id);
+                    });
+                });
+                Galleria.run('#' + $(this).attr('id'));
+
+                var bindViewEvent = function (currentId) {
+                    if (viewed.indexOf(currentId) == -1) {
+                        $.post(urlPost, {id: currentId}, function () {
+                            // success / error
+                        });
+                    }
+                    viewed.push(currentId);
+                };
+            });
         }
     };
 

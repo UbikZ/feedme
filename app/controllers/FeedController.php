@@ -93,6 +93,19 @@ class FeedController extends AbstractController
         $this->view->setVar("name", array("main" => "Feed", "sub" => "Items"));
     }
 
+    public function viewAction()
+    {
+        $response = new Response();
+        $request = $this->request;
+        if ((true === $request->isPost()) && (true === $request->isAjax())) {
+
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
+
+        return $response;
+    }
+
     /**
      * ASYNCH
      * @return Response
@@ -133,7 +146,6 @@ class FeedController extends AbstractController
         }
 
         return $response;
-
     }
 
     /**
