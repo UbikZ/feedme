@@ -11,6 +11,7 @@ use Feedme\Models\Messages\Filters\FeedItem\Select as SelectFeedItem;
 use Feedme\Models\Messages\Requests\Feed\Insert;
 use Feedme\Models\Messages\Requests\UserFeed\Insert as InsertUserFeed;
 use Feedme\Models\Messages\Filters\UserFeed\Select as SelectUserFeed;
+use Feedme\Models\Messages\Requests\UserFeedItem\Update;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Phalcon\Http\Response;
@@ -98,7 +99,18 @@ class FeedController extends AbstractController
         $response = new Response();
         $request = $this->request;
         if ((true === $request->isPost()) && (true === $request->isAjax())) {
-
+            $update =  new Update();
+            $update->idFeedItem = $request->getPost('id');
+            $update->idUser = $this->currentUser->getId();
+            $update->seen = true;
+            /** @var ServiceMessage $msgUpdate */
+            $msgUpdate = service::getService('UserFeedItem')->update($update);
+            $response->setContent(json_encode(
+                array(
+                    'success' => $msgUpdate->getSuccess(),
+                    'errors' => $msgUpdate->getErrors(),
+                )
+            ));
         } else {
             $response->setContent(json_encode(array('success' => false)));
         }
