@@ -1,6 +1,9 @@
 <?php
 
 namespace Feedme\Parsers;
+use Feedme\Parsers\Exceptions\InvalidParserException;
+use Feedme\Parsers\Exceptions\InvalidUrlFeedException;
+use Feedme\Parsers\Parser\ParserInterface;
 
 /**
  * UGLY THING for now
@@ -11,47 +14,96 @@ namespace Feedme\Parsers;
  */
 class Feed
 {
-    const TYPE_REDDIT = 'reddit';
-    const TYPE_COMMON = 'common';
-    const URL_PATTERN = 'http:\/\/[0-9a-zA-Z\-_\./]+';
-    const EXT_PATTERN = '/\.(jpg|png|jpeg|gif|png)$/i';
+    const REG_URL = 'http:\/\/[0-9a-zA-Z\-_\./]+';
+    const REG_EXT = '/\.(jpg|png|jpeg|gif|png)$/i';
 
-    private static function getPatterns($type = self::TYPE_COMMON)
+    /** @var  string  */
+    protected $urlFeed;
+    /** @var  array */
+    protected $typesFeed;
+
+    /**
+     * @param $urlFeed
+     * @param  null|array              $types
+     * @throws InvalidUrlFeedException
+     */
+    public function __construct($urlFeed, $types = null)
     {
-        $return = array(
-            self::TYPE_REDDIT => '#<a href="%s">\[link\]</a>#',
-            self::TYPE_COMMON => '#<img src="%s"/>#'
-        );
-
-        return isset($return[$type]) ? $return[$type] : '%s';
+        if (is_null($urlFeed)) {
+            throw new InvalidUrlFeedException('You have to use not null urlFeed');
+        }
+        $this->setUrlFeed($urlFeed);
+        $this->setTypesFeed(is_null($types) ? array() : (is_array($types) ? $types : array($types)));
     }
 
-    public static function parseDescription($description, $type = self::TYPE_COMMON)
+    /**
+     * @param $el
+     * @return ParserInterface
+     */
+    public function parse($el)
     {
-        $pattern = sprintf(self::getPatterns($type), self::URL_PATTERN);
-        preg_match_all($pattern, $description, $matches);
-        preg_match('#' . self::URL_PATTERN . '#', isset($matches[0][0]) ? $matches[0][0] : '', $descLink);
+        return $this->getParser($el, $this->getUrlFeed());
+    }
 
-        $resultMatch = isset($descLink[0]) ? $descLink[0] : null;
-        $return = null;
-        if (!is_null($resultMatch)) {
-            if (preg_match(self::EXT_PATTERN, $resultMatch) == 0) {
-                $return['imgNotViewable'] = $resultMatch;
-            } else {
-                $return['imgViewable'] = $resultMatch;
+    /**
+     * @param $el
+     * @param $url
+     * @return ParserInterface
+     * @throws Exceptions\InvalidParserException
+     */
+    private function getParser($el, $url)
+    {
+        $types = $this->getTypesFeed();
+        $className = 'common';
+        if (!empty($types) && is_array($types)) {
+            foreach ($types as $type) {
+                if (preg_match('#[0-9a-zA-Z\-_\./]+' . $type . '.+#', $url) != 0) {
+                    $className = $type;
+                    break;
+                }
             }
         }
-
-        return $return;
-    }
-
-    public static function guessTypeForLink($link)
-    {
-        $return = self::TYPE_COMMON;
-        if (preg_match('#[0-9a-zA-Z\-_\./]+reddit.+#', $link) != 0) {
-            $return = self::TYPE_REDDIT;
+        $className = '\\Feedme\\Parsers\\Parser\\' . $className;
+        if (!class_exists($className)) {
+            throw new InvalidParserException('Parser adapter `' . $className . '` does not exist');
         }
 
-        return $return;
+        return (new \ReflectionClass($className))->newInstance($el);
+    }
+
+    /**
+     ** Getters & Setters
+     **/
+
+    /**
+     * @param string $urlFeed
+     */
+    public function setUrlFeed($urlFeed)
+    {
+        $this->urlFeed = $urlFeed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlFeed()
+    {
+        return $this->urlFeed;
+    }
+
+    /**
+     * @param array $typesFeed
+     */
+    public function setTypesFeed($typesFeed)
+    {
+        $this->typesFeed = $typesFeed;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypesFeed()
+    {
+        return $this->typesFeed;
     }
 }

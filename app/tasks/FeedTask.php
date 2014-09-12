@@ -8,6 +8,7 @@ use Feedme\Models\Messages\Requests\FeedItem\Insert as InsertFeedItem;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Service;
 use Feedme\Parsers\Feed as FeedParser;
+use Feedme\Parsers\Parser\ParserAbstract;
 use Zend\Feed\Reader\Feed\FeedInterface;
 use Zend\Feed\Reader\Reader as FeedReader;
 
@@ -15,6 +16,7 @@ class FeedTask extends AbstractTask
 {
     public function exportAction(array $params = array())
     {
+        $typesFeed = array('reddit');
         $selectFeed = new SelectFeed();
         $selectFeed->validate = 2;
         /** @var ServiceMessage $msgFeeds */
@@ -38,9 +40,26 @@ class FeedTask extends AbstractTask
                 $insertFeedItem->description = $entry->getDescription();
                 $insertFeedItem->adddate = $entry->getDateCreated();
                 $insertFeedItem->changedate = $entry->getDateModified();
-                $insertFeedItem->extract = FeedParser::parseDescription(
-                    $entry->getDescription(),
-                    FeedParser::guessTypeForLink($entry->getLink())
+
+                // Extraction feature
+
+                /** @var ParserAbstract $feedParser */
+                $feedParser = (new FeedParser($entry->getLink(), $typesFeed))->parse($entry->getDescription());
+                $feedParser->extract(); // Extract what we need from description
+                $feedParser->stream();  // Stream content if image can't be loaded (html content instead)
+
+                $imageViewable = $feedParser->imageOk;
+                // If we have stream content, we create new instance of FeedParser to extract the content this time
+                if ($feedParser->stream) {
+                    /** @var ParserAbstract $streamParser */
+                    $streamParser = (new FeedParser($feedParser->imageKo, $typesFeed))->parse($feedParser->stream);
+                    $streamParser->extractFromStream();
+                    $imageViewable = is_null($streamParser->imageOk) ? $imageViewable : $streamParser->imageOk;
+                }
+
+                $insertFeedItem->extract = array(
+                    'imgViewable' => $imageViewable,
+                    'imgNotViewable' => $feedParser->imageKo
                 );
 
                 /** @var ServiceMessage $resultMsg */
