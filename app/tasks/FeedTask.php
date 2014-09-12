@@ -48,28 +48,45 @@ class FeedTask extends AbstractTask
                 $feedParser->extract(); // Extract what we need from description
 
                 $imageViewable = $feedParser->imageOk;
+                $imageNotViewable = $feedParser->imageKo;
                 // If we have stream content, we create new instance of FeedParser to extract the content this time
                 if ($feedParser->stream()) { // Stream content if image can't be loaded (html content instead)
                     /** @var ParserAbstract $streamParser */
                     $streamParser = (new FeedParser($feedParser->imageKo, $typesFeed))->parse($feedParser->stream);
                     $streamParser->extractFromStream();
                     $imageViewable = is_null($streamParser->imageOk) ? $imageViewable : $streamParser->imageOk;
-                    var_dump($feedParser->imageKo);
-                    var_dump($imageViewable);
-                    var_dump('----');
+                    $imageNotViewable = is_null($imageViewable) ? $imageNotViewable : null;
                 }
 
-                $insertFeedItem->extract = array(
-                    'imgViewable' => $imageViewable,
-                    'imgNotViewable' => $feedParser->imageKo
-                );
-
-                /** @var ServiceMessage $resultMsg */
-                //$resultMsg = Service::getService('FeedItem')->insert($insertFeedItem);
-                /*if (false == $resultMsg->getSuccess()) {
-                    throw new \Exception($resultMsg->getMessage());
-                }*/
+                if (is_array($imageViewable)) {
+                    foreach ($imageViewable as $key => $image) {
+                        $clone = clone($insertFeedItem);
+                        $clone->idHashed .= $key;
+                        $clone->extract = array('imgViewable' => $image, 'imgNotViewable' => null);
+                        $this->insertFeedItem($clone);
+                        unset($clone);
+                    }
+                } else {
+                    $insertFeedItem->extract = array(
+                        'imgViewable' => $imageViewable,
+                        'imgNotViewable' => $imageNotViewable
+                    );
+                    $this->insertFeedItem($insertFeedItem);
+                }
             }
+        }
+    }
+
+    /**
+     * @param $insert
+     * @throws \Exception
+     */
+    private function insertFeedItem($insert)
+    {
+        /** @var ServiceMessage $resultMsg */
+        $resultMsg = Service::getService('FeedItem')->insert($insert);
+        if (false == $resultMsg->getSuccess()) {
+            throw new \Exception($resultMsg->getMessage());
         }
     }
 }

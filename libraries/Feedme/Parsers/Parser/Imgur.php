@@ -15,7 +15,7 @@ class Imgur extends ParserAbstract
                 $images = array($parsedStream->find('img')->attr('src'));
             } else {
                 foreach ($elements as $element) {
-                    $src = $element->getAttribute('src');
+                    $src = $element->getAttribute('data-src');
                     if ($src) {
                         $images[] = $src;
                     }
