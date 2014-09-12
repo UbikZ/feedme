@@ -1,6 +1,7 @@
 <?php
 
 namespace Feedme\Parsers;
+
 use Feedme\Parsers\Exceptions\InvalidParserException;
 use Feedme\Parsers\Exceptions\InvalidUrlFeedException;
 use Feedme\Parsers\Parser\ParserInterface;
@@ -63,12 +64,13 @@ class Feed
                 }
             }
         }
-        $className = '\\Feedme\\Parsers\\Parser\\' . $className;
-        if (!class_exists($className)) {
-            throw new InvalidParserException('Parser adapter `' . $className . '` does not exist');
+        $className = ucfirst($className);
+        $namespace = 'Feedme\\Parsers\\Parser\\' . $className;
+        if (!class_exists($namespace)) {
+            throw new InvalidParserException('Parser adapter `' . $namespace . '` does not exist');
         }
 
-        return (new \ReflectionClass($className))->newInstance($el);
+        return (new \ReflectionClass($namespace))->newInstance($el);
     }
 
     /**

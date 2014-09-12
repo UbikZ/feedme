@@ -16,7 +16,7 @@ class FeedTask extends AbstractTask
 {
     public function exportAction(array $params = array())
     {
-        $typesFeed = array('reddit');
+        $typesFeed = array('reddit', 'imgur', 'gfycat');
         $selectFeed = new SelectFeed();
         $selectFeed->validate = 2;
         /** @var ServiceMessage $msgFeeds */
@@ -46,15 +46,17 @@ class FeedTask extends AbstractTask
                 /** @var ParserAbstract $feedParser */
                 $feedParser = (new FeedParser($entry->getLink(), $typesFeed))->parse($entry->getDescription());
                 $feedParser->extract(); // Extract what we need from description
-                $feedParser->stream();  // Stream content if image can't be loaded (html content instead)
 
                 $imageViewable = $feedParser->imageOk;
                 // If we have stream content, we create new instance of FeedParser to extract the content this time
-                if ($feedParser->stream) {
+                if ($feedParser->stream()) { // Stream content if image can't be loaded (html content instead)
                     /** @var ParserAbstract $streamParser */
                     $streamParser = (new FeedParser($feedParser->imageKo, $typesFeed))->parse($feedParser->stream);
                     $streamParser->extractFromStream();
                     $imageViewable = is_null($streamParser->imageOk) ? $imageViewable : $streamParser->imageOk;
+                    var_dump($feedParser->imageKo);
+                    var_dump($imageViewable);
+                    var_dump('----');
                 }
 
                 $insertFeedItem->extract = array(
@@ -63,10 +65,10 @@ class FeedTask extends AbstractTask
                 );
 
                 /** @var ServiceMessage $resultMsg */
-                $resultMsg = Service::getService('FeedItem')->insert($insertFeedItem);
-                if (false == $resultMsg->getSuccess()) {
+                //$resultMsg = Service::getService('FeedItem')->insert($insertFeedItem);
+                /*if (false == $resultMsg->getSuccess()) {
                     throw new \Exception($resultMsg->getMessage());
-                }
+                }*/
             }
         }
     }
