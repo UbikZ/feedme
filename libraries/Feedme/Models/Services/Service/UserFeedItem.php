@@ -31,7 +31,6 @@ class UserFeedItem
             if (false === ($userFeedItems = Dal::getRepository('UserFeedItem')->find($query))) {
                 throw new \Exception('Can\'t load userFeedItem');
             }
-
             /** @var DalMessage $daMessage */
             $daMessage = Dal::getRepository('UserFeedItem')->update($userFeedItems->getFirst(), $request);
             if (false === $daMessage->getSuccess()) {

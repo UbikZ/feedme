@@ -43,6 +43,12 @@ class UserFeedItem extends BaseAbstract
     {
         parent::parseRequest($userFeedItem, $request);
 
+        if (!is_null($idUser = $request->idUser)) {
+            $userFeedItem->setIdUser(intval($idUser));
+        }
+        if (!is_null($idFeedItem = $request->idFeedItem)) {
+            $userFeedItem->setIdFeedItem(intval($idFeedItem));
+        }
         if (!is_null($request->seen)) {
             $userFeedItem->setSeen(intval($request->seen));
         }
@@ -59,6 +65,12 @@ class UserFeedItem extends BaseAbstract
     {
         $whereClause = parent::parseQuery($query);
 
+        if (!is_null($idUser = $query->idUser)) {
+            $whereClause[] = 'idUser=\'' . intval($idUser) . '\'';
+        }
+        if (!is_null($idFeedItem = $query->idFeedItem)) {
+            $whereClause[] = 'idFeedItem=\'' . intval($idFeedItem) . '\'';
+        }
         if (!is_null($seen = $query->seen)) {
             $whereClause[] = 'seen=\'' . intval($seen) . '\'';
         }
