@@ -113,7 +113,7 @@ class User extends EntityAbstract
      * @param  int   $limit
      * @return mixed
      */
-    public function getFeedItems($page = 1, $limit = 25)
+    public function getFeedItems($page = 1, $limit = 10)
     {
         $items = $this->getRelated($this->feedItemFK, 'seen = \'0\'');
         $paginator = new Model(

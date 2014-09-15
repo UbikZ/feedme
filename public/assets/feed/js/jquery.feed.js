@@ -138,7 +138,7 @@
                             });
 
                             this.bind('image', function (e) {
-                                bindViewEvent(e.galleriaData.original.dataset.id);
+                                bindViewEvent(e.galleriaData.original.dataset.id, e.index);
                             });
                             this.bind('lightbox_image', function (e) {
                                 var indexActive = e.scope._lightbox.active;
@@ -147,7 +147,13 @@
                             });
                         });
                         Galleria.run('#pictures');
-                        var bindViewEvent = function (currentId) {
+                        var bindViewEvent = function (currentId, currentIndex) {
+                            // Bind loading other items
+                            if (currentIndex == 9) {
+                                console.info("here we go");
+                            }
+
+                            // Update view/notview
                             if (viewed.indexOf(currentId) == -1) {
                                 $.post(urlPost, {id: currentId}, function () {
                                     // success / error
