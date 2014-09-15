@@ -71,7 +71,9 @@ class FeedTask extends AbstractTask
                         'imgViewable' => $imageViewable,
                         'imgNotViewable' => $imageNotViewable
                     );
-                    $this->insertFeedItem($insertFeedItem);
+                    if ($imageViewable || $imageNotViewable) {
+                        $this->insertFeedItem($insertFeedItem);
+                    }
                 }
             }
         }
