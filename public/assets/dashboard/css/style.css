@@ -157,3 +157,9 @@ h2 small {
     margin-top: 25px;
 }
 
+.beta {
+    font-size: 0.55em;
+    color: #a80100;
+    margin-left: -2px;
+}
+

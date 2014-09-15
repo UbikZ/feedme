@@ -15,8 +15,6 @@
                         console.error('Fail to load wall');
                     } else {
                         $('#count_post').text(o.countPosts);
-                        // Render with blueimp (add new syntax to not interfer with volt syntax)
-                        tmpl.regexp = /([\s'\\])(?!(?:[^[]|\[(?!%))*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
                         $render = tmpl("tmpl-messages", o);
                         $this.find('.messages').html($render);
                         // Post

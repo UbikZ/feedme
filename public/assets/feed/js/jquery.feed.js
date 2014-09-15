@@ -57,8 +57,6 @@
             $.post($list.data('url'), obj).done(
                 function (data) {
                     var o = JSON.parse(data);
-                    // Render with blueimp (add new syntax to not interfer with volt syntax)
-                    tmpl.regexp = /([\s'\\])(?!(?:[^[]|\[(?!%))*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
                     $render = tmpl("tmpl-feeds", o);
                     $list.html($render);
                     $list.find('.feed').feed('handleAsynch', urlRefresh);
@@ -99,10 +97,11 @@
             return this.each(function () {
                 var $this = $(this),
                     urlRefresh = url + '/' + $this.data('id');
+
                 $.get(urlRefresh, function (data) {
                     var o = JSON.parse(data);
                     if (!o.success) {
-                        console.error('Fail to load wall');
+                        console.error('Fail to load feeds');
                     } else {
                         $this.find('span.subscribes').text(o.countSubscribes);
                         $this.find('span.likes').text(o.countLikes);
@@ -111,42 +110,55 @@
             });
         },
 
-        loadSlideshow: function (urlPost) {
+        loadSlideshow: function (urlGet, urlPost) {
             return this.each(function () {
-                var viewed = [];
-                Galleria.loadTheme('galleria.classic.js');
-                Galleria.configure({
-                    lightbox: true,
-                    debug: false,
-                    thumbnails: 'numbers',
-                    transition: 'fade',
-                    dataSort: 'random'
-                });
-                Galleria.ready(function (options) {
-                    this.attachKeyboard({
-                        left: this.prev,
-                        right: this.next
-                    });
+                var $this = $(this),
+                    $listViewable = $this.find('#pictures'),
+                    viewed = [];
 
-                    this.bind('image', function (e) {
-                        bindViewEvent(e.galleriaData.original.dataset.id);
-                    });
-                    this.bind('lightbox_image', function (e) {
-                        var indexActive = e.scope._lightbox.active;
-                        var id = e.scope._data[indexActive].original.dataset.id;
-                        bindViewEvent(id);
-                    });
-                });
-                Galleria.run('#' + $(this).attr('id'));
-
-                var bindViewEvent = function (currentId) {
-                    if (viewed.indexOf(currentId) == -1) {
-                        $.post(urlPost, {id: currentId}, function () {
-                            // success / error
+                $.get(urlGet, function(data) {
+                    var o = JSON.parse(data);
+                    if (o.success) {
+                        // Dynamic rendering
+                        $render = tmpl("tmpl-slideshow", o);
+                        $listViewable.html($render);
+                        // Init slideshow
+                        Galleria.loadTheme('galleria.classic.js');
+                        Galleria.configure({
+                            lightbox: true,
+                            debug: false,
+                            thumbnails: 'numbers',
+                            transition: 'fade',
+                            dataSort: 'random'
                         });
+                        Galleria.ready(function (options) {
+                            this.attachKeyboard({
+                                left: this.prev,
+                                right: this.next
+                            });
+
+                            this.bind('image', function (e) {
+                                bindViewEvent(e.galleriaData.original.dataset.id);
+                            });
+                            this.bind('lightbox_image', function (e) {
+                                var indexActive = e.scope._lightbox.active;
+                                var id = e.scope._data[indexActive].original.dataset.id;
+                                bindViewEvent(id);
+                            });
+                        });
+                        Galleria.run('#pictures');
+                        var bindViewEvent = function (currentId) {
+                            if (viewed.indexOf(currentId) == -1) {
+                                $.post(urlPost, {id: currentId}, function () {
+                                    // success / error
+                                });
+                            }
+                            viewed.push(currentId);
+                        };
+                    } else {
+                        console.error('Fail to load feed items');
                     }
-                    viewed.push(currentId);
-                };
+                });
             });
         }
     };

@@ -145,6 +145,7 @@ class Application extends InstanceAbstract
                 ->addJs($prefixPath . '/blueimp-tmpl/js/tmpl.js')
                 ->addJs($prefixPath . '/galleria/src/galleria.js')
                 ->addJs($prefixPath . '/galleria/src/themes/classic/galleria.classic.js')
+                ->addJs('assets/common/js/common.js')
                 ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 

@@ -87,18 +87,17 @@ class FeedController extends AbstractController
 
     public function itemsAction()
     {
-        $this->view->setVar('feedItems', $this->currentUser->getFeedItems());
         $this->view->setVar("name", array("main" => "Feed", "sub" => "Items"));
     }
 
-    public function itemsloadAction()
+    public function itemsloadAction($page = 1)
     {
         $response = new Response();
         $request = $this->request;
-        if (false === $request->isAjax()) {
+        if (true === $request->isAjax()) {
             $feedsSerializabled = null;
             /** @var FeedItem[] $feedItems */
-            $feedItems = $this->currentUser->getFeedItems($request->getPost('page'));
+            $feedItems = $this->currentUser->getFeedItems($page);
             if (is_array($feedItems)) {
                 $feedsSerializabled = array();
                 foreach ($feedItems as $feed) {
@@ -110,7 +109,7 @@ class FeedController extends AbstractController
             $response->setContent(json_encode(
                 array(
                     'success' => !is_null($feedsSerializabled),
-                    'feeds' => $feedsSerializabled,
+                    'items' => $feedsSerializabled,
                     'baseUri' => $this->url->getBaseUri()
                 )
             ));

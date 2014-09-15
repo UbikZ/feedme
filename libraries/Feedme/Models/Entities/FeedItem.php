@@ -247,4 +247,12 @@ class FeedItem extends EntityAbstract
     {
         return $this->title;
     }
+
+    public function getSerializable($base = false, $options = array())
+    {
+        $return = parent::getSerializable($base);
+        $return['extract'] = $this->getExtract();
+
+        return $return;
+    }
 }

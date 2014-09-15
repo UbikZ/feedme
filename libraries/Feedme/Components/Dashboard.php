@@ -29,6 +29,13 @@ class Dashboard extends Component
     public function getHeaderMenu()
     {
         $items = array();
+        $this->addItem(
+            $items,
+            'Issues ?',
+            array(),
+            null, null, array(), 'fa fa-danger',
+            'https://github.com/UbikZ/feedme/issues/new'
+        );
         $this->addItem($items, 'Logout', array(), 'session', 'logout', array(), 'fa fa-sign-out');
 
         $this->renderLinksMenu($items);
@@ -116,14 +123,20 @@ class Dashboard extends Component
         $render = '';
         if (is_array($items)) {
             foreach ($items as $item) {
-                $content = '<a href="#">' . $item['label'] . '</a>';
+                $link = '#';
                 if (!is_null($ctrl = $item['controller']) && !is_null($act = $item['action'])) {
                     $params = (count($item['params']) > 0) ? '/' . implode('/', $item['params']) : '';
                     $link = $ctrl . '/' . $act . $params;
-                    $caption = is_null($item['img'])
-                        ? $item['label']
-                        : '<i class="' . $item['img'] . '"></i>' . $item['label'];
+                } elseif (!is_null($item['urlExt'])) {
+                    $link = $item['urlExt'];
+                }
+                $caption = is_null($item['img'])
+                    ? $item['label']
+                    : '<i class="' . $item['img'] . '"></i>' . $item['label'];
+                if (is_null($item['urlExt'])) {
                     $content = Tag::linkTo($link, $caption);
+                } else {
+                    $content = '<a href="' . $item['urlExt'] . '" target="_blank">' . $caption . '</a>';
                 }
                 $render .= '<li class="' . implode(' ', $item['classes']) . '">' . $content . '</li>';
             }
@@ -214,6 +227,7 @@ class Dashboard extends Component
      * @param  null      $action
      * @param  array     $params
      * @param  null      $img
+     * @param  null      $urlExt
      * @throws Exception
      */
     private function addItem(
@@ -223,7 +237,8 @@ class Dashboard extends Component
         $controller = null,
         $action = null,
         $params = array(),
-        $img = null
+        $img = null,
+        $urlExt = null
     ) {
         if (!is_array($conf)) {
             throw new Exception(__CLASS__ . ' component issue: wrong type of parameters in ' . __FUNCTION__);
@@ -234,7 +249,8 @@ class Dashboard extends Component
             'controller' => $controller,
             'action' => $action,
             'params' => $params,
-            'img' => $img
+            'img' => $img,
+            'urlExt' => $urlExt
         );
     }
 }

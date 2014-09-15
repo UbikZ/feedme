@@ -4,6 +4,7 @@
             <div class="navbar-header">
                 <div class="logo-header">
                     <span>F</span><small>m</small>
+                    <small class="beta">beta</small>
                 </div>
             </div>
             <ul class="nav navbar-top-links navbar-right">
