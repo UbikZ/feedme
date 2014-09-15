@@ -37,6 +37,9 @@ abstract class BaseAbstract implements BaseInterface
         if (!is_null($limit = $filter->limit)) {
             $options['limit'] = intval($limit);
         }
+        if (!is_null($page = $filter->page)) {
+            $options['page'] = intval($page);
+        }
 
         return $options;
     }

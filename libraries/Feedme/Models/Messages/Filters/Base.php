@@ -12,6 +12,8 @@ abstract class Base
     public $connectedUserId;
     /** @var  int */
     public $limit;
+    /** @var  int */
+    public $page;
     /** @var  string */
     public $order;
     /** @var  string */

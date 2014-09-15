@@ -47,7 +47,7 @@ class Security extends Plugin
                         'dashboard' => array('index', 'profile'),
                         'wall' => array('profile', 'information', 'post', 'delete'),
                         'contact' => array('list'),
-                        'feed' => array('new', 'list', 'post', 'refresh', 'load', 'items', 'view'),
+                        'feed' => array('new', 'list', 'post', 'refresh', 'load', 'items', 'view', 'itemsload'),
                         'session' => array('logout'),
                         'account' => array('edit'),
                         'error' => array('notfound', 'internalerror')
@@ -61,7 +61,7 @@ class Security extends Plugin
                         'wall' => array('profile', 'information', 'post', 'delete'),
                         'contact' => array('list'),
                         'dashboard' => array('index', 'profile'),
-                        'feed' => array('new', 'list', 'post', 'refresh', 'load', 'items', 'view'),
+                        'feed' => array('new', 'list', 'post', 'refresh', 'load', 'items', 'view', 'itemsload'),
                         'session' => array('logout'),
                         'account' => array('edit'),
                         'error' => array('notfound', 'internalerror')

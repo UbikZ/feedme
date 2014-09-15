@@ -4,10 +4,10 @@ namespace controllers;
 
 use Feedme\Com\Notification\Alert;
 use Feedme\Models\Entities\Feed;
+use Feedme\Models\Entities\FeedItem;
 use Feedme\Models\Entities\UserFeed;
 use Feedme\Models\Messages\Filters\FeedType\Select as SelectFeedType;
 use Feedme\Models\Messages\Filters\Feed\Select as SelectFeed;
-use Feedme\Models\Messages\Filters\FeedItem\Select as SelectFeedItem;
 use Feedme\Models\Messages\Requests\Feed\Insert;
 use Feedme\Models\Messages\Requests\UserFeed\Insert as InsertUserFeed;
 use Feedme\Models\Messages\Filters\UserFeed\Select as SelectUserFeed;
@@ -87,11 +87,38 @@ class FeedController extends AbstractController
 
     public function itemsAction()
     {
-        $select = new SelectFeedItem;
-        $select->idFeed = $this->currentUser->getSubscribedFeeds();
-
         $this->view->setVar('feedItems', $this->currentUser->getFeedItems());
         $this->view->setVar("name", array("main" => "Feed", "sub" => "Items"));
+    }
+
+    public function itemsloadAction()
+    {
+        $response = new Response();
+        $request = $this->request;
+        if (false === $request->isAjax()) {
+            $feedsSerializabled = null;
+            /** @var FeedItem[] $feedItems */
+            $feedItems = $this->currentUser->getFeedItems($request->getPost('page'));
+            if (is_array($feedItems)) {
+                $feedsSerializabled = array();
+                foreach ($feedItems as $feed) {
+                    $feedsSerializabled[] =
+                        $feed->getSerializable(false);
+                }
+            }
+
+            $response->setContent(json_encode(
+                array(
+                    'success' => !is_null($feedsSerializabled),
+                    'feeds' => $feedsSerializabled,
+                    'baseUri' => $this->url->getBaseUri()
+                )
+            ));
+        } else {
+            $response->setContent(json_encode(array('success' => false)));
+        }
+
+        return $response;
     }
 
     public function viewAction()

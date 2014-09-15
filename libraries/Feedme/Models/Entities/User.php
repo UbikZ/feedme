@@ -3,6 +3,7 @@
 namespace Feedme\Models\Entities;
 
 use Phalcon\Mvc\Model\Validator\Email as Email;
+use Phalcon\Paginator\Adapter\Model;
 
 class User extends EntityAbstract
 {
@@ -108,11 +109,22 @@ class User extends EntityAbstract
     }
 
     /**
-     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     * @param  int   $page
+     * @param  int   $limit
+     * @return mixed
      */
-    public function getFeedItems()
+    public function getFeedItems($page = 1, $limit = 25)
     {
-        return $this->getRelated($this->feedItemFK, 'seen = \'0\'');
+        $items = $this->getRelated($this->feedItemFK, 'seen = \'0\'');
+        $paginator = new Model(
+            array(
+                'data' => $items,
+                'limit' => $limit,
+                'page' => $page
+            )
+        );
+
+        return $paginator->getPaginate()->items;
     }
 
     /**
