@@ -50,10 +50,14 @@
                                         </h5>
                                     </div>
                                     <div class="col-md-4">
-                                        <h5><i class="fa fa-star"></i>&nbsp;<strong>0</strong>&nbsp;Favorites</h5>
+                                        <h5><i class="fa fa-heart"></i>&nbsp;<strong>
+                                            {{user.countLikedFeeds()}}
+                                        </strong>&nbsp;Likes</h5>
                                     </div>
                                     <div class="col-md-4">
-                                        <h5><i class="fa fa-heart"></i>&nbsp;<strong>0</strong>&nbsp;Likes</h5>
+                                        <h5><i class="fa fa-eye"></i>&nbsp;<strong>
+                                            {{user.countViewedFeedItems()}}
+                                        </strong>&nbsp;Views</h5>
                                     </div>
                                 </div>
                             </div>

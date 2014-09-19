@@ -2,6 +2,7 @@
 
 namespace Feedme\Models\Entities;
 
+use Phalcon\Mvc\Model\Resultset\Simple;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 use Phalcon\Paginator\Adapter\Model;
 
@@ -80,18 +81,30 @@ class User extends EntityAbstract
     }
 
     /**
-     * @return array
+     * @return int
      */
-    public function getSubscribedFeeds()
+    public function countLikedFeeds()
     {
-        $return = array();
-
-        $result = $this->getRelated(self::USER_FEED, 'subscribe = \'1\'');
+        $return = 0;
+        /** @var Simple $result */
+        $result = $this->getRelated(self::USER_FEED, '[like] = \'1\'');
         if (false != $result) {
-            /** @var UserFeed $element */
-            foreach ($result as $element) {
-                $return[] = $element->getIdFeed();
-            }
+            $return = $result->count();
+        }
+
+        return $return;
+    }
+
+    /**
+     * @return int
+     */
+    public function countViewedFeedItems()
+    {
+        $return = 0;
+        /** @var Simple $result */
+        $result = $this->getRelated(self::FEED_ITEM, 'seen = \'1\'');
+        if (false != $result) {
+            $return = $result->count();
         }
 
         return $return;

@@ -78,11 +78,6 @@ class Feed extends EntityAbstract
         return $result;
     }
 
-    public static function sumUserFeed()
-    {
-
-    }
-
     /**
      * @return int
      */
