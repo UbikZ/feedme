@@ -60,7 +60,7 @@ class WallController extends AbstractController
                     'success' => $userMsg->getSuccess(),
                     'allowDelete' => ($this->currentUser->getId() == $user->getId())
                         || $this->currentUser->getAdmin(),
-                    'countPosts' => $user->getAllMessages()->count(),
+                    'countPosts' => $user->countPostedMessages(),
                     'messages' => $user->getSerializable()['messages'],
                     'baseUri' => $this->url->getBaseUri()
                 )

@@ -48,9 +48,9 @@
                                 <h3><strong>{{user.getFirstname()}}&nbsp;{{user.getLastname()}}</strong></h3>
 
                                 <p>
-                                    <i class="fa fa-envelope"></i>&nbsp;<strong>{{user.getAllMessages().count()}}</strong>&nbsp;Posts
-                                    <i class="fa fa-star"></i>&nbsp;<strong>0</strong>&nbsp;Favorites
-                                    <i class="fa fa-heart"></i>&nbsp;<strong>0</strong>&nbsp;Likes
+                                    <i class="fa fa-envelope"></i>&nbsp;<strong>{{user.countPostedMessages()}}</strong>&nbsp;Posts
+                                    <i class="fa fa-heart"></i>&nbsp;<strong>{{user.countLikedFeeds()}}</strong>&nbsp;Likes
+                                    <i class="fa fa-eye"></i>&nbsp;<strong>{{user.countViewedFeedItems()}}</strong>&nbsp;Views
                                 </p>
                                 <address>
                                     <strong>{{user.getSociety()}}, Inc.</strong><br>

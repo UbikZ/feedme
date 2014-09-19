@@ -72,12 +72,18 @@ class User extends EntityAbstract
     }
 
     /**
-     * @param  null            $parameters
-     * @return UserWallMessage
+     * @return int
      */
-    public function getAllMessages($parameters = null)
+    public function countPostedMessages()
     {
-        return $this->getRelated(self::USER_WALL_MESSAGE, $parameters);
+        $return = 0;
+        /** @var Simple $result */
+        $result = $this->getRelated(self::USER_WALL_MESSAGE);
+        if (false != $result) {
+            $return = $result->count();
+        }
+
+        return $return;
     }
 
     /**
