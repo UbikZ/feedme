@@ -44,7 +44,7 @@ class WallController extends AbstractController
     public function informationAction($identity = null)
     {
         $response = new Response();
-
+        $response->setContentType('application/json', 'UTF-8');
         $this->view->disable();
         $request = $this->request;
         if ((true === $request->isAjax()) && !is_null($identity)) {
@@ -88,7 +88,7 @@ class WallController extends AbstractController
     public function postAction($idUserDest = null)
     {
         $response = new Response();
-
+        $response->setContentType('application/json', 'UTF-8');
         $this->view->disable();
         $request = $this->request;
         if ((true === $request->isPost()) && (true === $request->isAjax()) && !is_null($idUserDest)) {
@@ -112,7 +112,7 @@ class WallController extends AbstractController
     public function deleteAction($idMessage = null)
     {
         $response = new Response();
-
+        $response->setContentType('application/json', 'UTF-8');
         $this->view->disable();
         $request = $this->request;
         if ((true === $request->isAjax()) && !is_null($idMessage)) {

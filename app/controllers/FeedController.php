@@ -93,6 +93,7 @@ class FeedController extends AbstractController
     public function itemsloadAction($page = 1)
     {
         $response = new Response();
+        $response->setContentType('application/json', 'UTF-8');
         $request = $this->request;
         if (true === $request->isAjax()) {
             $feedsSerializabled = null;
@@ -123,6 +124,7 @@ class FeedController extends AbstractController
     public function viewAction()
     {
         $response = new Response();
+        $response->setContentType('application/json', 'UTF-8');
         $request = $this->request;
         if ((true === $request->isPost()) && (true === $request->isAjax())) {
             $update =  new Update();
@@ -151,6 +153,7 @@ class FeedController extends AbstractController
     public function loadAction()
     {
         $response = new Response();
+        $response->setContentType('application/json', 'UTF-8');
         $request = $this->request;
         if ((true === $request->isPost()) && (true === $request->isAjax())) {
             $select = new SelectFeed();
@@ -194,6 +197,7 @@ class FeedController extends AbstractController
     public function refreshAction($idFeed = null)
     {
         $response = new Response();
+        $response->setContentType('application/json', 'UTF-8');
         $request = $this->request;
         if (!is_null($idFeed) && is_numeric($idFeed) && true === $request->isAjax()) {
             $select = new SelectFeed();
@@ -225,6 +229,7 @@ class FeedController extends AbstractController
     {
         $_allowedScope = array('subscribe', 'like');
         $response = new Response();
+        $response->setContentType('application/json', 'UTF-8');
         $request = $this->request;
         if (true === $request->isPost() && true === $request->isAjax() && in_array($scope, $_allowedScope)) {
             $req = new InsertUserFeed();
