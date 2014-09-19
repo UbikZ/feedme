@@ -4,9 +4,6 @@ namespace Feedme\Models\Entities;
 
 class UserWallMessage extends EntityAbstract
 {
-    private $user = 'Feedme\\Models\\Entities\\User';
-    private $userWall = 'Feedme\\Models\\Entities\\UserWall';
-
     /** @var  int */
     protected $idMessageSrc;
 
@@ -22,13 +19,13 @@ class UserWallMessage extends EntityAbstract
         parent::initialize();
 
         $this->hasMany('id', get_class($this), 'idMessageSrc');
-        $this->hasOne('idUserSrc', $this->user, 'id');
+        $this->hasOne('idUserSrc', self::USER, 'id');
         $this->hasManyToMany(
             'id',
-            $this->userWall,
+            self::USER_WALL,
             'idMessage',
             'idUser',
-            $this->user,
+            self::USER,
             'id',
             array('alias' => 'users')
         );
@@ -49,7 +46,7 @@ class UserWallMessage extends EntityAbstract
      */
     public function getUserSrc($parameters = null)
     {
-        return $this->getRelated($this->user, $parameters);
+        return $this->getRelated(self::USER, $parameters);
     }
 
     /**

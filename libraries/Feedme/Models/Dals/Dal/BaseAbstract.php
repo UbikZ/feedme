@@ -3,10 +3,11 @@
 namespace Feedme\Models\Dals\Dal;
 
 use Feedme\Models\Entities\EntityAbstract;
+use Feedme\Models\Model as IModel;
 use Feedme\Models\Messages\Filters\Base as BaseFilter;
 use Feedme\Models\Messages\Requests\Base as BaseRequest;
 
-abstract class BaseAbstract implements BaseInterface
+abstract class BaseAbstract implements BaseInterface, IModel
 {
 
     /**
@@ -40,6 +41,11 @@ abstract class BaseAbstract implements BaseInterface
         if (!is_null($page = $filter->page)) {
             $options['page'] = intval($page);
         }
+        if (!is_null($order = $filter->order)) {
+            $direction = is_null($filter->direction) ? 'ASC' : $filter->direction;
+            $options['order'] = $order . ' ' . $direction;
+        }
+
 
         return $options;
     }

@@ -4,9 +4,6 @@ namespace Feedme\Models\Entities;
 
 class FeedItem extends EntityAbstract
 {
-    private $userFeedItem = 'Feedme\\Models\\Entities\\UserFeedItem';
-    private $feed = 'Feedme\\Models\\Entities\\Feed';
-
     /** @var  int */
     protected $idFeed;
     /** @var  string */
@@ -36,8 +33,8 @@ class FeedItem extends EntityAbstract
     {
         parent::initialize();
 
-        $this->belongsTo('idFeed', $this->feed, 'id');
-        $this->hasMany('id', $this->userFeedItem, 'idFeedItem');
+        $this->belongsTo('idFeed', self::FEED, 'id');
+        $this->hasMany('id', self::USER_FEED_ITEM, 'idFeedItem');
     }
 
     /**
@@ -45,7 +42,7 @@ class FeedItem extends EntityAbstract
      */
     public function countFavorites()
     {
-        return $this->getRelated($this->userFeedItem);
+        return $this->getRelated(self::USER_FEED_ITEM);
     }
 
     /**
@@ -53,7 +50,7 @@ class FeedItem extends EntityAbstract
      */
     public function countLikes()
     {
-        return $this->getRelated($this->userFeedItem);
+        return $this->getRelated(self::USER_FEED_ITEM);
     }
 
     /**

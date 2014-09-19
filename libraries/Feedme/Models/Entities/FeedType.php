@@ -4,8 +4,6 @@ namespace Feedme\Models\Entities;
 
 class FeedType extends EntityAbstract
 {
-    private $feed = 'Feedme\\Models\\Entities\\Feed';
-
     /** @var  string */
     protected $label;
     /** @var  string */
@@ -15,7 +13,7 @@ class FeedType extends EntityAbstract
     {
         parent::initialize();
 
-        $this->belongsTo('id', $this->feed, 'type');
+        $this->belongsTo('id', self::FEED, 'type');
     }
 
     /**

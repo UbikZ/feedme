@@ -6,6 +6,7 @@ use Feedme\Models\Messages\DalMessage;
 use Feedme\Models\Messages\Filters\Feed\Select;
 use Feedme\Models\Messages\Requests\Feed\Insert;
 use Feedme\Models\Entities\Feed as EntityFeed;
+use Phalcon\Mvc\Model\Query\Builder;
 
 class Feed extends BaseAbstract
 {

@@ -7,14 +7,6 @@ use Phalcon\Paginator\Adapter\Model;
 
 class User extends EntityAbstract
 {
-    // Foreign key
-    private $userPictureFK = 'Feedme\\Models\\Entities\\UserPicture';
-    private $userFeedFK = 'Feedme\\Models\\Entities\\UserFeed';
-    private $userFeedItemFk = 'Feedme\\Models\\Entities\\UserFeedItem';
-    private $feedItemFK = 'Feedme\\Models\\Entities\\FeedItem';
-    private $userWallFK = 'Feedme\\Models\\Entities\\UserWall';
-    private $userWallMessageFK = 'Feedme\\Models\\Entities\\UserWallMessage';
-
     /** @var  string */
     protected $firstname;
     /** @var  string */
@@ -47,24 +39,24 @@ class User extends EntityAbstract
     {
         parent::initialize();
 
-        $this->hasOne('picture', $this->userPictureFK, 'id');
-        $this->hasMany('id', $this->userWallMessageFK, 'idUserSrc');
-        $this->hasMany('id', $this->userFeedFK, 'idUser');
+        $this->hasOne('picture', self::USER_PICTURE, 'id');
+        $this->hasMany('id', self::USER_WALL_MESSAGE, 'idUserSrc');
+        $this->hasMany('id', self::USER_FEED, 'idUser');
         $this->hasManyToMany(
             'id',
-            $this->userWallFK,
+            self::USER_WALL,
             'idUser',
             'idMessage',
-            $this->userWallMessageFK,
+            self::USER_WALL_MESSAGE,
             'id',
             array('alias' => 'messages')
         );
         $this->hasManyToMany(
             'id',
-            $this->userFeedItemFk,
+            self::USER_FEED_ITEM,
             'idUser',
             'idFeedItem',
-            $this->feedItemFK,
+            self::FEED_ITEM,
             'id'
         );
     }
@@ -75,7 +67,7 @@ class User extends EntityAbstract
      */
     public function getUserPicture($parameters = null)
     {
-        return $this->getRelated($this->userPictureFK, $parameters);
+        return $this->getRelated(self::USER_PICTURE, $parameters);
     }
 
     /**
@@ -84,7 +76,7 @@ class User extends EntityAbstract
      */
     public function getAllMessages($parameters = null)
     {
-        return $this->getRelated($this->userWallMessageFK, $parameters);
+        return $this->getRelated(self::USER_WALL_MESSAGE, $parameters);
     }
 
     /**
@@ -94,7 +86,7 @@ class User extends EntityAbstract
     {
         $return = array();
 
-        $result = $this->getRelated($this->userFeedFK, 'subscribe = \'1\'');
+        $result = $this->getRelated(self::USER_FEED, 'subscribe = \'1\'');
         if (false != $result) {
             /** @var UserFeed $element */
             foreach ($result as $element) {
@@ -112,7 +104,7 @@ class User extends EntityAbstract
      */
     public function getFeedItems($page = 1, $limit = 10)
     {
-        $items = $this->getRelated($this->feedItemFK, 'seen = \'0\'');
+        $items = $this->getRelated(self::FEED_ITEM, 'seen = \'0\'');
         $paginator = new Model(array('data' => $items, 'limit' => $limit, 'page' => $page));
 
         return $paginator->getPaginate()->items;

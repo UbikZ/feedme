@@ -3,8 +3,9 @@
 namespace Feedme\Models\Entities;
 
 use Phalcon\Mvc\Model;
+use Feedme\Models\Model as IModel;
 
-abstract class EntityAbstract extends Model implements EntityInterface
+abstract class EntityAbstract extends Model implements EntityInterface, IModel
 {
     /** @var  array */
     protected $allowFields;
