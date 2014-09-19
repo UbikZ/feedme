@@ -17,5 +17,4 @@ class Reddit extends ParserAbstract
         // Implement this to parse reddit html content
         return false;
     }
-
 }

@@ -33,7 +33,10 @@ class Dashboard extends Component
             $items,
             'Issues ?',
             array(),
-            null, null, array(), 'fa fa-danger',
+            null,
+            null,
+            array(),
+            'fa fa-danger',
             'https://github.com/UbikZ/feedme/issues/new'
         );
         $this->addItem($items, 'Logout', array(), 'session', 'logout', array(), 'fa fa-sign-out');

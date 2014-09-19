@@ -9,7 +9,6 @@ class Gfycat extends ParserAbstract
         $return = false;
 
         // For now we don't extract gfycat
-
         return $return;
     }
 }
