@@ -5,6 +5,7 @@ php:
   - 5.5
 
 before_script:
+  - sudo apt-get update --fix-missing
   - sudo apt-get install php5-dev php5-xdebug
   - git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b master
   - (cd cphalcon/ext; export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall"; phpize && ./configure --enable-phalcon && make -j4 && sudo make install && phpenv config-add ../unit-tests/ci/phalcon.ini)
