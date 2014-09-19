@@ -11,12 +11,13 @@ class Handler
     /** @var  AdapterInterface|null $instance */
     private static $instance = null;
 
-    // Singleton <=> disable instanciation/cloning
+    // Singleton <=> disable instanciation
     protected function __construct()
     {
 
     }
 
+    // Singleton <=> disable cloning
     protected function __clone()
     {
 

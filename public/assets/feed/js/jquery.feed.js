@@ -55,7 +55,7 @@
                 }
             });
             obj = $.extend({}, obj, {needle: $('.criterias .search input').val()});
-            $list = $('ul.feed-list');
+            $list = $('ul#list');
             $.post($list.data('url'), obj).done(
                 function (o) {
                     $render = tmpl("tmpl-feeds", o);

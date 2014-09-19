@@ -66,4 +66,31 @@ class Feed
 
         return $message;
     }
+
+    /**
+     * @return ServiceMessage
+     */
+    public function countLikes()
+    {
+        $message = new ServiceMessage();
+
+        try {
+            /** @var \Phalcon\Mvc\Model\Resultset\Simple $feeds */
+            if (false === ($feeds = Dal::getRepository('Feed')->countLikes())) {
+                throw new ServiceException('Fail to get feeds.');
+            }
+
+            $message->setMessage($feeds);
+            $message->setSuccess(true);
+        } catch (ServiceException $e) {
+            $message->setError($e->getMessage());
+            Factory::getLogger('feed')->error($e->getMessage());
+        } catch (\Exception $e) {
+            $message->setError("An error occured while selecting feeds.");
+            Factory::getLogger('feed')->error($e->getMessage());
+        }
+
+        return $message;
+    }
+
 }

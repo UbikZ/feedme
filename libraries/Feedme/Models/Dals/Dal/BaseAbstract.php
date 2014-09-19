@@ -46,7 +46,6 @@ abstract class BaseAbstract implements BaseInterface, IModel
             $options['order'] = $order . ' ' . $direction;
         }
 
-
         return $options;
     }
 

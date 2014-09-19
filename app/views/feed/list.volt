@@ -38,30 +38,6 @@
                                         class="fa fa-spinner"></i></a>
                             </div>
                         </div>
-                        <!--<div class="crit-row order-like checkspan-exclusive form-group m-t-md-m">
-                            <div>
-                                <strong class="pull-right">Order Subscriptions</strong>
-                                <a href="#" class="checkspan" data-order="subscribe" data-direction="ASC">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-sort-amount-asc"></i>
-                                </a>
-                                <a href="#" class="checkspan enabled" data-order="subscribe" data-direction="DESC">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-sort-amount-desc"></i>
-                                </a><br/>
-                            </div>
-                            <div class="m-t-md-m">
-                                <strong class="pull-right">Order likes</strong>
-                                <a href="#" class="checkspan" data-order="like" data-direction="ASC">
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-sort-amount-asc"></i>
-                                </a>
-                                <a href="#" class="checkspan" data-order="like" data-direction="DESC">
-                                    <i class="fa fa-heart"></i>
-                                    <i class="fa fa-sort-amount-desc"></i>
-                                </a>
-                            </div>
-                        </div>-->
                         <div class="crit-row limit checkspan-exclusive form-group m-t-md-m">
                             <strong class="pull-right">Limitation</strong>
                             <strong>
@@ -78,7 +54,7 @@
                     <div class="ibox-content feed-listing">
                         <h2><i class="fa fa-rss"></i> Feeds List</h2>
                         <small>This is an exhaustive list of all public feeds available.</small>
-                        <ul class="feed-list m-t" data-url="{{url('feed/load')}}">
+                        <ul id="list" class="feed-list m-t" data-url="{{url('feed/load')}}">
                             <script type="text/x-tmpl" id="tmpl-feeds">
                             [% for (var i=0; i<o.feeds.length; i++) { %]
                                 [% var feed = o.feeds[i]; %]
@@ -94,9 +70,7 @@
                                     <span class="m-l-xs count">
                                         <strong><a href="[%=feed.url%]">[%= feed.label %]</a></strong>
                                         <small class="text-muted">
-                                            [&nbsp;<i class="fa fa-star"></i>&nbsp;
-                                            <span class="subscribes">[%= feed.countSubscribes %]</span>&nbsp;
-                                            <i class="fa fa-heart"></i>&nbsp;
+                                            [&nbsp; <i class="fa fa-heart"></i>&nbsp;
                                             <span class="likes">[%= feed.countLikes %]</span>
                                             &nbsp;]&nbsp;
                                         </small>
@@ -135,7 +109,6 @@
                                     [% } %]
                                 </li>
                             [% } %]
-
                             </script>
                         </ul>
                     </div>
@@ -143,7 +116,22 @@
                 <div class="col-lg-3">
                     <div class="ibox-content statistics">
                         <h2><i class="fa fa-bar-chart-o"></i> Statistics</h2>
-                        <span class="text-muted">In progress</span>
+                        <span class="text-muted">Top 10 Liked Feeds</span>
+                        <ul class="list-group clear-list m-t">
+                            {% for key, item in listFeeds %}
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    <strong>{{item.count}}</strong>
+                                </span>
+                                <span class="label label-success">
+                                    <strong>{{key+1}}</strong>
+                                </span>
+                                <a href="{{item.feed.getUrl()}}">
+                                    {{item.feed.getLabel()}}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>

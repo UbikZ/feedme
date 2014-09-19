@@ -70,15 +70,10 @@ class FeedController extends AbstractController
 
     public function listAction()
     {
-        $select = new SelectFeed();
-        $select->public = true;
-        $select->connectedUserId = $this->currentUser->getId();
+        $items = Service::getService('Feed')->countLikes();
 
-        /** @var ServiceMessage $findFeeds */
-        $findFeeds = Service::getService('Feed')->find($select);
-
-        if ($findFeeds->getSuccess()) {
-            $this->view->setVar('listFeeds', $findFeeds->getMessage());
+        if ($items->getSuccess()) {
+            $this->view->setVar('listFeeds', $items->getMessage());
             $this->view->setVar("name", array("main" => "Feed", "sub" => "List"));
         } else {
             $this->internalError();

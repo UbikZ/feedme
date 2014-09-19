@@ -39,6 +39,22 @@ class Feed extends BaseAbstract
     }
 
     /**
+     * @return array
+     */
+    public function countLikes()
+    {
+        $builder = new Builder();
+        $query = $builder->columns(array('feed.*', 'COUNT(uf.[like]) as count'))
+            ->addFrom(self::FEED, 'feed')
+            ->join(self::USER_FEED, 'uf.idFeed = feed.id', 'uf')
+            ->where('uf.[like] = \'1\'')
+            ->groupBy('feed.id')
+            ->getQuery();
+
+        return $query->execute()->toArray();
+    }
+
+    /**
      * @param  EntityFeed $feed
      * @param  Insert     $request
      * @return mixed|void

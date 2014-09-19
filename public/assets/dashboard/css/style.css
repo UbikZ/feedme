@@ -125,6 +125,14 @@ h2 small {
     opacity: 1;
 }
 
+.list-group .label {
+    margin-right: 10px;
+}
+
+.list-group .list-group-item:first-child {
+    border-top: none;
+}
+
 .checkspan {
     padding: 10px 16px;
     background-color: #FFFFFF;
