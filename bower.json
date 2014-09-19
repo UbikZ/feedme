@@ -10,6 +10,6 @@
         "blueimp-tmpl": "2.5.4",
         "bootstrap-file-input": "1.0.0",
         "jqBootstrapValidation": "1.3.7",
-        "galleria": "git@github.com:aino/galleria"
+        "blueimp-gallery": "2.15.1"
     }
 }
