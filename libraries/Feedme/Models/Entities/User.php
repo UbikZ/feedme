@@ -94,10 +94,7 @@ class User extends EntityAbstract
     {
         $return = array();
 
-        $result = $this->getRelated(
-            $this->userFeedFK,
-            'subscribe = \'1\''
-        );
+        $result = $this->getRelated($this->userFeedFK, 'subscribe = \'1\'');
         if (false != $result) {
             /** @var UserFeed $element */
             foreach ($result as $element) {
@@ -116,13 +113,7 @@ class User extends EntityAbstract
     public function getFeedItems($page = 1, $limit = 10)
     {
         $items = $this->getRelated($this->feedItemFK, 'seen = \'0\'');
-        $paginator = new Model(
-            array(
-                'data' => $items,
-                'limit' => $limit,
-                'page' => $page
-            )
-        );
+        $paginator = new Model(array('data' => $items, 'limit' => $limit, 'page' => $page));
 
         return $paginator->getPaginate()->items;
     }

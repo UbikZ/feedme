@@ -103,18 +103,13 @@
                                     </span>
                                     [% if (feed.validate == 2) { %]
                                         <div class="pull-right">
-                                            [% var bSubscribed = feed.userFeed.subscribe; %]
-                                            [% var bLiked = feed.userFeed .like; %]
+                                            [% var isLiked = feed.userFeed .like; %]
                                             <i class="[%= feed.feedType.class %]"></i>&nbsp;
-                                            <a href="[%= o.baseUri %]feed/post/subscribe"
-                                               class="action [% if (bSubscribed) { %]active text-info[% } else { %]inactive text-danger [% } %]">
-                                                <i class="fa fa-star"></i>
-                                            </a>
                                             <a href="[%= o.baseUri %]feed/post/like"
-                                               class="action [% if (bLiked) { %]active text-info[% } else { %]inactive text-danger [% } %]">
+                                               class="action [% if (parseInt(isLiked)) { %]active text-info[% } else { %]inactive text-danger [% } %]">
                                                 <i class="fa fa-heart"></i>
                                             </a>
-                                            |&nbsp;
+                                            &nbsp;
                                             <small><a href="[%= o.baseUri %]wall/profile/[%= feed.creator.id %]">
                                                 [%= feed.creator.username %]</a> .
                                             </small>
