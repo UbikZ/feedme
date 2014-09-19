@@ -1,4 +1,6 @@
 (function ($) {
+    var currentPage = 1;
+
     var methods = {
         init: function (urlRefresh) {
             return this.each(function () {
@@ -55,8 +57,7 @@
             obj = $.extend({}, obj, {needle: $('.criterias .search input').val()});
             $list = $('ul.feed-list');
             $.post($list.data('url'), obj).done(
-                function (data) {
-                    var o = JSON.parse(data);
+                function (o) {
                     $render = tmpl("tmpl-feeds", o);
                     $list.html($render);
                     $list.find('.feed').feed('handleAsynch', urlRefresh);
@@ -74,8 +75,7 @@
                         $(this).attr('href'),
                         {value: $(this).hasClass('inactive'), idfeed: $this.data('id')}
                     ).done(
-                        function (data) {
-                            var o = JSON.parse(data);
+                        function (o) {
                             if (o.success) {
                                 if (o.active) {
                                     $that.removeClass('inactive text-danger').addClass('active text-info');
@@ -98,8 +98,7 @@
                 var $this = $(this),
                     urlRefresh = url + '/' + $this.data('id');
 
-                $.get(urlRefresh, function (data) {
-                    var o = JSON.parse(data);
+                $.get(urlRefresh, function (o) {
                     if (!o.success) {
                         console.error('Fail to load feeds');
                     } else {
@@ -116,51 +115,58 @@
                     $listViewable = $this.find('#pictures'),
                     viewed = [];
 
-                $.get(urlGet, function(data) {
-                    var o = JSON.parse(data);
+                $.get(urlGet, function (o) {
                     if (o.success) {
-                        // Dynamic rendering
-                        $render = tmpl("tmpl-slideshow", o);
-                        $listViewable.html($render);
-                        // Init slideshow
-                        Galleria.loadTheme('galleria.classic.js');
-                        Galleria.configure({
-                            lightbox: true,
-                            debug: false,
-                            thumbnails: 'numbers',
-                            transition: 'fade',
-                            dataSort: 'random'
-                        });
-                        Galleria.ready(function (options) {
-                            this.attachKeyboard({
-                                left: this.prev,
-                                right: this.next
-                            });
+                        var links = [];
 
-                            this.bind('image', function (e) {
-                                bindViewEvent(e.galleriaData.original.dataset.id, e.index);
-                            });
-                            this.bind('lightbox_image', function (e) {
-                                var indexActive = e.scope._lightbox.active;
-                                var id = e.scope._data[indexActive].original.dataset.id;
-                                bindViewEvent(id);
-                            });
-                        });
-                        Galleria.run('#pictures');
-                        var bindViewEvent = function (currentId, currentIndex) {
-                            // Bind loading other items
-                            if (currentIndex == 9) {
-                                console.info("here we go");
-                            }
-
-                            // Update view/notview
-                            if (viewed.indexOf(currentId) == -1) {
-                                $.post(urlPost, {id: currentId}, function () {
-                                    // success / error
+                        $.each(o.items, function (index, item) {
+                            if (item.extract.imgViewable) {
+                                links.push({
+                                    id: item.id,
+                                    title: item.title,
+                                    href: item.extract.imgViewable
                                 });
                             }
-                            viewed.push(currentId);
-                        };
+                        });
+
+                        // Init Blueimp slideshow
+                        var gallery = blueimp.Gallery(links, {
+                            container: '#blueimp-gallery-carousel',
+                            carousel: true,
+                            enableKeyboardNavigation: true,
+                            startSlideshow: false,
+                            stretchImages: true,
+                            onslideend: function(index, slide) {
+                                // We are flaging this item as 'viewed'
+                                var idItem = this.list[index].id;
+                                if (viewed.indexOf(idItem) == -1) {
+                                    $.post(urlPost, {id: idItem}, function () {
+                                        // success / error
+                                    });
+                                    viewed.push(idItem);
+                                }
+                                // We are loading more items
+                                if ((viewed.length == this.getNumber()) &&
+                                    (this.index+1) % this.getNumber() == 0) {
+                                    currentPage++;
+                                    $.get(urlGet + '/' + currentPage, function(o) {
+                                        if (o.success) {
+                                            $.each(o.items, function (index, item) {
+                                                if (item.extract.imgViewable) {
+                                                    gallery.add([{
+                                                        id: item.id,
+                                                        title: item.title,
+                                                        href: item.extract.imgViewable
+                                                    }]);
+                                                }
+                                            });
+                                        } else {
+                                            console.error('Fail to load more feed items');
+                                        }
+                                    });
+                                }
+                            }
+                        });
                     } else {
                         console.error('Fail to load feed items');
                     }

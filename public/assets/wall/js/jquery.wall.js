@@ -9,8 +9,7 @@
         load: function (urlGet, urlPost) {
             return this.each(function () {
                 var $this = $(this);
-                $.get(urlGet, function (data) {
-                    var o = JSON.parse(data);
+                $.get(urlGet, function (o) {
                     if (!o.success) {
                         console.error('Fail to load wall');
                     } else {
@@ -45,8 +44,7 @@
             $.each($('.messages .delete a'), function (i, el) {
                 $(el).click(function(event) {
                     event.preventDefault();
-                    $.get($(this).attr('href'), function(data) {
-                        var o = JSON.parse(data);
+                    $.get($(this).attr('href'), function(o) {
                         if (!o.success) {
                             console.error('Fail to delete message');
                         } else {
