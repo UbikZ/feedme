@@ -9,6 +9,7 @@ class SimpleIO
 
     public static function msg($msg, $type = null)
     {
+        $time = '[' . (new \DateTime())->format('H\:i Y-m-d') . ']';
         switch ($type) {
             case self::INFO:
                 $prefix = '[INFO] ';
@@ -20,7 +21,7 @@ class SimpleIO
                 $prefix = '';
                 break;
         }
-        $str =  $prefix . $msg . PHP_EOL;
+        $str =  $time . $prefix . $msg . PHP_EOL;
 
         echo $str;
     }

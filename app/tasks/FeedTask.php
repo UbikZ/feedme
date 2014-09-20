@@ -2,6 +2,7 @@
 
 namespace tasks;
 
+use Feedme\Cli\SimpleIO;
 use Feedme\Models\Entities\Feed;
 use Feedme\Models\Messages\Filters\Feed\Select as SelectFeed;
 use Feedme\Models\Messages\Requests\FeedItem\Insert as InsertFeedItem;
@@ -16,7 +17,9 @@ class FeedTask extends AbstractTask
 {
     public function exportAction(array $params = array())
     {
+        SimpleIO::msg('Start export:', SimpleIO::INFO);
         $typesFeed = array('reddit', 'imgur', 'gfycat');
+        SimpleIO::msg(sprintf('Types: %s', implode(' / ', $typesFeed)), SimpleIO::INFO);
         $selectFeed = new SelectFeed();
         $selectFeed->validate = 2;
         /** @var ServiceMessage $msgFeeds */
@@ -28,8 +31,10 @@ class FeedTask extends AbstractTask
             if (!isset($idFeed) || !isset($url)) {
                 throw new \Exception('Can\'t extract current feed.');
             }
+            SimpleIO::msg(sprintf('Import `%s` feed', $url), SimpleIO::INFO);
             /** @var FeedInterface $entry */
             foreach (FeedReader::import($url) as $entry) {
+                SimpleIO::msg(sprintf(' > `%s`', $entry->getId()), SimpleIO::INFO);
                 $insertFeedItem = new InsertFeedItem();
                 $insertFeedItem->idFeed = $idFeed;
                 $insertFeedItem->authorName = $entry->getAuthor();
@@ -77,6 +82,7 @@ class FeedTask extends AbstractTask
                 }
             }
         }
+        SimpleIO::msg('End export', SimpleIO::INFO);
     }
 
     /**
