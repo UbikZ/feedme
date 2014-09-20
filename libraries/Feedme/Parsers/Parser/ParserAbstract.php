@@ -10,7 +10,7 @@ abstract class ParserAbstract implements ParserInterface
     /** @var  string */
     protected $elementToParse;
 
-    /** @var  string */
+    /** @var  string|array */
     public $imageOk;
     /** @var  string */
     public $imageKo;

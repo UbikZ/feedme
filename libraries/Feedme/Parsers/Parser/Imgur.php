@@ -6,8 +6,8 @@ class Imgur extends ParserAbstract
 {
     public function extractFromStream()
     {
-        $return = false;
         $images = null;
+
         $parsedStream = htmlqp($this->getElementToParse(), '#content .panel');
         $elements = $parsedStream->find('.wrapper img')->get();
         if (is_array($elements)) {
@@ -23,7 +23,8 @@ class Imgur extends ParserAbstract
             }
         }
 
-        if (true == ($return = (is_array($images) && count($images) > 0))) {
+        $return = (is_array($images) && count($images) > 0);
+        if (true == $return) {
             $this->imageOk = $images;
         }
 
