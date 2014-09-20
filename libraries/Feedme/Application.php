@@ -7,8 +7,10 @@
 namespace Feedme;
 
 // Phalcon
+use Phalcon\Exception as PhalconException;
 use Phalcon\Loader;
 use Phalcon\DI\FactoryDefault as DI;
+use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Url;
 use Phalcon\Mvc\View;
@@ -44,7 +46,7 @@ class Application extends InstanceAbstract
             $application->setDI($depInjection);
             echo $application->handle()->getContent();
 
-        } catch (\Phalcon\Exception $e) {
+        } catch (PhalconException $e) {
             LoggerFactory::getLogger('phalcon')->error($e->getMessage());
         } catch (\PDOException $e) {
             LoggerFactory::getLogger('database')->error($e->getMessage());
@@ -79,7 +81,7 @@ class Application extends InstanceAbstract
             $eventsManager->attach('dispatch', $security);
 
             $eventsManager->attach("dispatch:beforeException", function ($event, Dispatcher $dispatcher, $exception) {
-                if ($exception instanceof Dispatcher\Exception) {
+                if ($exception instanceof DispatcherException) {
                     $dispatcher->forward(array(
                         'controller' => 'index',
                         'action' => 'notFound'
