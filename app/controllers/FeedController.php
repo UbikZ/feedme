@@ -35,7 +35,7 @@ class FeedController extends AbstractController
         if (true === $request->isPost()) {
             $insert = new Insert();
             $insert->type = $request->getPost('type');
-            $insert->public = $request->getPost('public');
+            $insert->public = true;
             $insert->description = $request->getPost('description');
             $insert->url = $request->getPost('url');
             $insert->idCreator = $this->currentUser->getId();

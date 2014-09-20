@@ -42,15 +42,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Visibility</label>
-
-                                    <div class="col-sm-10">
-                                        <select class="form-control" name="public">
-                                            <option value="0">Private</option>
-                                            <option value="1">Public</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">Description</label>
 
                                     <div class="col-sm-10">
