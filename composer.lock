@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "da3165d1bc2a17a2394d26e98de782d2",
+    "hash": "81fd58c1fe737ac211d1f11618ff4e5f",
     "packages": [
         {
             "name": "phalcon/incubator",
