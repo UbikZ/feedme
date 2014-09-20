@@ -4,9 +4,16 @@ namespace Feedme\Db;
 
 use Feedme\Db\Exceptions\DriverException;
 use Feedme\Db\Exceptions\ParametersException;
+use Phalcon\Db\AdapterInterface;
 
 class Factory
 {
+    /**
+     * @param $conf
+     * @return AdapterInterface
+     * @throws Exceptions\ParametersException
+     * @throws Exceptions\DriverException
+     */
     public static function getDriver($conf)
     {
         if (!isset($conf["adapter"])) {
