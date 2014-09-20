@@ -8,7 +8,6 @@ namespace Feedme;
 
 // Phalcon
 use Phalcon\Exception as PhalconException;
-use Phalcon\Loader;
 use Phalcon\DI\FactoryDefault as DI;
 use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
 use Phalcon\Mvc\Dispatcher;
@@ -53,19 +52,6 @@ class Application extends InstanceAbstract
         } catch (\Exception $e) {
             LoggerFactory::getLogger('error')->error($e->getMessage());
         }
-    }
-
-    /**
-     * Register application namespaces
-     */
-    protected function registerNamespaces()
-    {
-        $loader = new Loader();
-        $loader->registerNamespaces(
-            array(
-                'controllers' => ROOT_PATH . $this->getConf()->application->controllersDir,
-            )
-        )->register();
     }
 
     /**

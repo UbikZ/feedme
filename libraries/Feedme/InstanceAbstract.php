@@ -8,12 +8,22 @@ use Feedme\Db\Handler as DbHandler;
 use Phalcon\Config;
 use Phalcon\DiInterface;
 use Phalcon\Exception;
+use Phalcon\Loader;
 
 abstract class InstanceAbstract
 {
     protected $conf;
 
-    abstract protected function registerNamespaces();
+    public function registerNamespaces()
+    {
+        $loader = new Loader();
+        $loader->registerNamespaces(
+            array(
+                'controllers' => ROOT_PATH . $this->getConf()->application->controllersDir,
+                'tasks' => ROOT_PATH . $this->getConf()->application->tasksDir
+            )
+        )->register();
+    }
 
     public function __construct()
     {
