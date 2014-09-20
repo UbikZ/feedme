@@ -16,7 +16,7 @@ class File
     protected $serverPath;
     /** @var  float */
     protected $size;
-    /** @var  \DateTime */
+    /** @var  string */
     protected $addDate;
 
     public function __construct($psPath, $pbStatic = true)
