@@ -26,7 +26,7 @@ class ContactController extends AbstractController
         /** @var Simple $users */
         $users = $findUserMsg->getMessage();
         if ($findUserMsg->getSuccess()) {
-            $this->view->setVar('users', $users);
+            $this->view->setVar('users', ($users->count() == 1) ? array($users) : $users);
             $this->view->setVar("name", array("main" => "Contacts", "sub" => "List"));
         } else {
             $this->internalError();
