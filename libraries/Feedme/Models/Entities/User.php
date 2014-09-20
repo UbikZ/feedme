@@ -123,7 +123,13 @@ class User extends EntityAbstract
      */
     public function getFeedItems($page = 1, $limit = 10)
     {
-        $items = $this->getRelated(self::FEED_ITEM, 'seen = \'0\'');
+        $items = $this->getRelated(
+            self::FEED_ITEM,
+            array(
+                'seen = \'0\'',
+                'order' => 'RAND()'
+            )
+        );
         $paginator = new Model(array('data' => $items, 'limit' => $limit, 'page' => $page));
 
         return $paginator->getPaginate()->items;
