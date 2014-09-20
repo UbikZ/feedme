@@ -55,7 +55,6 @@ class FeedItem
             $feedItems = Dal::getRepository('FeedItem')->find($query);
 
             // If we have no result => insert
-            /** @var FeedItem $feedItems */
             if ($feedItems->count() == 0) {
                 $dalMessage = Dal::getRepository('FeedItem')->insert($request);
             } else {
