@@ -6,6 +6,7 @@
 
 namespace Feedme;
 
+use Phalcon\Exception;
 use Phalcon\Loader;
 
 class Testing extends InstanceAbstract
@@ -15,7 +16,7 @@ class Testing extends InstanceAbstract
         try {
             $this->registerNamespaces();
 
-        } catch (\Phalcon\Exception $e) {
+        } catch (Exception $e) {
             echo "Phalcon Exception : " . $e->getMessage();
         } catch (\PDOException $e) {
             echo "PHP Exception : " . $e->getMessage();
