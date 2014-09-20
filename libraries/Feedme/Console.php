@@ -8,7 +8,7 @@ namespace Feedme;
 
 use Phalcon\DI\FactoryDefault\CLI as CliDI;
 use Phalcon\CLI\Console as ConsoleApp;
-use Phalcon\Exception;
+use Phalcon\Exception as PhalconException;
 use Phalcon\Loader;
 
 class Console extends InstanceAbstract
@@ -30,7 +30,7 @@ class Console extends InstanceAbstract
             $console->setDI($depInjection);
             $console->handle($arguments);
 
-        } catch (Exception $e) {
+        } catch (PhalconException $e) {
             echo $e->getMessage();
         } catch (\PDOException $e) {
             echo $e->getMessage();
