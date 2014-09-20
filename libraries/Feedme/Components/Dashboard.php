@@ -166,7 +166,6 @@ class Dashboard extends Component
         if (is_array($alerts) && $count > 0) {
             $render .= '<ul class="dropdown-menu dropdown-messages">';
             foreach (array_slice(array_reverse($alerts), 0, 5) as $key => $alert) {
-                $fa = '';
                 switch ($alert->getLevel()) {
                     case Alert::LV_INFO:
                         $color = 'text-navy';
@@ -179,9 +178,12 @@ class Dashboard extends Component
                         $fa = 'fa fa-warning';
                         break;
                     case Alert::LV_ERROR:
-                        $color = 'text-danger';
-                        $label = 'Error';
-                        $fa = 'fa fa-exclamation';
+                        $color = '';
+                        $label = '';
+                        $fa = '';
+                        break;
+                    default:
+
                         break;
                 }
                 $render .= '<li><div class="dropdown-messages-box">';
