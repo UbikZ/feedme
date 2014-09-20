@@ -12,7 +12,6 @@
             }
             $('form#edit-account input[type=hidden]').val($(this).data('id'));
         });
-        $('#wallpicture').bootstrapFileInput();
     });
 </script>
 <div id="wrapper">
@@ -127,7 +126,6 @@
                                                         <input type="file"
                                                                name="wallpicture"
                                                                id="wallpicture"
-                                                               data-filename-placement="outside"
                                                                title="Upload File"/>
 
                                                         <div class="hr-line-dashed"></div>

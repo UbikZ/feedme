@@ -130,7 +130,6 @@ class Application extends InstanceAbstract
                 ->addJs($prefixPath . '/bootstrap/dist/js/bootstrap.js')
                 ->addJs($prefixPath . '/notifyjs/dist/notify.js')
                 ->addJs($prefixPath . '/notifyjs/dist/styles/bootstrap/notify-bootstrap.js')
-                ->addJs($prefixPath . '/bootstrap-file-input/bootstrap.file-input.js')
                 ->addJs($prefixPath . '/blueimp-tmpl/js/tmpl.js')
                 ->addJs('assets/common/js/common.js')
                 ->join($isMinify)
