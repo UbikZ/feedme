@@ -142,9 +142,8 @@ class Application extends InstanceAbstract
                 ->addJs($prefixPath . '/bootstrap/dist/js/bootstrap.js')
                 ->addJs($prefixPath . '/notifyjs/dist/notify.js')
                 ->addJs($prefixPath . '/notifyjs/dist/styles/bootstrap/notify-bootstrap.js')
+                ->addJs($prefixPath . '/bootstrap-file-input/bootstrap.file-input.js')
                 ->addJs($prefixPath . '/blueimp-tmpl/js/tmpl.js')
-                ->addJs($prefixPath . '/blueimp-gallery/js/blueimp-gallery.js')
-                ->addJs($prefixPath . '/blueimp-gallery/js/jquery.blueimp-gallery.js')
                 ->addJs('assets/common/js/common.js')
                 ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
@@ -156,8 +155,8 @@ class Application extends InstanceAbstract
                 ->setTargetUri('cache/min.css')
                 ->addCss($prefixPath . '/bootstrap/dist/css/bootstrap.css')
                 ->addCss($prefixPath . '/animate.css/animate.css')
-                ->addCss($prefixPath . '/font-awesome/css/font-awesome.css')
                 ->addCss($prefixPath . '/blueimp-gallery/css/blueimp-gallery.css')
+                ->addCss($prefixPath . '/font-awesome/css/font-awesome.css')
                 ->addCss('assets/common/css/kill-bootstrap.css')
                 ->addCss('assets/common/css/notify.css')
                 ->addCss('assets/common/css/theme.css')
@@ -213,12 +212,14 @@ class Application extends InstanceAbstract
                 ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 
-            // Local js (contact)
+            // Local js (feed)
             $assetManager
                 ->collection('feed-js')
                 ->setTargetPath('cache/feed.min.js')
                 ->setTargetUri('cache/feed.min.js')
                 ->addJs('assets/feed/js/jquery.feed.js')
+                ->addJs($prefixPath . '/blueimp-gallery/js/blueimp-gallery.js')
+                ->addJs($prefixPath . '/blueimp-gallery/js/jquery.blueimp-gallery.js')
                 ->join($isMinify)
                 ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 

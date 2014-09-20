@@ -3,11 +3,11 @@
 namespace Feedme\Models\Dals\Dal;
 
 use Feedme\Models\Entities\EntityAbstract;
-use Feedme\Models\Model as IModel;
+use Feedme\Models\ModelInterface;
 use Feedme\Models\Messages\Filters\Base as BaseFilter;
 use Feedme\Models\Messages\Requests\Base as BaseRequest;
 
-abstract class BaseAbstract implements BaseInterface, IModel
+abstract class BaseAbstract implements BaseInterface, ModelInterface
 {
 
     /**

@@ -75,7 +75,7 @@ class UserFeedItem extends BaseAbstract
             $whereClause[] = 'seen=\'' . intval($seen) . '\'';
         }
         if (!is_null($like = $query->like)) {
-            $whereClause[] = 'like=\'' . intval(like) . '\'';
+            $whereClause[] = '[like]=\'' . intval($like) . '\'';
         }
 
         return $whereClause;

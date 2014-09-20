@@ -2,7 +2,7 @@
 
 namespace Feedme\Models;
 
-interface Model
+interface ModelInterface
 {
     const USER = 'Feedme\\Models\\Entities\\User';
     const USER_PICTURE = 'Feedme\\Models\\Entities\\UserPicture';

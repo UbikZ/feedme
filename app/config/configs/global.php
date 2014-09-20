@@ -18,7 +18,7 @@ return array(
         "tasksDir" => "/app/tasks/",
         "viewsDir" => "/app/views/",
         "baseUri" => "/",
-        "minify" => true,
+        "minify" => false,
         "volt" => array(
             "compile" => false
         )
