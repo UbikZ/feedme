@@ -19,6 +19,7 @@ class UserFeedItem
     public function update(Update $request)
     {
         $message = new ServiceMessage();
+        $dalMessage = null;
 
         try {
             if (is_null($request->idUser) || is_null($request->idFeedItem)) {
@@ -31,16 +32,16 @@ class UserFeedItem
             if (false === ($userFeedItems = Dal::getRepository('UserFeedItem')->find($query))) {
                 throw new \Exception('Can\'t load userFeedItem');
             }
-            /** @var DalMessage $daMessage */
-            $daMessage = Dal::getRepository('UserFeedItem')->update($userFeedItems->getFirst(), $request);
-            if (false === $daMessage->getSuccess()) {
-                throw new ServiceException($daMessage);
+            /** @var DalMessage $dalMessage */
+            $dalMessage = Dal::getRepository('UserFeedItem')->update($userFeedItems->getFirst(), $request);
+            if (false === $dalMessage->getSuccess()) {
+                throw new ServiceException($dalMessage);
             }
 
             $message->setSuccess(true);
-            $message->setMessage($daMessage->getSuccess());
+            $message->setMessage($dalMessage->getSuccess());
         } catch (ServiceException $e) {
-            $message->setError($daMessage->getErrorMessages());
+            $message->setError($dalMessage->getErrorMessages());
             Factory::getLogger('user')->error($e->getMessage());
         } catch (\Exception $e) {
             $message->setError("An error occured while updating userfeeditem.");

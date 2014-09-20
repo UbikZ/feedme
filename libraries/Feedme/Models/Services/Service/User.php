@@ -20,7 +20,7 @@ class User
     {
         $message = new ServiceMessage();
         $dalMessage = null;
-        
+
         try {
             if (is_null($request->identity)) {
                 throw new \Exception('Invalid parameter given.');
