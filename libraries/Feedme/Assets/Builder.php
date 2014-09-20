@@ -73,7 +73,7 @@ class Builder
     public function __construct(array $conf, $isMinify = false)
     {
         $this->setConf($conf);
-        $this->setIsMinify($isMinify);
+        $this->setMinify($isMinify);
         $this->setAssetManager(new Manager());
     }
 
@@ -89,7 +89,7 @@ class Builder
                         ->collection($namespace . '-' . $type)
                         ->setTargetPath('cache/' . $namespace . '.js')
                         ->setTargetUri('cache/' . $namespace . '.js')
-                        ->join($this->getIsMinify())
+                        ->join($this->getMinify())
                         ->addFilter($this->getFilter($type));
                     foreach ($elements as $element) {
                         $this->add($this->assetManager, $type, $element);
