@@ -10,7 +10,7 @@ use Feedme\Models\Messages\Requests\UserWallMessage\Insert;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Exceptions\ServiceException;
 
-class UserWallMessage
+class UserWallMessage extends ServiceAbstract
 {
     /**
      * @param  Select         $query

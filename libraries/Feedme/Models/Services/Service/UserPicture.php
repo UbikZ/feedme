@@ -8,7 +8,7 @@ use Feedme\Models\Messages\Filters\UserPicture\Select;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Exceptions\ServiceException;
 
-class UserPicture
+class UserPicture extends ServiceAbstract
 {
     /**
      * @param  Select         $query

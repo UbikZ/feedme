@@ -10,7 +10,7 @@ use Feedme\Models\Messages\Requests\Feed\Insert;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Exceptions\ServiceException;
 
-class Feed
+class Feed extends ServiceAbstract
 {
     /**
      * @param  Insert         $request

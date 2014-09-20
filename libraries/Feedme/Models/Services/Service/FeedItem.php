@@ -11,7 +11,7 @@ use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Exceptions\ServiceException;
 use Phalcon\Mvc\Model\Resultset\Simple;
 
-class FeedItem
+class FeedItem extends ServiceAbstract
 {
     /**
      * @param  Select         $query

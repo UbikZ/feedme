@@ -8,7 +8,7 @@ use Feedme\Models\Messages\Filters\FeedType\Select;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Exceptions\ServiceException;
 
-class FeedType
+class FeedType extends ServiceAbstract
 {
     /**
      * @param  Select         $query

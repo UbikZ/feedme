@@ -10,7 +10,7 @@ use Feedme\Models\Messages\Filters\User\Select;
 use Feedme\Models\Messages\Requests\User\Update;
 use Feedme\Models\Services\Exceptions\ServiceException;
 
-class User
+class User extends ServiceAbstract
 {
     /**
      * @param  Update         $request

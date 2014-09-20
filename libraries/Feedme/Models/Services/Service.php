@@ -2,10 +2,20 @@
 
 namespace Feedme\Models\Services;
 
+use Feedme\Models\Services\Service\ServiceInterface;
+
 class Service
 {
+    /**
+     * @var ServiceInterface[]
+     */
     private static $instances = array();
 
+    /**
+     * @param $name
+     * @return ServiceInterface
+     * @throws Exceptions\InvalidServiceException
+     */
     public static function getService($name)
     {
         if (!isset(self::$instances[$name])) {

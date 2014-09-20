@@ -8,7 +8,7 @@ use Feedme\Models\Messages\Filters\UserWall\Select;
 use Feedme\Models\Messages\ServiceMessage;
 use Feedme\Models\Services\Exceptions\ServiceException;
 
-class UserWall
+class UserWall extends ServiceAbstract
 {
     /**
      * @param  Select         $query
