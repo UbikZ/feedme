@@ -11,7 +11,7 @@ class UserWallMessage extends EntityAbstract
     protected $idUserSrc;
     /** @var  string */
     protected $message;
-    /** @var  \DateTime */
+    /** @var  string */
     protected $adddate;
 
     public function initialize()
@@ -50,7 +50,7 @@ class UserWallMessage extends EntityAbstract
     }
 
     /**
-     * @param \DateTime $adddate
+     * @param string $adddate
      */
     public function setAdddate($adddate)
     {
@@ -58,7 +58,7 @@ class UserWallMessage extends EntityAbstract
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
     public function getAdddate()
     {
