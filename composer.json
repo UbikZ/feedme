@@ -6,15 +6,15 @@
         "php": ">=5.4.0",
         "phalcon/incubator": "dev-master",
         "querypath/QueryPath": "3.*",
-        "zendframework/zend-feed": "2.2",
-        "zendframework/zend-http": "2.2",
-        "zendframework/zend-servicemanager": "2.2"
+        "zendframework/zend-feed": "2.*",
+        "zendframework/zend-http": "2.*",
+        "zendframework/zend-servicemanager": "2.*"
     },
     "require-dev": {
         "phalcon/devtools": "1.3.*@dev",
         "phpunit/phpunit": "4.2.*",
         "phpunit/phpcov": "2.0.*",
-        "phpmd/phpmd": "2.0.*",
+        "phpmd/phpmd": "2.*",
         "sebastian/phpcpd": "2.0.*",
         "sebastian/phpdcd": "1.0.*",
         "squizlabs/php_codesniffer": "1.*",
